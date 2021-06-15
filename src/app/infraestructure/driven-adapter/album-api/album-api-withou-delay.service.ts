@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Album } from 'src/app/domain/models/Album/album';
-import { AlbumGateway } from 'src/app/domain/models/Album/gateway/album-gateway';
+import { AlbumGateway } from 'src/app/domain/models/Album/album-gateway';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 

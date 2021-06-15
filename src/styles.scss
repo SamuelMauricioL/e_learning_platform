@@ -4,7 +4,7 @@ $font: "Menlo", "Bitstream Vera Sans Mono", "DejaVu Sans Mono", "Monaco", "Conso
 * {
     font-family: $font;
 }
-$body: #190d23;
+$body: #ffffff;
 $none: rgba(#000,0);
 $b1: #010000;
 
@@ -15,16 +15,11 @@ h1{
     opacity: 0.7;
     font-family: "Comfortaa";
     text-transform: none;
-   
-    
 }
 h2 {
     font-size: 50px;
     opacity: 0.7;
     font-family: "Comfortaa";
-    
-    
-   
 }
 h3 {
     margin-top: 10px;
@@ -33,5 +28,5 @@ h3 {
 }
 body {
     background: $body;
-    text-align: center;
+    // text-align: center;
 }

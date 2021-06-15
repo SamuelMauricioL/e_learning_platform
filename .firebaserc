@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "i-learning-6b80d": {
+      "hosting": {
+        "e-learning-platform": [
+          "i-learning-6b80d"
+        ]
+      }
+    }
+  }
+}
