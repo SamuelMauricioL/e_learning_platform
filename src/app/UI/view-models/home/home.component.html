@@ -1,1 +1,41 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="./home.component.scss" />
+    <script id="applicationScript" type="text/javascript" src="./view_inicio.js"></script>
+</head>
+
+<body>
+    <div id="v_index" class="v_index_Class">
+        <div style="position:absolute;width:266px;height:355px;left:310px;top:223px;overflow:visible;" data-type="Group" data-name="button_alumnos" onclick="application.goToTargetView(event)" class="button_alumnos_Class">
+            <svg data-type="Rectangle" data-name="div_alumnos" class="div_alumnos">
+			<rect class="div_alumnos_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
+			</rect>
+		</svg>
+            <div data-type="Text" data-name="text_alumnos" class="text_alumnos_Class">
+                <span>ESTUDIANTES</span>
+            </div>
+            <img style="position:absolute;width:227px;height:225px;left:19px;top:58px;overflow:visible;" data-type="Rectangle" data-name="img_alumnos" class="img_alumnos_dt_Class" src="./../../../../assets/img_alumnos_dt.png" srcset="./../../../../assets/img_alumnos_dt.png 1x">
+
+        </div>
+        <div style="position:absolute;width:266px;height:355px;left:705px;top:223px;overflow:visible;" data-type="Group" data-name="button_docentes" onclick="application.goToTargetView(event)" class="button_docentes_Class" routerLink="/login">
+            <svg data-type="Rectangle" data-name="div_docentes" class="div_docentes">
+			<rect class="div_docentes_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
+			</rect>
+		</svg>
+            <img style="position:absolute;width:143px;height:279px;left:113px;top:22px;overflow:visible;" data-type="Rectangle" data-name="img_profesor" class="img_profesor_Class" src="./../../../../assets/img_profesor.png" srcset="./../../../../assets/img_profesor.png 1x">
+
+            <div data-type="Text" data-name="text_docentes" class="text_docentes_Class">
+                <span>DOCENTES</span>
+            </div>
+            <img style="position:absolute;width:68px;height:270px;left:45px;top:31px;overflow:visible;" data-type="Rectangle" data-name="img_profesora" class="img_profesora_Class" src="./../../../../assets/img_profesora.png" srcset="./../../../../assets/img_profesora.png 1x">
+
+        </div>
+    </div>
+</body>
+
+</html>
