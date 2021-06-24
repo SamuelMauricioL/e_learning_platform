@@ -1,0 +1,16 @@
+<table class="table" style="text-align: center">
+    <thead>
+        <tr>
+            <th>Nombre del Curso</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.curso}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" routerLink="/temas">Temas</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

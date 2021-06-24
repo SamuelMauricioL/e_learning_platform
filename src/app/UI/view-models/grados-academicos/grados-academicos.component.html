@@ -1,0 +1,18 @@
+<table class="table" style="text-align: center">
+    <thead>
+        <tr>
+            <th>Grado</th>
+            <th>Nivel</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.grado}}</td>
+            <td>{{item.nivel}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" routerLink="/cursos">Cursos</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -19,6 +19,12 @@ import { AngularFireModule } from '@angular/fire';
 import { NavbarComponent } from './UI/common/navbar/navbar.component';
 import { UsuarioGateway } from './domain/models/Usuario/usuario-gateway';
 import { UserService } from './infraestructure/driven-adapter/user/user.service';
+import { GradoGateway } from './domain/models/Grado/grado-gateway';
+import { GradosService } from './infraestructure/driven-adapter/grados/grados.service';
+import { CursoGateway } from './domain/models/Curso/curso-gateway';
+import { CursoService } from './infraestructure/driven-adapter/curso/curso.service';
+import { TemaGateway } from './domain/models/Tema/tema-gateway';
+import { TemasService } from './infraestructure/driven-adapter/temas/temas.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +52,18 @@ import { UserService } from './infraestructure/driven-adapter/user/user.service'
     {
       provide: UsuarioGateway,
       useClass: UserService,
+    },
+    {
+      provide: GradoGateway,
+      useClass: GradosService,
+    },
+    {
+      provide: CursoGateway,
+      useClass: CursoService,
+    },
+    {
+      provide: TemaGateway,
+      useClass: TemasService,
     }
   ],
   bootstrap: [AppComponent]

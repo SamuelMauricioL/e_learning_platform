@@ -25,5 +25,4 @@ export  class AlbumApiService extends AlbumGateway {
   saveNew(_alb: Album): Observable<void> {
     throw new Error('Method not implemented.');
   }
-  
 }

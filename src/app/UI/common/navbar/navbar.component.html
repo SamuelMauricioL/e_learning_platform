@@ -12,6 +12,9 @@
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/administrar-usuarios" *ngIf="user">Administrar Usuarios</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/grados-academicos" *ngIf="user">Grados</a>
+            </li>
             <li class="nav-item" *ngIf="user">
                 <a href="#" class="nav-link" (click)="onLogout()">LogOut</a>
             </li>

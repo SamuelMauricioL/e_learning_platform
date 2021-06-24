@@ -1,0 +1,16 @@
+<table class="table" style="text-align: center">
+    <thead>
+        <tr>
+            <th>Nombre del Tema</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.tema}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" routerLink="/preguntas">Preguntas</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

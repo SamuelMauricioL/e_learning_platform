@@ -10,6 +10,9 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./UI/view-models/home/home.module').then(m => m.HomeModule) },
   { path: 'login', loadChildren: () => import('./UI/view-models/login/login.module').then(m => m.LoginModule) },
   { path: 'administrar-usuarios', loadChildren: () => import('./UI/view-models/administrar-usuarios/administrar-usuarios.module').then(m => m.AdministrarUsuariosModule) },
+  { path: 'grados-academicos', loadChildren: () => import('./UI/view-models/grados-academicos/grados-academicos.module').then(m => m.GradosAcademicosModule) },
+  { path: 'cursos', loadChildren: () => import('./UI/view-models/cursos/cursos.module').then(m => m.CursosModule) },
+  { path: 'temas', loadChildren: () => import('./UI/view-models/temas/temas.module').then(m => m.TemasModule) },
 ];
 
 @NgModule({

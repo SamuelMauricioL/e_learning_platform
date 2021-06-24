@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../auth/auth.service';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UsuarioGateway } from 'src/app/domain/models/Usuario/usuario-gateway';
 import { UsuarioModel } from 'src/app/domain/models/Usuario/usuario-model';
-import { AuthService } from '../auth/auth.service';
 
 
 @Injectable({
@@ -38,4 +38,5 @@ export class UserService extends UsuarioGateway {
   deleteUser(id: any): Promise<any> {
     return this.firestore.collection('Usuarios').doc(id).delete();
   }
+
 }
