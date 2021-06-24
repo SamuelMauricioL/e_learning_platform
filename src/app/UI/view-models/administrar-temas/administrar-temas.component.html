@@ -1,0 +1,51 @@
+<br>
+<button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo Tema</button>
+<table class="table" style="text-align: center">
+    
+    <br>
+    <br>
+    <thead>
+        <tr>
+            <th>Nombre del Tema</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.tema}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
+                <!-- <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button> -->
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <form [formGroup]="managerForm">
+                    <!-- <div class="form-group">
+                        <label>Id</label>
+                        <input type="text" formControlName="id" class="form-control">
+                    </div> -->
+                    <div class="form-group">
+                        <label>Tema</label>
+                        <input type="text" formControlName="tema" class="form-control">
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="guardarTema()" *ngIf="!actualizar">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="actualizarTema()" *ngIf="actualizar">Actualizar</button>
+    </div>
+</ng-template>

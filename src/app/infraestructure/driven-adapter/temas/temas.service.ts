@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TemasService extends TemaGateway {
-
+  
   constructor(
     private firestore: AngularFirestore,
   ) {super();}
@@ -23,4 +23,15 @@ export class TemasService extends TemaGateway {
       }))
     );
   }
+
+  createTema(_model: TemaModel): Promise<any> {
+    return this.firestore.collection('Temas').add(_model);
+  }
+  updateTema(_id: string, _model: TemaModel): Promise<any> {
+    return this.firestore.collection('Temas').doc(_id).update(_model);
+  }
+  deleteTema(_id: string): Promise<any> {
+    return this.firestore.collection('Temas').doc(_id).delete();
+  }
+
 }

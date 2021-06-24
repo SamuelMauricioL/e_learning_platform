@@ -11,8 +11,19 @@ export class GetTemasUseCases {
   constructor( private _gateway: TemaGateway) {}
 
   getAllTemas(): Observable<Array<TemaModel>> {
-    //TODO: En este sitio podríamos manejar las configuraciones y hace un control de excepciones
     return this._gateway.getAllTemas();
+  }
+
+  createTema(model :TemaModel): Promise<any> {
+    return this._gateway.createTema(model);
+  }
+
+  updateTema(id:string, model :TemaModel): Promise<any> {
+    return this._gateway.updateTema(id, model);
+  }
+
+  deleteTema(_id:string): Promise<any> {
+    return this._gateway.deleteTema(_id);
   }
 
 }

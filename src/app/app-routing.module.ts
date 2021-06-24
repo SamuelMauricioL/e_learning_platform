@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'grados-academicos', loadChildren: () => import('./UI/view-models/grados-academicos/grados-academicos.module').then(m => m.GradosAcademicosModule) },
   { path: 'cursos', loadChildren: () => import('./UI/view-models/cursos/cursos.module').then(m => m.CursosModule) },
   { path: 'temas', loadChildren: () => import('./UI/view-models/temas/temas.module').then(m => m.TemasModule) },
+  { path: 'administrar-temas', loadChildren: () => import('./UI/view-models/administrar-temas/administrar-temas.module').then(m => m.AdministrarTemasModule) },
 ];
 
 @NgModule({
