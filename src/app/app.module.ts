@@ -25,6 +25,7 @@ import { CursoGateway } from './domain/models/Curso/curso-gateway';
 import { CursoService } from './infraestructure/driven-adapter/curso/curso.service';
 import { TemaGateway } from './domain/models/Tema/tema-gateway';
 import { TemasService } from './infraestructure/driven-adapter/temas/temas.service';
+import { SidebarComponent } from './UI/common/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TemasService } from './infraestructure/driven-adapter/temas/temas.servi
     AlbumCardComponent,
     CircularProgressIndicatorComponent,
     NavbarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
