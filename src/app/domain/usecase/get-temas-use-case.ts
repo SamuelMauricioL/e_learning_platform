@@ -10,8 +10,8 @@ import { TemaGateway } from '../models/Tema/tema-gateway';
 export class GetTemasUseCases {
   constructor( private _gateway: TemaGateway) {}
 
-  getAllTemas(): Observable<Array<TemaModel>> {
-    return this._gateway.getAllTemas();
+  getAllTemas(_idGrado: string, _idCurso: string): Observable<Array<TemaModel>> {
+    return this._gateway.getAllTemas(_idGrado, _idCurso);
   }
 
   createTema(model :TemaModel): Promise<any> {

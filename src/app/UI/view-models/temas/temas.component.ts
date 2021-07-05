@@ -16,7 +16,7 @@ export class TemasComponent implements OnInit {
   collection = [] as TemaModel[]
   
   ngOnInit(): void {
-    this.service.getAllTemas().subscribe(resp => {
+    this.service.getAllTemas('', '').subscribe(resp => {
       this.collection = resp;
       console.log(this.collection)
     },

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GradoModel } from 'src/app/domain/models/Grado/grado-model';
 import { GetGradosUseCases } from 'src/app/domain/usecase/get-grados-use-case';
 
@@ -11,6 +12,7 @@ export class GradosAcademicosComponent implements OnInit {
 
   constructor(
     private service: GetGradosUseCases,
+    public router: Router,
   ) { }
 
   collection = [] as GradoModel[]
@@ -23,6 +25,10 @@ export class GradosAcademicosComponent implements OnInit {
       error => {
         console.error(error);
       });
+  }
+
+  navigateCursos() {
+    this.router.navigate(['cursos']);
   }
 
 }
