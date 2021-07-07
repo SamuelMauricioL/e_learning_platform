@@ -1,7 +1,54 @@
-<!-- Sidebar -->
-<!-- Navbar links -->
-<!-- 
-<nav id="sidebar" class="navbar sticky-top">
+<script>
+    $(function() {
+
+        $("#sidebar .navbar-header").css("height", $("#topbar").css("height"));
+
+        // detect resize of window
+        $(window).resize(function() {
+            var width = $(window).width();
+
+            // toggle sidebar on resize
+            if (width < 752) {
+                hide_sidebar();
+            } else {
+                show_sidebar();
+            }
+
+            // set height of sidebar header to match topbar
+            $("#sidebar .navbar-header").css("height", $("#topbar").css("height"));
+        });
+
+        // toggle sidebar on click
+        $("#topbar-toggler").click(toggle_sidebar);
+    });
+
+    function toggle_sidebar() {
+        var display = $("#sidebar").css("display");
+
+        if (display === "none") {
+            show_sidebar();
+        } else {
+            hide_sidebar();
+        }
+    }
+
+    /* Show sidebar */
+    function show_sidebar() {
+        $("#sidebar").css("display", "flex");
+        $(".wrapper").css("display", "grid");
+        $(".wrapper").css("grid-template-columns", "270px 1fr");
+        $(".wrapper").css("grid-template-areas", "'sidebar main'");
+    }
+
+    /* Hide sidebar */
+    function hide_sidebar() {
+        $("#sidebar").css("display", "none");
+        $(".wrapper").css("display", "unset");
+        $(".wrapper").css("grid-template-columns", "none");
+        $(".wrapper").css("grid-template-areas", "'main'");
+    }
+</script>
+<nav id="sidebar" class="navbar sticky-top" *ngIf="user$ | async as user; else login">
     <div class="navbar-header">
         <img src="./img/drake-ramoray.jpg" class="rounded-circle" alt="Profile picture">
         <h5 class="navbar-brand m-1 text-white pl-2">Dr. Drake Ramoray</h5>
@@ -11,16 +58,22 @@
         <li class="nav-item active">
             <a href="./index.html" class="nav-link btn btn-block btn-lg">
                 <i class="fas fa-newspaper fa-lg mr-1"></i>
-                <span>Feed</span>
-                <span class="badge red d-flex align-items-center justify-content-center">New</span>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="./resources.html" class="nav-link btn btn-block btn-lg">
+                <i class="fas fa-file-alt fa-lg mr-1"></i>
+                <span>Administrar usuarios</span>
+                <!-- <span class="badge badge-pill green d-flex align-items-center justify-content-center">14</span> -->
             </a>
         </li>
         <li class="nav-item btn-group">
             <a href="#" class="nav-link btn btn-block btn-lg dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-graduation-cap fa-lg mr-1"></i>
-                <span>Grades</span>
+                <span>Grados</span>
             </a>
-            <ul id="marks" class="dropdown dropdown-menu">
+            <!-- <ul id="marks" class="dropdown dropdown-menu">
                 <li>
                     <a href="./grades-sem-1.html" class="nav-link dropdown-item">Semester 1</a>
                 </li>
@@ -33,20 +86,18 @@
                 <li>
                     <a href="./grades-sem-4.html" class="nav-link dropdown-item">Semester 4</a>
                 </li>
-            </ul>
+            </ul> -->
         </li>
-        <li class="nav-item">
-            <a href="./resources.html" class="nav-link btn btn-block btn-lg">
-                <i class="fas fa-file-alt fa-lg mr-1"></i>
-                <span>Resources</span>
-                <span class="badge badge-pill green d-flex align-items-center justify-content-center">14</span>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="./attendance.html" class="nav-link btn btn-block btn-lg">
                 <i class="far fa-user-circle fa-lg mr-1"></i>
                 <span>Attendance</span>
+                <span class="badge red d-flex align-items-center justify-content-center">New</span>
             </a>
         </li>
     </ul>
-</nav> -->
+</nav>
+
+<ng-template #login>
+</ng-template>
