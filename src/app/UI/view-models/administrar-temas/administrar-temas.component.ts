@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TemaModel, TemaConvert } from 'src/app/domain/models/Tema/tema-model';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
@@ -14,6 +15,7 @@ export class AdministrarTemasComponent implements OnInit {
   constructor(
     private service: GetTemasUseCases,
     private modalService: NgbModal,
+    private route: ActivatedRoute,
   ) { 
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
@@ -23,12 +25,18 @@ export class AdministrarTemasComponent implements OnInit {
     })
   }
 
+  
+  idGrado: string = this.route.snapshot.params.idGrado;
+  idCurso: string = this.route.snapshot.params.idCurso;
+
   collection = [] as TemaModel[]
   actualizar: boolean = false;
   managerForm: FormGroup;
 
   ngOnInit(): void {
-    this.service.getAllTemas().subscribe(resp => {
+    console.log(this.idGrado);
+    console.log(this.idCurso);
+    this.service.getAllTemas(this.idGrado, this.idCurso).subscribe(resp => {
       this.collection = resp;
       console.log(this.collection)
     },
@@ -44,6 +52,7 @@ export class AdministrarTemasComponent implements OnInit {
   guardarTema(): void {
     const {id, ...obj} = this.managerForm.value;
     obj.estado = true;
+    obj.curso = `/Grados/${this.idGrado}/Cursos/${this.idCurso}`;
     this.service.createTema(obj).then((_response) => {
       this.managerForm.reset();
       this.modalService.dismissAll();
