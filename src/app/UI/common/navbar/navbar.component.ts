@@ -16,7 +16,7 @@ export class NavbarComponent{
   async onLogout() {
     try {
       await this.auth.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     } catch (error) {
       console.log(error);
     }

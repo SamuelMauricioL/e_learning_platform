@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/inicio',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   { path: 'home', loadChildren: () => import('./UI/view-models/home/home.module').then(m => m.HomeModule) },
