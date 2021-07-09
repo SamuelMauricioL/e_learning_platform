@@ -1,1 +1,23 @@
-<p>administrar-sub-temas works!</p>
+<br>
+<!-- <button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo Tema</button> -->
+<table class="table" style="text-align: center">
+    
+    <br>
+    <br>
+    <thead>
+        <tr>
+            <th>Nombre del SubTema</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <!-- <td>{{item.id}}</td> -->
+            <td>{{item.subtema}}</td>
+            <td>
+                <!-- <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button> -->
+                <!-- <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button> -->
+                <!-- <button type="button" class="btn btn-info" routerLink="/administrar-sub-temas/{{item.id}}">Subtemas</button> -->
+            </td>
+        </tr>
+    </tbody>
+</table>

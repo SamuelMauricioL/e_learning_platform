@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'cursos/:id', loadChildren: () => import('./UI/view-models/cursos/cursos.module').then(m => m.CursosModule) },
   { path: 'temas', loadChildren: () => import('./UI/view-models/temas/temas.module').then(m => m.TemasModule) },
   { path: 'administrar-temas/:idGrado/:idCurso', loadChildren: () => import('./UI/view-models/administrar-temas/administrar-temas.module').then(m => m.AdministrarTemasModule) },
-  { path: 'administrar-sub-temas', loadChildren: () => import('./UI/view-models/administrar-sub-temas/administrar-sub-temas.module').then(m => m.AdministrarSubTemasModule) },
+  { path: 'administrar-sub-temas/:idTema', loadChildren: () => import('./UI/view-models/administrar-sub-temas/administrar-sub-temas.module').then(m => m.AdministrarSubTemasModule) },
   { path: 'inicio', loadChildren: () => import('./UI/view-models/inicio/inicio.module').then(m => m.InicioModule) },
 ];
 

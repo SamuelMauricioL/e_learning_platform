@@ -26,6 +26,8 @@ import { CursoService } from './infraestructure/driven-adapter/curso/curso.servi
 import { TemaGateway } from './domain/models/Tema/tema-gateway';
 import { TemasService } from './infraestructure/driven-adapter/temas/temas.service';
 import { SidebarComponent } from './UI/common/sidebar/sidebar.component';
+import { SubTemaGateway } from './domain/models/SubTema/subtema-gateway';
+import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-temas.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,10 @@ import { SidebarComponent } from './UI/common/sidebar/sidebar.component';
     {
       provide: TemaGateway,
       useClass: TemasService,
+    },
+    {
+      provide: SubTemaGateway,
+      useClass: SubTemasService,
     }
   ],
   bootstrap: [AppComponent]
