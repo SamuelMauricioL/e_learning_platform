@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 30%;">
+    <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 30%;" *ngIf="!isStudent">
         <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
         <ul class="navbar-nav mx-auto">
             <li class="nav-item active">
@@ -13,7 +13,7 @@
                 <a class="nav-link" routerLink="/administrar-usuarios" *ngIf="user">Administrar Usuarios</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" routerLink="/grados-academicos" *ngIf="user">Grados</a>
+                <a class="nav-link" routerLink="/grados-academicos/Docente" *ngIf="user">Grados</a>
             </li>
             <li class="nav-item" *ngIf="user">
                 <a href="#" class="nav-link" (click)="onLogout()">LogOut</a>
@@ -23,6 +23,24 @@
             </li> -->
         </ul>
     </div>
+    <div class="collapse navbar-collapse" id="navbarText" style="margin-left: 30%;" *ngIf="isStudent">
+        <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/" *ngIf="user">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/grados-academicos/Estudiante" *ngIf="user">Grados</a>
+            </li>
+            <li class="nav-item" *ngIf="user">
+                <a href="#" class="nav-link" (click)="onLogout()">LogOut</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link">{{ user?.email}}</a>
+            </li> -->
+        </ul>
+    </div>
+    <button type="button" class="btn btn-success" (click)="changeProfile()">Cambiar Perfil</button>
 </nav>
 
 <ng-template #login>

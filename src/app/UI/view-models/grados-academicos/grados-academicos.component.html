@@ -1,6 +1,6 @@
 <div class="header">
     <h1>Matemáticas</h1>
-    <p>¡Mejora en matemáticas con más fluidez y confianza! Con ABC Team, los estudiantes logran dominar competencias clave a
+    <p>{{type_user}}. ¡Mejora en matemáticas con más fluidez y confianza! Con ABC Team, los estudiantes logran dominar competencias clave a
         su propio ritmo mediante ejercicios amenos e interactivos.</p>
 </div>
 <div class="row1-container" *ngFor="let item of collection">
@@ -27,7 +27,7 @@
         <h3>Nivel {{item.nivel}}</h3>
         <p>Incluye: Contar hacia delante y hacia atrás: hasta 100|Trucos de suma: sumas hasta 10|Hallar un número usando
             sumas: sumas hasta 10|Completar la suma: sumas hasta 10</p>
-        <p class="card__apply"><a routerLink="/cursos/{{item.id}}">Ver las competencias<i class="fas fa-arrow-right"></i></a></p>
+        <p class="card__apply" (click)="navigateCursos(item.id, type_user)"><a>Ver las competencias<i class="fas fa-arrow-right"></i></a></p>
     </div>
 </div>
 

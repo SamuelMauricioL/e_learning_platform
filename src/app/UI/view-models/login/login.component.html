@@ -36,14 +36,14 @@
         </svg>
         <div style="position:absolute;width:150px;height:205px;left:122px;top:0px;overflow:visible;" data-type="Group" data-name="Grupo 227" class="Grupo_227_Class">
             <div data-type="Text" data-name="text_login_docente" class="text_login_docente_Class">
-                <span>LOGIN DOCENTE</span>
+                <span>LOGIN {{type_user}}</span>
             </div>
             <img style="position:absolute;width:79px;height:151px;left:65px;top:0px;overflow:visible;" data-type="Rectangle" data-name="img_profesor" class="img_profesor_Class" src="./../../../../assets/img_profesor.png" srcset="./../../../../assets/img_profesor.png 1x">
 
             <img style="position:absolute;width:37px;height:145px;left:28px;top:6px;overflow:visible;" data-type="Rectangle" data-name="img_profesora" class="img_profesora_Class" src="./../../../../assets/img_profesora.png" srcset="./../../../../assets/img_profesora.png 1x">
 
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin(type_user)">
             <div style="position:absolute;width:266px;height:270px;left:64px;top:286px;overflow:visible;" data-type="Group" data-name="input_correo" class="input_correo_Class">
 
                 <div data-type="Text" data-name="text_correo" class="text_correo_Class">

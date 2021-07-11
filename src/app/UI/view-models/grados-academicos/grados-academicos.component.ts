@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GradoModel } from 'src/app/domain/models/Grado/grado-model';
 import { GetGradosUseCases } from 'src/app/domain/usecase/get-grados-use-case';
 
@@ -13,10 +13,13 @@ export class GradosAcademicosComponent implements OnInit {
   constructor(
     private service: GetGradosUseCases,
     public router: Router,
+    private route: ActivatedRoute,
   ) { }
 
-  collection = [] as GradoModel[]
+  type_user: string = this.route.snapshot.params.typeUser;
 
+  collection = [] as GradoModel[]
+  
   ngOnInit(): void {
     this.service.getAllCursos().subscribe(resp => {
       this.collection = resp;
@@ -27,8 +30,8 @@ export class GradosAcademicosComponent implements OnInit {
       });
   }
 
-  navigateCursos() {
-    this.router.navigate(['cursos']);
+  navigateCursos(idGrado: string, typeUser: string) {
+    this.router.navigate(['cursos', idGrado, typeUser]);
   }
 
 }

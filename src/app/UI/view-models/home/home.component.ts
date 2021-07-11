@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.service';
 
@@ -11,7 +12,10 @@ export class HomeComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.user;
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
     

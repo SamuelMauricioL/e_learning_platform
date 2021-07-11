@@ -6,13 +6,13 @@
         width: 40px;
         height: 40px;
     }
-    
+
     .card .card-header .card-title {
         color: #575962;
         font-size: 18px;
         padding-top: 3px;
     }
-    
+
     .content .card {
         margin-bottom: 30px;
         min-width: 300px;
@@ -41,7 +41,8 @@
             </p>
         </section>
         <section class="card-footer text-right">
-            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">View profile</button>
+            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">View
+                profile</button>
         </section>
     </article>
 
@@ -56,28 +57,38 @@
 
         <div style="height: 80vh;">
 
-            <div style="width:266px;height:355px;overflow:visible; top: 17vh; left:42vh;" data-type="Group" data-name="button_alumnos" onclick="application.goToTargetView(event)" class="button_alumnos_Class">
+            <div style="width:266px;height:355px;overflow:visible; top: 17vh; left:42vh;" data-type="Group"
+                data-name="button_alumnos" onclick="application.goToTargetView(event)" class="button_alumnos_Class"
+                routerLink="/login/Alumno">
                 <svg data-type="Rectangle" data-name="div_alumnos" class="div_alumnos">
-			<rect class="div_alumnos_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
-			</rect>
-		</svg>
+                    <rect class="div_alumnos_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
+                    </rect>
+                </svg>
                 <div data-type="Text" data-name="text_alumnos" class="text_alumnos_Class">
                     <span>ESTUDIANTES</span>
                 </div>
-                <img style="width:227px;height:225px;left:19px;top:58px;overflow:visible;" data-type="Rectangle" data-name="img_alumnos" class="img_alumnos_dt_Class" src="./../../../../assets/img_alumnos_dt.png" srcset="./../../../../assets/img_alumnos_dt.png 1x">
+                <img style="width:227px;height:225px;left:19px;top:58px;overflow:visible;" data-type="Rectangle"
+                    data-name="img_alumnos" class="img_alumnos_dt_Class" src="./../../../../assets/img_alumnos_dt.png"
+                    srcset="./../../../../assets/img_alumnos_dt.png 1x">
 
             </div>
-            <div style="width:266px;height:355px;overflow:visible; top:-36vh; left:87vh;" data-type="Group" data-name="button_docentes" onclick="application.goToTargetView(event)" class="button_docentes_Class" routerLink="/login">
+            <div style="width:266px;height:355px;overflow:visible; top:-36vh; left:87vh;" data-type="Group"
+                data-name="button_docentes" onclick="application.goToTargetView(event)" class="button_docentes_Class"
+                routerLink="/login/Docente">
                 <svg data-type="Rectangle" data-name="div_docentes" class="div_docentes">
-			<rect class="div_docentes_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
-			</rect>
-		</svg>
-                <img style="width:143px;height:279px;left:113px;top:22px;overflow:visible;" data-type="Rectangle" data-name="img_profesor" class="img_profesor_Class" src="./../../../../assets/img_profesor.png" srcset="./../../../../assets/img_profesor.png 1x">
+                    <rect class="div_docentes_Class" rx="38" ry="38" x="0" y="0" width="266" height="355">
+                    </rect>
+                </svg>
+                <img style="width:143px;height:279px;left:113px;top:22px;overflow:visible;" data-type="Rectangle"
+                    data-name="img_profesor" class="img_profesor_Class" src="./../../../../assets/img_profesor.png"
+                    srcset="./../../../../assets/img_profesor.png 1x">
 
                 <div data-type="Text" data-name="text_docentes" class="text_docentes_Class">
                     <span>DOCENTES</span>
                 </div>
-                <img style="width:68px;height:270px;left:45px;top:31px;overflow:visible;" data-type="Rectangle" data-name="img_profesora" class="img_profesora_Class" src="./../../../../assets/img_profesora.png" srcset="./../../../../assets/img_profesora.png 1x">
+                <img style="width:68px;height:270px;left:45px;top:31px;overflow:visible;" data-type="Rectangle"
+                    data-name="img_profesora" class="img_profesora_Class" src="./../../../../assets/img_profesora.png"
+                    srcset="./../../../../assets/img_profesora.png 1x">
 
             </div>
         </div>

@@ -1,26 +1,31 @@
-<br>
-<button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo Tema</button>
-<table class="table" style="text-align: center">
-    
-    <br>
-    <br>
-    <thead>
-        <tr>
-            <th>Nombre del Tema</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of collection">
-        <tr>
-            <!-- <td>{{item.id}}</td> -->
-            <td>{{item.tema}}</td>
-            <td>
-                <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
-                <!-- <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button> -->
-                <button type="button" class="btn btn-info" routerLink="/administrar-sub-temas/{{item.id}}">Subtemas</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="header">
+    <h1>{{name_curso}}</h1>
+    <div class="row">
+        <div class="col-sm-10">
+        </div>
+        <div class="col-sm-2">
+            <button *ngIf="type_user!='Estudiante'" style="background-color: hsl(212, 86%, 64%) !important" type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
+        </div>
+    </div>
+</div>
+
+<div class="row1-container" *ngFor="let item of collection">
+    <div class="box blue">
+        <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
+        <h2>{{item.tema}}</h2>
+        <div class="row">
+            <div *ngIf="type_user!='Estudiante'" class="col-sm-2">
+                <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fas fa-arrow-right"></i></a></p>
+            </div>
+            <div class="col-sm-3">
+                <p class="card__apply" (click)="navigate(item.id, item.tema, type_user)"><a>Ver los subtemas<i class="fas fa-arrow-right"></i></a></p>
+            </div>
+            <!-- <div class="col-sm-6">
+                <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+            </div> -->
+        </div>
+    </div>
+</div>
 
 <ng-template #content let-modal>
     <div class="modal-header">
@@ -33,10 +38,6 @@
         <form>
             <div class="form-group">
                 <form [formGroup]="managerForm">
-                    <!-- <div class="form-group">
-                        <label>Id</label>
-                        <input type="text" formControlName="id" class="form-control">
-                    </div> -->
                     <div class="form-group">
                         <label>Tema</label>
                         <input type="text" formControlName="tema" class="form-control">
@@ -47,6 +48,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="guardarTema()" *ngIf="!actualizar">Guardar</button>
-        <button type="button" class="btn btn-outline-dark" (click)="actualizarTema()" *ngIf="actualizar">Actualizar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="actualizarTema()"
+            *ngIf="actualizar">Actualizar</button>
     </div>
 </ng-template>

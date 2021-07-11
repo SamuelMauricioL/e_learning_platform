@@ -1,6 +1,7 @@
 export interface PreguntaModel {
     id: string;
     idSubTema: string;
+    indice: string;
     pregunta: string;
     descripcion: string;
     alternativas: string;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CursoModel } from 'src/app/domain/models/Curso/curso-model';
 import { GetCursosUseCases } from 'src/app/domain/usecase/get-cursos-use-case';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -12,10 +12,13 @@ export class CursosComponent implements OnInit {
 
   constructor(
     private service: GetCursosUseCases,
+    public router: Router,
     private route: ActivatedRoute,
   ) { }
 
   idGrado: string = this.route.snapshot.params.id;
+  type_user: string = this.route.snapshot.params.typeUser;
+
   collection = [] as CursoModel[]
   
   ngOnInit(): void {
@@ -27,6 +30,10 @@ export class CursosComponent implements OnInit {
       error => {
         console.error(error);
       });
+  }
+
+  navigate(idGrado: string, idCurso: string, curso_name: string, typeUser: string) {
+    this.router.navigate(['administrar-temas', idGrado, idCurso, curso_name, typeUser]);
   }
 
 }

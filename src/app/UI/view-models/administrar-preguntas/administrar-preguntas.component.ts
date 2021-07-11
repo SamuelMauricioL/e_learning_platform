@@ -20,6 +20,7 @@ export class AdministrarPreguntasComponent implements OnInit {
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
       idSubTema: new FormControl('', Validators.required),
+      indice: new FormControl('', Validators.required),
       pregunta: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
       alternativas: new FormControl('', Validators.required),
@@ -29,17 +30,21 @@ export class AdministrarPreguntasComponent implements OnInit {
   }
 
   idSubTema: string = this.route.snapshot.params.idSubTema;
+  name_subtema: string = this.route.snapshot.params.subtema;
 
   collection = [] as PreguntaModel[];
   actualizar: boolean = false;
   managerForm: FormGroup;
+  list_len = 0;
 
   ngOnInit(): void {
     console.log(this.idSubTema);
     // LISA DE SUBTEMAS
     this.service.getAll(this.idSubTema).subscribe(resp => {
       this.collection = resp;
-      console.log(this.collection)
+      this.list_len = resp.length;
+      console.log(this.collection);
+      console.log(this.list_len);
     },
       error => {
         console.error(error);
@@ -53,6 +58,7 @@ export class AdministrarPreguntasComponent implements OnInit {
   guardar(): void {
     const {id, ...obj} = this.managerForm.value;
     obj.estado = true;
+    obj.indice = this.list_len + 1;
     obj.idSubTema = `/SubTemas/${this.idSubTema}`;
     this.service.create(obj).then((_response) => {
       this.managerForm.reset();

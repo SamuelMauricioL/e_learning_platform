@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubTemaConvert, SubTemaModel } from 'src/app/domain/models/SubTema/subtema-model';
 import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
@@ -15,6 +15,7 @@ export class AdministrarSubTemasComponent implements OnInit {
   constructor(
     private service: GetSubTemasUseCases,
     private modalService: NgbModal,
+    public router: Router,
     private route: ActivatedRoute,
   ) { 
     this.managerForm = new FormGroup({
@@ -26,6 +27,8 @@ export class AdministrarSubTemasComponent implements OnInit {
   }
 
   idTema: string = this.route.snapshot.params.idTema;
+  name_tema: string = this.route.snapshot.params.tema;
+  type_user: string = this.route.snapshot.params.typeUser;
 
   collection = [] as SubTemaModel[];
   actualizar: boolean = false;
@@ -40,6 +43,14 @@ export class AdministrarSubTemasComponent implements OnInit {
       error => {
         console.error(error);
       });
+  }
+
+  navigate(id_subtema: string, name_subtema: string, type_user: string) {
+    if (type_user == 'Estudiante'){
+      this.router.navigate(['responder-preguntas']);
+    } else {
+      this.router.navigate(['administrar-preguntas', id_subtema, name_subtema, type_user]);
+    }
   }
 
   eliminar(item: any): void {

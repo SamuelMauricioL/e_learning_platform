@@ -13,6 +13,8 @@ export class NavbarComponent{
   public user$: Observable<any> = this.auth.afAuth.user;
   constructor(private auth: AuthService, private router: Router) { }
 
+  isStudent: boolean = false;
+
   async onLogout() {
     try {
       await this.auth.logout();
@@ -20,6 +22,11 @@ export class NavbarComponent{
     } catch (error) {
       console.log(error);
     }
+  }
+
+  changeProfile() {
+    this.isStudent = !this.isStudent;
+    console.log(this.isStudent);
   }
 
 }

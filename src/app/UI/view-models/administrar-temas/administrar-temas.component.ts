@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TemaModel, TemaConvert } from 'src/app/domain/models/Tema/tema-model';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
@@ -15,6 +15,7 @@ export class AdministrarTemasComponent implements OnInit {
   constructor(
     private service: GetTemasUseCases,
     private modalService: NgbModal,
+    public router: Router,
     private route: ActivatedRoute,
   ) { 
     this.managerForm = new FormGroup({
@@ -28,6 +29,8 @@ export class AdministrarTemasComponent implements OnInit {
   
   idGrado: string = this.route.snapshot.params.idGrado;
   idCurso: string = this.route.snapshot.params.idCurso;
+  name_curso: string = this.route.snapshot.params.curso;
+  type_user: string = this.route.snapshot.params.typeUser;
 
   collection = [] as TemaModel[]
   actualizar: boolean = false;
@@ -43,6 +46,10 @@ export class AdministrarTemasComponent implements OnInit {
       error => {
         console.error(error);
       });
+  }
+
+  navigate(id_tema: string, name_tema: string, type_user: string) {
+    this.router.navigate(['administrar-sub-temas', id_tema, name_tema, type_user]);
   }
 
   eliminar(item: any): void {
