@@ -1,0 +1,64 @@
+<br>
+<button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo SubTema</button> -->
+<table class="table" style="text-align: center">
+    
+    <br>
+    <br>
+    <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Descripcion</th>
+            <th>Alternativa</th>
+            <th>Respuesta</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of collection">
+        <tr>
+            <td>{{item.pregunta}}</td>
+            <td>{{item.descripcion}}</td>
+            <td>{{item.alternativas}}</td>
+            <td>{{item.respuesta}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
+                <!-- <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button> -->
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <form [formGroup]="managerForm">
+                    <div class="form-group">
+                        <label>Pregunta</label>
+                        <input type="text" formControlName="pregunta" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <input type="text" formControlName="descripcion" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Alternativas</label>
+                        <input type="text" formControlName="alternativas" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Respuesta</label>
+                        <input type="text" formControlName="respuesta" class="form-control">
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="guardar()" *ngIf="!actualizar">Guardar</button>
+        <button type="button" class="btn btn-outline-dark" (click)="actualiza()" *ngIf="actualizar">Actualizar</button>
+    </div>
+</ng-template>

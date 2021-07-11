@@ -1,4 +1,4 @@
-<table class="table" style="text-align: center">
+<!-- <table class="table" style="text-align: center">
     <thead>
         <tr>
             <th>Nombre del Tema</th>
@@ -6,11 +6,40 @@
     </thead>
     <tbody *ngFor="let item of collection">
         <tr>
-            <!-- <td>{{item.id}}</td> -->
             <td>{{item.tema}}</td>
             <td>
                 <button type="button" class="btn btn-primary" routerLink="/preguntas">Preguntas</button>
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->
+
+<div class="header">
+    <h1>Matemáticas</h1>
+    <p>¡Mejora en matemáticas con más fluidez y confianza! Con ABC Team, los estudiantes logran dominar competencias clave a
+        su propio ritmo mediante ejercicios amenos e interactivos.</p>
+</div>
+<div class="row1-container" *ngFor="let item of collection">
+    <!-- <div class="box box-down cyan">
+        <h2>Supervisor</h2>
+        <p>Monitors activity to identify project roadblocks</p>
+        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+    </div>
+
+    <div class="box red">
+        <h2>Team Builder</h2>
+        <p>Scans our talent network to create the optimal team for your project</p>
+        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+    </div>
+
+    <div class="box box-down blue">
+        <h2>Calculator</h2>
+        <p>Uses data from past projects to provide better delivery estimates</p>
+        <img src="https://assets.codepen.io/2301174/icon-calculator.svg" alt="">
+    </div> -->
+    <div class="box red">
+        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+        <h2>{{item.tema}}</h2>
+        <p class="card__apply"><a routerLink="/cursos/{{item.id}}">Ver las competencias<i class="fas fa-arrow-right"></i></a></p>
+    </div>
+</div>

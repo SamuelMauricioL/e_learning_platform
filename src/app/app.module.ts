@@ -28,6 +28,8 @@ import { TemasService } from './infraestructure/driven-adapter/temas/temas.servi
 import { SidebarComponent } from './UI/common/sidebar/sidebar.component';
 import { SubTemaGateway } from './domain/models/SubTema/subtema-gateway';
 import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-temas.service';
+import { PreguntasGateway } from './domain/models/Pregunta/pregunta-gateway';
+import { PreguntasService } from './infraestructure/driven-adapter/preguntas/preguntas.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,10 @@ import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-
     {
       provide: SubTemaGateway,
       useClass: SubTemasService,
+    },
+    {
+      provide: PreguntasGateway,
+      useClass: PreguntasService,
     }
   ],
   bootstrap: [AppComponent]

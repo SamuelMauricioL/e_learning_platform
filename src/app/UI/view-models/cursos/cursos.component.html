@@ -1,16 +1,11 @@
-<table class="table" style="text-align: center">
-    <thead>
-        <tr>
-            <th>Nombre del Curso</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of collection">
-        <tr>
-            <!-- <td>{{item.id}}</td> -->
-            <td>{{item.curso}}</td>
-            <td>
-                <button type="button" class="btn btn-primary" routerLink="/administrar-temas/{{idGrado}}/{{item.id}}">Temas</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="header">
+    <h1>5.To grado</h1>
+    <p>Aquí tienes una lista de las competencias de matemáticas para los estudiantes en 5.To grado. Estas competencias están clasificadas en categorías</p>
+</div>
+<div class="row1-container" *ngFor="let item of collection">
+    <div class="box red">
+        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+        <h2>{{item.curso}}</h2>
+        <p class="card__apply"><a routerLink="/administrar-temas/{{idGrado}}/{{item.id}}">Ver los Temas<i class="fas fa-arrow-right"></i></a></p>
+    </div>
+</div>

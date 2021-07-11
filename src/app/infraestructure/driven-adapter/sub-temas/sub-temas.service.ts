@@ -16,7 +16,6 @@ export class SubTemasService extends SubTemaGateway {
   
   getAllSubTemas(_idTema: string): Observable<SubTemaModel[]> {
     const path: string = `/Temas/${_idTema}`;
-    console.log('Llega IDtema: ',path);
     return this.firestore.collection<SubTemaModel>('SubTemas', ref => ref.where('idTema', '==', path)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as SubTemaModel;

@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'administrar-temas/:idGrado/:idCurso', loadChildren: () => import('./UI/view-models/administrar-temas/administrar-temas.module').then(m => m.AdministrarTemasModule) },
   { path: 'administrar-sub-temas/:idTema', loadChildren: () => import('./UI/view-models/administrar-sub-temas/administrar-sub-temas.module').then(m => m.AdministrarSubTemasModule) },
   { path: 'inicio', loadChildren: () => import('./UI/view-models/inicio/inicio.module').then(m => m.InicioModule) },
+  { path: 'administrar-preguntas/:idSubTema', loadChildren: () => import('./UI/view-models/administrar-preguntas/administrar-preguntas.module').then(m => m.AdministrarPreguntasModule) },
 ];
 
 @NgModule({

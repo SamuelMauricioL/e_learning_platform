@@ -5,7 +5,7 @@ export interface SubTemaModel {
     estado: boolean;
 }
 
-export class TemaConvert {
+export class SubTemaConvert {
     public static toWelcome(json: string): SubTemaModel[] {
         return JSON.parse(json);
     }

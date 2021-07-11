@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdministrarSubTemasRoutingModule } from './administrar-sub-temas-routing.module';
 import { AdministrarSubTemasComponent } from './administrar-sub-temas.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { AdministrarSubTemasComponent } from './administrar-sub-temas.component'
   ],
   imports: [
     CommonModule,
-    AdministrarSubTemasRoutingModule
+    AdministrarSubTemasRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AdministrarSubTemasModule { }

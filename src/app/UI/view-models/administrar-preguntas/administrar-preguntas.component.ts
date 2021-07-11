@@ -2,41 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TemaModel, TemaConvert } from 'src/app/domain/models/Tema/tema-model';
-import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
+import { PreguntaConvert, PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
+import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
 
 @Component({
-  selector: 'app-administrar-temas',
-  templateUrl: './administrar-temas.component.html',
-  styleUrls: ['./administrar-temas.component.scss']
+  selector: 'app-administrar-preguntas',
+  templateUrl: './administrar-preguntas.component.html',
+  styleUrls: ['./administrar-preguntas.component.scss']
 })
-export class AdministrarTemasComponent implements OnInit {
+export class AdministrarPreguntasComponent implements OnInit {
 
   constructor(
-    private service: GetTemasUseCases,
+    private service: GetPreguntasUseCases,
     private modalService: NgbModal,
     private route: ActivatedRoute,
-  ) { 
+  ) {
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
-      curso: new FormControl('', Validators.required),
+      idSubTema: new FormControl('', Validators.required),
+      pregunta: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      alternativas: new FormControl('', Validators.required),
+      respuesta: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
-      tema: new FormControl('', Validators.required),
     })
   }
 
-  
-  idGrado: string = this.route.snapshot.params.idGrado;
-  idCurso: string = this.route.snapshot.params.idCurso;
+  idSubTema: string = this.route.snapshot.params.idSubTema;
 
-  collection = [] as TemaModel[]
+  collection = [] as PreguntaModel[];
   actualizar: boolean = false;
   managerForm: FormGroup;
 
   ngOnInit(): void {
-    console.log(this.idGrado);
-    console.log(this.idCurso);
-    this.service.getAllTemas(this.idGrado, this.idCurso).subscribe(resp => {
+    console.log(this.idSubTema);
+    // LISA DE SUBTEMAS
+    this.service.getAll(this.idSubTema).subscribe(resp => {
       this.collection = resp;
       console.log(this.collection)
     },
@@ -46,14 +47,14 @@ export class AdministrarTemasComponent implements OnInit {
   }
 
   eliminar(item: any): void {
-    this.service.deleteTema(item.id);
+    this.service.delete(item.id);
   }
 
-  guardarTema(): void {
+  guardar(): void {
     const {id, ...obj} = this.managerForm.value;
     obj.estado = true;
-    obj.curso = `/Grados/${this.idGrado}/Cursos/${this.idCurso}`;
-    this.service.createTema(obj).then((_response) => {
+    obj.idSubTema = `/SubTemas/${this.idSubTema}`;
+    this.service.create(obj).then((_response) => {
       this.managerForm.reset();
       this.modalService.dismissAll();
     }).catch((error) => {
@@ -61,9 +62,9 @@ export class AdministrarTemasComponent implements OnInit {
     });
   }
 
-  actualizarTema() {
+  actualiza() {
     const {id, ...obj} = this.managerForm.value;
-    this.service.updateTema(id, obj).then((_response) => {
+    this.service.update(id, obj).then((_response) => {
       this.managerForm.reset();
       this.modalService.dismissAll();
     }).catch((error) => {
@@ -78,9 +79,9 @@ export class AdministrarTemasComponent implements OnInit {
     this.openModal(content);
   }
 
-  openEditar(content: any, item: TemaModel) {
+  openEditar(content: any, item: PreguntaModel) {
     this.actualizar = true;
-    this.managerForm.setValue(TemaConvert.fromObjectToJson(item));
+    this.managerForm.setValue(PreguntaConvert.fromObjectToJson(item));
     this.openModal(content);
   }
 
@@ -102,4 +103,5 @@ export class AdministrarTemasComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
 }
