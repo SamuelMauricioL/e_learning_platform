@@ -21,8 +21,9 @@ export class AdministrarTemasComponent implements OnInit {
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
       curso: new FormControl('', Validators.required),
-      estado: new FormControl('', Validators.required),
       tema: new FormControl('', Validators.required),
+      orden: new FormControl('', Validators.required),
+      estado: new FormControl('', Validators.required),
     })
   }
 
@@ -48,8 +49,12 @@ export class AdministrarTemasComponent implements OnInit {
       });
   }
 
-  navigate(id_tema: string, name_tema: string, type_user: string) {
-    this.router.navigate(['administrar-sub-temas', id_tema, name_tema, type_user]);
+  navigate(id_tema: string, name_tema: string, type_user: string, orden: string) {
+    if (type_user == 'Estudiante'){
+      this.router.navigate(['responder-preguntas', id_tema, orden]);
+    } else {
+      this.router.navigate(['administrar-sub-temas', id_tema, name_tema, type_user]);
+    }    
   }
 
   eliminar(item: any): void {

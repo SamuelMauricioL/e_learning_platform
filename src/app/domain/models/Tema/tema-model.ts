@@ -1,6 +1,7 @@
 export interface TemaModel {
     id: string;
     tema: string;
+    orden: string;
     estado: boolean;
 }
 
