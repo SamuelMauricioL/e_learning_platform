@@ -33,11 +33,13 @@ export class AdministrarSubTemasComponent implements OnInit {
   collection = [] as SubTemaModel[];
   actualizar: boolean = false;
   managerForm: FormGroup;
+  list_len = 0;
 
   ngOnInit(): void {
     // LISA DE SUBTEMAS
     this.service.getAll(this.idTema).subscribe(resp => {
       this.collection = resp;
+      this.list_len = resp.length;
       console.log(this.collection)
     },
       error => {
@@ -60,6 +62,7 @@ export class AdministrarSubTemasComponent implements OnInit {
   guardar(): void {
     const {id, ...obj} = this.managerForm.value;
     obj.estado = true;
+    obj.indice = this.list_len + 1;
     obj.idTema = `/Temas/${this.idTema}`;
     this.service.create(obj).then((_response) => {
       this.managerForm.reset();

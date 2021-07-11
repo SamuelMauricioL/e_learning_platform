@@ -1,6 +1,7 @@
 export interface SubTemaModel {
     id: string;
     idTema: string;
+    indice: string;
     subtema: string;
     estado: boolean;
 }
