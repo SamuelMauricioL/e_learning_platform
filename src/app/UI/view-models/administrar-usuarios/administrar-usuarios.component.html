@@ -1,13 +1,12 @@
 <div class="col-9">
 
-    <div>
+    <!-- <div>
         <button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo estudiante</button>
         <br>
         <br>
         <table class="table" style="text-align: center">
             <thead>
                 <tr>
-                    <!-- <th>Id</th> -->
                     <th>Nombre</th>
                     <th>Codigo</th>
                     <th>Grado</th>
@@ -17,7 +16,6 @@
             </thead>
             <tbody *ngFor="let item of collection.data | paginate: config">
                 <tr>
-                    <!-- <td>{{item.id}}</td> -->
                     <td>{{item.nombre}}</td>
                     <td>{{item.codigo}}</td>
                     <td>{{item.grado}}</td>
@@ -32,6 +30,58 @@
         <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center"></pagination-controls>
 
 
+        
+    </div> -->
+    <!-- Content -->
+    <div class="content">
+        <!-- Card -->
+        <button type="button" class="btn btn-success" (click)="openSave(content)"><i class="fa fa-user-plus"></i></button>
+        <article class="card card-cascade narrower">
+            <!-- Card heading -->
+            <section class="view gradient-card-header purple-gradient narrower py-3 mb-4 d-flex justify-content-center align-items-center">
+                <span class="white-text mx-3">Lista de Estudiantes</span>
+            </section>
+
+            <!-- Card content -->
+            <section class="px-4">
+                <!-- Table -->
+                <section class="table-wrapper">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th class="th-md">Nombre</th>
+                                <th class="th-md">Codigo</th>
+                                <th class="th-md">Grado</th>
+                                <th class="th-md">Rol</th>
+                                <th class="th-md">Opciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody *ngFor="let item of collection.data | paginate: config">
+                            <tr>
+                                <td>{{item.nombre}}</td>
+                                <td>{{item.codigo}}</td>
+                                <td>{{item.grado}}</td>
+                                <td>{{item.rol}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" (click)="openEditar(content, item)" style="margin-right: 1vw;"><i class="fa fa-edit"></i></button>
+                                    <button type="button" class="btn btn-danger" (click)="eliminar(item)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <hr class="my-0">
+
+                <!-- Grade page links -->
+                <nav class="my-4">
+                    <ul class="pagination pagination-circle pg-red mb-0">
+                        <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center"></pagination-controls>
+                    </ul>
+                </nav>
+            </section>
+        </article>
         <ng-template #content let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
@@ -43,10 +93,6 @@
                 <form>
                     <div class="form-group">
                         <form [formGroup]="managerUsersForm">
-                            <!-- <div class="form-group">
-                            <label>Id</label>
-                            <input type="text" formControlName="id" class="form-control">
-                        </div> -->
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" formControlName="nombre" class="form-control">
@@ -80,6 +126,6 @@
                 <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()" *ngIf="actualizar">Actualizar</button>
             </div>
         </ng-template>
-    </div>
 
+    </div>
 </div>

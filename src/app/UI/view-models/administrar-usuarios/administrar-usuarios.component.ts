@@ -46,7 +46,7 @@ export class AdministrarUsuariosComponent implements OnInit {
       });
 
     this.config = {
-      itemsPerPage: 10,
+      itemsPerPage: 6,
       currentPage: 1,
       totalItems: this.collection.data.length
     };
