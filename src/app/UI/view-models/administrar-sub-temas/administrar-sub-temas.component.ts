@@ -21,6 +21,7 @@ export class AdministrarSubTemasComponent implements OnInit {
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
       idTema: new FormControl('', Validators.required),
+      indice: new FormControl('', Validators.required),
       subtema: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
     })
