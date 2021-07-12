@@ -1,8 +1,8 @@
 <div class="col-3" *ngIf="user$ | async as user; else login">
     <nav id="sidebar" class="navbar sticky-top">
         <div class="navbar-header">
-            <img src="../../../../assets/snoop-dogg.png" class="rounded-circle" alt="Profile picture">
-            <h5 class="navbar-brand m-1 text-white pl-2">Alexandra Daddario</h5>
+            <img src="../../../../favicon.ico" class="rounded-circle" alt="Profile picture">
+            <h5 class="navbar-brand m-1 text-white pl-2"> . Prueb</h5>
         </div>
 
         <ul class="navbar-nav">
@@ -14,7 +14,7 @@
             </li>
             <li class="nav-item">
                 <a routerLink="/administrar-usuarios" *ngIf="user" class="nav-link btn btn-block btn-lg">
-                    <i class="fas fa-file-alt fa-lg mr-1"></i>
+                    <i class="fas fa-address-book"></i>
                     <span>Administrar usuarios</span>
                     <span class="badge badge-pill green d-flex align-items-center justify-content-center">14</span>
                 </a>

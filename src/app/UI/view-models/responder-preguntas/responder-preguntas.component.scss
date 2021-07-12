@@ -3,5 +3,6 @@
     margin-top: -45vw !important;
     height: 40vw !important;
     position: absolute;
-    overflow-x: auto;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
 }
