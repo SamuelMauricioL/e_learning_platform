@@ -1,14 +1,28 @@
-h1{
-    color: darken(rgb(0, 0, 0),10%);
+h1 {
+    color: darken(rgb(0, 0, 0), 10%);
     font-family: "Fredoka One";
     text-transform: uppercase;
     font-size: 4em;
     line-height: 0.7em;
 }
+
 .attribution {
-	font-size: 11px;
-	text-align: center;
-	a {
-		color: hsl(228, 45%, 44%);
-	}
+    font-size: 11px;
+    text-align: center;
+    a {
+        color: hsl(228, 45%, 44%);
+    }
+    position: relative;
+    margin-top: -37px;
+}
+
+.col-3,
+.col-9 {
+    margin-right: 0% !important;
+}
+
+.col-9 {
+    margin-left: 24vw !important;
+    margin-top: -45vw !important;
+    height: 40vw !important;
 }

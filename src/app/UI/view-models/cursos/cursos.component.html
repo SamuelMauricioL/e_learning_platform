@@ -1,11 +1,14 @@
-<div class="header">
-    <h1>5.To grado</h1>
-    <p>{{type_user}}. Aquí tienes una lista de las competencias de matemáticas para los estudiantes en 5.To grado. Estas competencias están clasificadas en categorías</p>
-</div>
-<div class="row1-container" *ngFor="let item of collection">
-    <div class="box red">
-        <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
-        <h2>{{item.curso}}</h2>
-        <p class="card__apply" (click)="navigate(idGrado, item.id, item.curso, type_user)"><a>Ver los Temas<i class="fas fa-arrow-right"></i></a></p>
+<div class="col-9">
+
+    <div class="header">
+        <h1>5.To grado</h1>
+        <p>{{type_user}}. Aquí tienes una lista de las competencias de matemáticas para los estudiantes en 5.To grado. Estas competencias están clasificadas en categorías</p>
+    </div>
+    <div class="row1-container" *ngFor="let item of collection">
+        <div class="box red">
+            <img src="https://assets.codepen.io/2301174/icon-team-builder.svg" alt="">
+            <h2>{{item.curso}}</h2>
+            <p class="card__apply" (click)="navigate(idGrado, item.id, item.curso, type_user)"><a>Ver los Temas<i class="fas fa-arrow-right"></i></a></p>
+        </div>
     </div>
 </div>

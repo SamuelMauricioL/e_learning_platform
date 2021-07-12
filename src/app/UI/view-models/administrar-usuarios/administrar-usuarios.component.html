@@ -1,82 +1,85 @@
-<br>
-<div> 
-    <button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo estudiante</button>
-    <br>
-    <br>
-    <table class="table" style="text-align: center">
-        <thead>
-            <tr>
-                <!-- <th>Id</th> -->
-                <th>Nombre</th>
-                <th>Codigo</th>
-                <th>Grado</th>
-                <th>Rol</th>
-                <th>Opciones</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let item of collection.data | paginate: config">
-            <tr>
-                <!-- <td>{{item.id}}</td> -->
-                <td>{{item.nombre}}</td>
-                <td>{{item.codigo}}</td>
-                <td>{{item.grado}}</td>
-                <td>{{item.rol}}</td>
-                <td>
-                    <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
-                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center"></pagination-controls>
+<div class="col-9">
+
+    <div>
+        <button type="button" class="btn btn-success" (click)="openSave(content)">Crear nuevo estudiante</button>
+        <br>
+        <br>
+        <table class="table" style="text-align: center">
+            <thead>
+                <tr>
+                    <!-- <th>Id</th> -->
+                    <th>Nombre</th>
+                    <th>Codigo</th>
+                    <th>Grado</th>
+                    <th>Rol</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of collection.data | paginate: config">
+                <tr>
+                    <!-- <td>{{item.id}}</td> -->
+                    <td>{{item.nombre}}</td>
+                    <td>{{item.codigo}}</td>
+                    <td>{{item.grado}}</td>
+                    <td>{{item.rol}}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center"></pagination-controls>
 
 
-    <ng-template #content let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <form [formGroup]="managerUsersForm">
-                        <!-- <div class="form-group">
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <form [formGroup]="managerUsersForm">
+                            <!-- <div class="form-group">
                             <label>Id</label>
                             <input type="text" formControlName="id" class="form-control">
                         </div> -->
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input type="text" formControlName="nombre" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Codigo</label>
-                            <input type="text" formControlName="codigo" class="form-control">
-                        </div>
-                        <div class="form-group" *ngIf="!actualizar">
-                            <label>Email</label>
-                            <input type="text" formControlName="email" class="form-control">
-                        </div>
-                        <div class="form-group" *ngIf="!actualizar">
-                            <label>Contraseña</label>
-                            <input type="text" formControlName="contraseña" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Grado</label>
-                            <input type="text" formControlName="grado" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Rol</label>
-                            <input type="text" formControlName="rol" class="form-control">
-                        </div>
-                    </form>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="guardarEstudiante()" *ngIf="!actualizar">Guardar</button>
-            <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()" *ngIf="actualizar">Actualizar</button>
-        </div>
-    </ng-template>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" formControlName="nombre" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Codigo</label>
+                                <input type="text" formControlName="codigo" class="form-control">
+                            </div>
+                            <div class="form-group" *ngIf="!actualizar">
+                                <label>Email</label>
+                                <input type="text" formControlName="email" class="form-control">
+                            </div>
+                            <div class="form-group" *ngIf="!actualizar">
+                                <label>Contraseña</label>
+                                <input type="text" formControlName="contraseña" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Grado</label>
+                                <input type="text" formControlName="grado" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Rol</label>
+                                <input type="text" formControlName="rol" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="guardarEstudiante()" *ngIf="!actualizar">Guardar</button>
+                <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()" *ngIf="actualizar">Actualizar</button>
+            </div>
+        </ng-template>
+    </div>
+
 </div>

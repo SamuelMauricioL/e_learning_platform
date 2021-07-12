@@ -2,8 +2,8 @@
 
 #sidebar {
     grid-area: sidebar;
-    width: 18%;
-    height: 100vh;
+    width: 100%;
+    height: 98vh;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -51,4 +51,9 @@
 #sidebar .nav-link.dropdown-toggle::after {
     margin-top: 8px;
     margin-left: 12px;
+}
+
+span {
+    color: white;
+    font-size: 15px;
 }
