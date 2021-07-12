@@ -3,9 +3,9 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <button type="button" class="btn btn-success" (click)="changeProfile()" style="margin-left: 60vw;">Cambiar Perfil</button>
 
     <div class="collapse navbar-collapse" id="navbarText" *ngIf="!isStudent">
+        <button type="button" class="btn btn-success" (click)="changeProfile()" style="margin-left: 60vw;" alt="Cambiar Perfil"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: white;"></i></button>
         <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
         <ul class="navbar-nav mx-auto">
             <!-- <li class="nav-item active">
@@ -18,7 +18,7 @@
                 <a class="nav-link" routerLink="/grados-academicos/Docente" *ngIf="user">Grados</a>
             </li> -->
             <li class="nav-item" *ngIf="user">
-                <a href="#" class="nav-link" (click)="onLogout()" style="margin-left: 0px !important;">LogOut</a>
+                <a href="#" class="nav-link" (click)="onLogout()" style="margin-left: 0px !important;"> <i alt="Cambiar Perfil" class="fa fa-sign-out" style="color: white;"></i></a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link">{{ user?.email}}</a>
@@ -26,7 +26,10 @@
         </ul>
     </div>
     <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent">
+
         <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
+        <span style="color: white; font-weight: 700; margin-left: 40vw; border: solid yellow; padding: 0.4vw;">VISTA ESTUDIANTE</span>
+        <button type="button" class="btn btn-success" (click)="changeProfile()" style="margin-left: 12vw;" alt="Cambiar Perfil"><i alt="Cambiar Perfil" class="fa fa-exchange" style="color: white;"></i> </button>
         <ul class="navbar-nav mx-auto">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/" *ngIf="user">Home</a>
@@ -35,12 +38,13 @@
                 <a class="nav-link" routerLink="/grados-academicos/Estudiante" *ngIf="user">Grados</a>
             </li>
             <li class="nav-item" *ngIf="user">
-                <a href="#" class="nav-link" (click)="onLogout()">LogOut</a>
+                <a href="#" class="nav-link" (click)="onLogout()"><i alt="Cambiar Perfil" class="fa fa-sign-out" style="color: white;"></i></a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link">{{ user?.email}}</a>
             </li> -->
         </ul>
+
     </div>
 </nav>
 

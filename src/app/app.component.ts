@@ -10,6 +10,13 @@ import { AlbumApiService } from './infraestructure/driven-adapter/album-api/albu
 export class AppComponent implements OnInit {
   title = 'e-learning-platform';
 
+  isStudent: boolean = false;
+
+  changeProfile() {
+    this.isStudent = !this.isStudent;
+    console.log(this.isStudent);
+  }
+
   //  constructor (private _albumApiService : AlbumApiServiceWithoutDelay){}
   ngOnInit(): void {
   }
