@@ -13,7 +13,7 @@ export class GetPreguntasUseCases {
   getAll(_idTema: string): Observable<Array<PreguntaModel>> {
     return this._gateway.getAllPreguntas(_idTema);
   }
-
+  
   create(model: PreguntaModel): Promise<any> {
     return this._gateway.createPregunta(model);
   }
