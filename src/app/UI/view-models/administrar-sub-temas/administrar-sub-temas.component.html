@@ -1,32 +1,36 @@
-<div class="header">
-    <h1>Tema: {{name_tema}}</h1>
-    <div class="row">
-        <div class="col-sm-10">
-            <p></p>
+<div class="col-9">
+
+    <div class="header">
+        <h1>Tema: {{name_tema}}</h1>
+        <div class="row">
+            <div class="col-sm-10">
+                <p></p>
+            </div>
+            <div class="col-sm-2">
+                <button *ngIf="type_user!='Estudiante'" style="background-color: hsl(180, 62%, 55%) !important" type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
+            </div>
         </div>
-        <div class="col-sm-2">
-            <button *ngIf="type_user!='Estudiante'" style="background-color: hsl(180, 62%, 55%) !important" type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
+    </div>
+
+    <div class="row1-container" *ngFor="let item of collection">
+        <div class="box cyan">
+            <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
+            <h2>{{item.subtema}}</h2>
+            <div class="row">
+                <div *ngIf="type_user!='Estudiante'" class="col-sm-2">
+                    <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fa fa-edit"></i></a></p>
+                </div>
+                <div class="col-sm-3">
+                    <p class="card__apply" (click)="navigate(item.id, item.subtema, type_user)"><a>Ver las preguntas<i class="fa fa-eye"></i></a></p>
+                </div>
+                <!-- <div class="col-sm-6">
+                <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+            </div> -->
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row1-container" *ngFor="let item of collection">
-    <div class="box cyan">
-        <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
-        <h2>{{item.subtema}}</h2>
-        <div class="row">
-            <div *ngIf="type_user!='Estudiante'" class="col-sm-2">
-                <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fas fa-arrow-right"></i></a></p>
-            </div>
-            <div class="col-sm-3">
-                <p class="card__apply" (click)="navigate(item.id, item.subtema, type_user)"><a>Ver las preguntas<i class="fas fa-arrow-right"></i></a></p>
-            </div>
-            <!-- <div class="col-sm-6">
-                <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
-            </div> -->
-        </div>
-    </div>
-</div>
 
 <ng-template #content let-modal>
     <div class="modal-header">

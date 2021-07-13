@@ -30,6 +30,7 @@ import { SubTemaGateway } from './domain/models/SubTema/subtema-gateway';
 import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-temas.service';
 import { PreguntasGateway } from './domain/models/Pregunta/pregunta-gateway';
 import { PreguntasService } from './infraestructure/driven-adapter/preguntas/preguntas.service';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PreguntasService } from './infraestructure/driven-adapter/preguntas/pre
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    CountdownModule,
   ],
   providers: [
     {

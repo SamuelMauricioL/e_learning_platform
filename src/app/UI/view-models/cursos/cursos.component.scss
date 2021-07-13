@@ -154,6 +154,11 @@ a:hover::after {
 .card__apply {
     grid-row: 4/5;
     align-self: center;
+    cursor: pointer;
+}
+
+i {
+    margin-left: 10px;
 }
 
 .col-9 {

@@ -1,32 +1,9 @@
-.card .card-header img {
-    width: 40px;
-    height: 40px;
-}
-
-.card .card-header .card-title {
-    color: #575962;
-    font-size: 18px;
-    padding-top: 3px;
-}
-
-.content .card {
-    margin-bottom: 30px;
-    min-width: 300px;
-    width: 60%;
-    box-shadow: 0px 1px 0px 1px rgb(103 101 109 / 8%);
-    border-radius: 6px;
-}
-
-.card {
-    margin-left: 20vw;
-}
-
-#docente {
-    background-color: red;
-}
-
 .col-9 {
-    margin-left: 25vw !important;
+    margin-left: 18vw !important;
     margin-top: -45vw !important;
-    background-color: red;
+    height: 40vw !important;
+    width: 80% !important;
+    position: absolute;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 }

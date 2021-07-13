@@ -1,3 +1,5 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bs-stepper/dist/css/bs-stepper.min.css';
 .col-9 {
     margin-left: 18vw !important;
     margin-top: -45vw !important;
@@ -5,5 +7,5 @@
     width: 80% !important;
     position: absolute;
     overflow-x: hidden !important;
-    overflow-y: scroll !important;
+    overflow-y: hidden !important;
 }
