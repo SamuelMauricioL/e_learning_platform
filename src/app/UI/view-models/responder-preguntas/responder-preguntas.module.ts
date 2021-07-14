@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ResponderPreguntasRoutingModule } from './responder-preguntas-routing.module';
 import { ResponderPreguntasComponent } from './responder-preguntas.component';
-import { CountdownModule, CountdownComponent } from 'ngx-countdown';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,6 @@ import { CountdownModule, CountdownComponent } from 'ngx-countdown';
     CommonModule,
     ResponderPreguntasRoutingModule,
     CountdownModule,
-    CountdownComponent,
   ]
 })
 export class ResponderPreguntasModule { }
