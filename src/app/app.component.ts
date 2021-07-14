@@ -8,7 +8,7 @@ import { AlbumApiService } from './infraestructure/driven-adapter/album-api/albu
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'e-learning-platform';
+  footer_title = 'Powered by ABC Team';
 
   isStudent: boolean = false;
 

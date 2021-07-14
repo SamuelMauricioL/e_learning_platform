@@ -11,6 +11,7 @@ import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.s
 export class HomeComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.user;
+  public test: string = "asd";
 
   constructor(
     private auth: AuthService,

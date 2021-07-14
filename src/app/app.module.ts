@@ -53,10 +53,10 @@ import { CountdownModule } from 'ngx-countdown';
     CountdownModule,
   ],
   providers: [
-    {
-      provide: AlbumGateway, 
-      useClass: AlbumApiService
-    },
+    // {
+    //   provide: AlbumGateway, 
+    //   useClass: AlbumApiService
+    // },
     {
       provide: UsuarioGateway,
       useClass: UserService,
