@@ -24,10 +24,6 @@ export class ResponderPreguntasComponent implements OnInit {
   next() {
     this.stepper.next();
   }
-  
-  /* VARIABLES PARA LA VISTA*/
-  // urlTema = this.route.snapshot.params.idTema;
-  // subT = this.route.snapshot.params.subtema;
 
   idTema: string = this.route.snapshot.params.idTema;
   subTema: string = this.route.snapshot.params.subTema;
@@ -46,26 +42,21 @@ export class ResponderPreguntasComponent implements OnInit {
         this.collection = resp;
         console.log(this.collection);
         console.log(this.list_orden_de_subtemas);
+        console.log(this.collection_de_preguntas);
       },
       error => {
         console.error(error);
     });
     
-    for(let i in this.orden_de_subtemas){
-      console.log(this.orden_de_subtemas[i]);
-    };
-
-    this.stepper = new Stepper(document.querySelector('#stepper1')!, {
-      linear: false,
-      animation: true
-    })
-   
+    // this.stepper = new Stepper(document.querySelector('#stepper1')!, {
+    //   linear: false,
+    //   animation: true
+    // })
   }
 
   listar_preguntas_x_subtema(id_subtema: string) {
     this.service_preguntas.getAll(id_subtema).subscribe(resp => {
       this.collection_de_preguntas = resp;
-      // console.log(this.collection_de_preguntas);
     },
       error => {
         console.error(error);
