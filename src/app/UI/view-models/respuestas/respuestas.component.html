@@ -1,0 +1,41 @@
+<style>
+    .deactivate {
+        display: none;
+    }
+    
+    .activate {
+        display: block;
+    }
+</style>
+<div class="col-9">
+
+    <div class="row1-container" *ngFor="let i of collection_de_preguntas">
+        <div class="box orange">
+            <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+            <h4> Pregunta - {{i.indice}}</h4>
+            <h2>{{i.pregunta}}</h2>
+            <h3>{{i.descripcion}}</h3>
+            <div class="row" style="align-items: center; align-self: center;">
+                <div *ngFor="let j of collection_de_respuestas" class="col-1" style="font-size: 2rem; border: solid orange 1px; width: 70px; margin: 2px;">
+                    {{j}}
+                    <label class="checkbox path">
+                        <input type="checkbox" (change)="onSelect(j, i.respuesta)">
+                        <svg viewBox="0 0 21 21">
+                            <path d="M5,10.75 L8.5,14.25 L19.4,2.3 C18.8333333,1.43333333 18.0333333,1 17,1 L4,1 C2.35,1 1,2.35 1,4 L1,17 C1,18.65 2.35,20 4,20 L17,20 C18.65,20 20,18.65 20,17 L20,7.99769186"></path>
+                        </svg>
+                    </label>
+                </div>
+            </div>
+
+            <p class="card__apply" (click)="evaluar()" style="padding: 1vw; border: solid 1px orange; width: 15vw;"><a>Enviar respuesta<i class="fa fa-arrow-right"></i></a></p>
+
+            <div *ngIf="eval == 1" class="alert alert-success activate" role="alert">
+                Esta respuesta es correcta
+            </div>
+
+            <div *ngIf="eval == 2" class="alert alert-danger activate" role="alert">
+                Esta respuesta es incorrecta
+            </div>
+        </div>
+    </div>
+</div>

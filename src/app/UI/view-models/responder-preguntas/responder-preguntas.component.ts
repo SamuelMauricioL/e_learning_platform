@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 import { SubTemaModel } from 'src/app/domain/models/SubTema/subtema-model';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
@@ -19,6 +19,8 @@ export class ResponderPreguntasComponent implements OnInit {
     private service: GetSubTemasUseCases,
     private service_preguntas: GetPreguntasUseCases,
     private route: ActivatedRoute,
+    public router: Router,
+
   ) {}
     
   next() {
@@ -66,5 +68,9 @@ export class ResponderPreguntasComponent implements OnInit {
   onSubmit() {
     // do something here
     return false;
+  }
+
+  navigateCursos(idPregunta: string) {
+    this.router.navigate(['dar-respuestas', idPregunta]);
   }
 }
