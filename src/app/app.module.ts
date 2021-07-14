@@ -31,6 +31,8 @@ import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-
 import { PreguntasGateway } from './domain/models/Pregunta/pregunta-gateway';
 import { PreguntasService } from './infraestructure/driven-adapter/preguntas/preguntas.service';
 import { CountdownModule } from 'ngx-countdown';
+import { RespuestaGateway } from './domain/models/Respuesta/respuesta-gateway';
+import { RespuestasService } from './infraestructure/driven-adapter/respuestas/respuestas.service';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,10 @@ import { CountdownModule } from 'ngx-countdown';
     {
       provide: PreguntasGateway,
       useClass: PreguntasService,
+    },
+    {
+      provide: RespuestaGateway,
+      useClass: RespuestasService,
     }
   ],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
 import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
+import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class RespuestasComponent implements OnInit {
   constructor(  
     private route: ActivatedRoute,
     private service_preguntas: GetPreguntasUseCases,
-
+    private service_respuestas: GetRespuestasUseCases,
   ) { }
 
 
