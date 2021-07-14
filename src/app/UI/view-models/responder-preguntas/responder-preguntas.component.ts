@@ -19,13 +19,12 @@ export class ResponderPreguntasComponent implements OnInit {
     private service: GetSubTemasUseCases,
     private service_preguntas: GetPreguntasUseCases,
     private route: ActivatedRoute,
-    ) {}
+  ) {}
     
   next() {
     this.stepper.next();
   }
   
-  name = " HELLO";
   /* VARIABLES PARA LA VISTA*/
   // urlTema = this.route.snapshot.params.idTema;
   // subT = this.route.snapshot.params.subtema;
@@ -35,7 +34,6 @@ export class ResponderPreguntasComponent implements OnInit {
   orden_de_subtemas= this.route.snapshot.params.orden;
   list_orden_de_subtemas = this.orden_de_subtemas.split(',') as [];
 
-  
   // COLECCIÓN DE SUB_TEMAS
   collection = [] as SubTemaModel[];
   
@@ -45,17 +43,17 @@ export class ResponderPreguntasComponent implements OnInit {
   ngOnInit(): void {
     // LISA DE SUBTEMAS
     this.service.getAll(this.idTema).subscribe(resp => {
-      this.collection = resp;
-      console.log(this.collection);
-      console.log(this.list_orden_de_subtemas);
-    },
+        this.collection = resp;
+        console.log(this.collection);
+        console.log(this.list_orden_de_subtemas);
+      },
       error => {
         console.error(error);
     });
     
     for(let i in this.orden_de_subtemas){
       console.log(this.orden_de_subtemas[i]);
-    }
+    };
 
     this.stepper = new Stepper(document.querySelector('#stepper1')!, {
       linear: false,
@@ -73,10 +71,9 @@ export class ResponderPreguntasComponent implements OnInit {
         console.error(error);
       });
   }
+
   onSubmit() {
     // do something here
     return false;
   }
-
- 
 }
