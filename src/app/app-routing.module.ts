@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'inicio', loadChildren: () => import('./UI/view-models/inicio/inicio.module').then(m => m.InicioModule) },
   { path: 'administrar-preguntas/:idSubTema/:subtema/:typeUser', loadChildren: () => import('./UI/view-models/administrar-preguntas/administrar-preguntas.module').then(m => m.AdministrarPreguntasModule) },
   { path: 'responder-preguntas/:idTema/:orden', loadChildren: () => import('./UI/view-models/responder-preguntas/responder-preguntas.module').then(m => m.ResponderPreguntasModule) },
-  { path: 'dar-respuestas/:idPregunta', loadChildren: () => import('./UI/view-models/respuestas/respuestas.module').then(m => m.RespuestasModule) },
+  { path: 'dar-respuestas/:idPregunta/:ruta/:idtema', loadChildren: () => import('./UI/view-models/respuestas/respuestas.module').then(m => m.RespuestasModule) },
 ];
 
 @NgModule({

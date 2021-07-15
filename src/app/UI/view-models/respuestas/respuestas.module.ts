@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RespuestasRoutingModule } from './respuestas-routing.module';
 import { RespuestasComponent } from './respuestas.component';
+import { CountdownModule } from 'ngx-countdown';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RespuestasComponent } from './respuestas.component';
   ],
   imports: [
     CommonModule,
-    RespuestasRoutingModule
+    CountdownModule,
+    RespuestasRoutingModule,
   ]
 })
 export class RespuestasModule { }
