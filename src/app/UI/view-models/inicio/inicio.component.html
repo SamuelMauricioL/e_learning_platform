@@ -1,20 +1,95 @@
 <div class="col-9">
-    <div style="background-color: red; height: 100%;">
+    <div style="height: 100%;background-image: url(../../../../assets/home-alumno.png); background-repeat: no-repeat; background-size: 120% 100%; background-position-x: -15vw; background-position-y: 0vw;">
         <div class="row">
 
-            <div class="col-11 ml-4 mt-4 mb-2" style="background-color: white; margin-left: 5.5vw; width: 70%;">
-                Alumno
+            <div class="col-11 ml-4 mt-4 mb-2" style="background-color: white; margin-left: 5.5vw; width: 70%; height: 10vw;">
+                <div class="row">
+                    <div class="col-2" style="height: 10vw; width: 15%; background-image: url(../../../../assets/fondo-foto.png);  background-size: 60% 100%; background-repeat: no-repeat;">
+                        <div style="margin: 10px 5px 10px 35px; width: 7.5vw; height:7.5vw; border-radius: 100%; background-image: url(../../../../favicon.ico); background-size: 100% 100%">
+                        </div>
+                    </div>
+                    <div class="col-4" style="width: 28%; background-color: white; height: 10vw;">
+                        <span style="font-weight: bold; color: lightseagreen;"> MI PROGRESO</span>
+                        <table>
+                            <thead>
+                                <th></th>
+                                <th>ESTA SESION</th>
+                                <th>TOTAL</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        Tiempo
+                                    </th>
+                                    <th>
+                                        00:00:00
+                                    </th>
+                                    <th>
+                                        00:00:00
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Problemas
+                                    </th>
+                                    <th>2</th>
+                                    <th>2</th>
+
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Temas Resueltos
+                                    </th>
+                                    <th>2</th>
+                                    <th>2</th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-4" style="width: 25%">
+                        <span style="font-weight: bold;  color: lightseagreen;">
+                            MIS LOGROS
+                        </span>
+                        <div class="col-6" style="width: 6vw;">
+                            <div style="background-color: lightseagreen; border-radius: 100%; width: 6vw; height: 6vw;">
+                                <div style="background-color: white;border-radius: 100%; width: 5vw; height: 5vw; position: relative; top: 7px; left: 7px;">
+                                    <span style="top: 20px; position: relative; left: 20px;"> 65% </span>
+                                </div>
+                            </div>
+                            <span> PROBLEMAS</span>
+                        </div>
+                        <div class="col-6" style="position: relative; width: 6vw; top: -45%; left: 100px;">
+                            <div style="background-color: lightseagreen; border-radius: 100%; width: 6vw; height: 6vw; ">
+                                <div style="background-color: white;border-radius: 100%; width: 5vw; height: 5vw; position: relative; top: 7px; left: 7px;">
+                                    <span style=" top: 20px; position: relative; left: 20px;"> 65% </span>
+                                </div>
+                            </div>
+                            <span> NIVELES</span>
+                        </div>
+                    </div>
+                    <div class="col-1" style="height: 10vw; width: 15%; color: orange; font-weight: bold; width: 7%; transform: rotate(270deg);"> VER MAS </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-11 ml-4 mt-2" style="background-color: white; margin-left: 5.5vw; width: 70%; height: 33vw;">
-                Temas
-                <div class="row">
+            <div class="col-11 ml-4 mt-2" style="margin-left: 5.5vw; width: 70%; height: 33vw;">
+                <div class="col-6 ">
+                    <div class="row interno">
+                        <div *ngFor="let item of collection" class="col-4" style="width: 50%;">
+                            <div class="row1-container">
+                                <div class="box orange" style="width: 100%;">
+                                    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+                                    <h4> Grado {{item.grado}}</h4>
+                                    <h2>Nivel {{item.nivel}}</h2>
+                                    <p>Incluye: Contar hacia delante y hacia atrás: hasta 100|Trucos de suma: sumas hasta 10|Hallar un número usando sumas: sumas hasta 10|Completar la suma: sumas hasta 10</p>
+                                    <p class="card__apply" (click)="navigateCursos(item.id)"><a>Ver las Preguntas<i
+                                                class="fa fa-edit"></i></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="col-4"> TEMA 1</div>
-                    <div class="col-4"> TEMA 2</div>
-                    <div class="col-4"> TEMA 3</div>
-                    <div class="col-4"> TEMA 4</div>
                 </div>
             </div>
         </div>

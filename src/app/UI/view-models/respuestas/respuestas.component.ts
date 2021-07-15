@@ -59,6 +59,7 @@ export class RespuestasComponent implements OnInit {
     }else if(this.rpta != this.crct){
       this.eval = 2;
       console.log("inCorrecto");
+      // this.service_respuestas.create();
     }
   }
 }
