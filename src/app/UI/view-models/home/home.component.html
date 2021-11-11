@@ -1,16 +1,14 @@
 <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="./home.component.scss" />
 
-<div class="col-9" *ngIf="user$ | async as user; else login">
+<div class="container" *ngIf="user$ | async as user; else login">
 
-    <div class="content">
-
-        <br><br><br><br>
+    <div class="content" style="padding-top: 10%; padding-left: 10%; margin-bottom: 100px;">
         <article class="card">
             <section class="card-header">
                 <img src="../../../../assets/snoop-dogg.png" class="rounded-circle" alt="Profile picture">
                 <h4 class="card-title m-2">Alexandra Daddario</h4>
             </section>
-            <section class="card-body">
+            <section class="card-body" style="padding: 10px;">
 
                 <h4 class="card-title">Teacher change</h4>
                 <p class="card-text">

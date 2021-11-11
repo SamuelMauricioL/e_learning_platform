@@ -1,11 +1,9 @@
-<div class="col-9">
-    <div class="row1-container" *ngFor="let i of collection">
-        <div class="box orange">
-            <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
-            <h4> Tema - {{i.indice}}</h4>
-            <h2>{{i.subtema}}</h2>
-            <p>Sumas hasta {{i.indice}}</p>
-            <p class="card__apply" (click)="navigateCursos(i.id)"><a>Ver las Preguntas<i class="fa fa-edit"></i></a></p>
-        </div>
+<div class="row1-container" *ngFor="let i of collection">
+    <div class="box orange">
+        <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+        <h4> Tema - {{i.indice}}</h4>
+        <h2>{{i.subtema}}</h2>
+        <p>Sumas hasta {{i.indice}}</p>
+        <p class="card__apply" (click)="navigateCursos(i.id)"><a>Ver las Preguntas<i class="fa fa-edit"></i></a></p>
     </div>
 </div>

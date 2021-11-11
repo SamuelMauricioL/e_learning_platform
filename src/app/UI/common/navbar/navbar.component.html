@@ -1,50 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="user$ | async as user; else login">
-    <a class="navbar-brand" href="#" style="margin-left: 2%;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarText" *ngIf="!isStudent">
-        <button type="button" class="btn btn-success" (click)="changeProfile()" style="margin-left: 60vw;" alt="Cambiar Perfil"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: white;"></i></button>
-        <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
-        <ul class="navbar-nav mx-auto">
-            <!-- <li class="nav-item active">
-                <a class="nav-link" routerLink="/" *ngIf="user">Home</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/administrar-usuarios" *ngIf="user">Administrar Usuarios</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/grados-academicos/Docente" *ngIf="user">Grados</a>
-            </li> -->
-            <li class="nav-item" *ngIf="user">
-                <a href="#" class="nav-link" (click)="onLogout()" style="margin-left: 0px !important;"> <i alt="Cambiar Perfil" class="fa fa-sign-out" style="color: white;"></i></a>
-            </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link">{{ user?.email}}</a>
-            </li> -->
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-ligth bg-ligth" *ngIf="user$ | async as user; else login" style="z-index: 99;">
+    <div style="width: 50%;">
+        <a class="navbar-brand" href="#" style="margin-left: 2%; color: black;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante
+        </span> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-    <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent">
 
-        <!-- <a style="color: #fff">{{ user$ | async | json }}</a> -->
-        <span style="color: white; font-weight: 700; margin-left: 40vw; border: solid yellow; padding: 0.4vw;">VISTA ESTUDIANTE</span>
-        <button type="button" class="btn btn-success" (click)="changeProfile()" style="margin-left: 12vw;" alt="Cambiar Perfil"><i alt="Cambiar Perfil" class="fa fa-exchange" style="color: white;"></i> </button>
-        <ul class="navbar-nav mx-auto">
+    <div class="collapse navbar-collapse" id="navbarText" *ngIf="!isStudent" style="color: black; width: 50%; justify-content:right;">
+        <ul class="navbar-nav mx-md">
             <li class="nav-item active">
-                <a class="nav-link" routerLink="/inicio" *ngIf="user">Home</a>
+                <a class="nav-link" routerLink="/" *ngIf="user" style="color: black;">Inicio</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/grados-academicos/Estudiante" *ngIf="user">Grados</a>
+            <li class="nav-item" *ngIf="user" style="padding: 10px;">
+                <label class="dropdown">
+
+                    <div class="dd-button">
+                        Opciones
+                    </div>
+
+                    <input type="checkbox" class="dd-input" id="test">
+
+                    <ul class="dd-menu">
+                        <li routerLink="/administrar-usuarios" *ngIf="user" >Usuarios</li>
+                        <li routerLink="/grados-academicos/Docente" *ngIf="user">Grados</li>
+                        <li class="divider"></li>
+                        <li>{{ user?.email}}</li>
+
+                    </ul>
+
+                </label>
             </li>
             <li class="nav-item" *ngIf="user">
-                <a href="#" class="nav-link" (click)="onLogout()"><i alt="Cambiar Perfil" class="fa fa-sign-out" style="color: white;"></i></a>
+                <a href="#" class="nav-link" (click)="onLogout()" style="margin-left: 0px !important;"> <i alt="Cambiar Perfil" class="fa fa-sign-out" style="color: black;"></i></a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link">{{ user?.email}}</a>
-            </li> -->
         </ul>
 
+        <button type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent" style="color: black; width: 50%; justify-content:right;">
+        <ul class="navbar-nav mx-md">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/inicio" *ngIf="user" style="color: black;">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/grados-academicos/Estudiante" *ngIf="user" style="color: black;">Grados</a>
+            </li>
+            <li class="nav-item" *ngIf="user">
+                <a href="#" class="nav-link" (click)="onLogout()"><i alt="Cambiar Perfil" class="fa fa-sign-out"
+                    style="color: black;"></i></a>
+            </li>
+        </ul>
+
+        <button type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button>
     </div>
 </nav>
 

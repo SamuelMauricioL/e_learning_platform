@@ -37,10 +37,7 @@ h3 {
 body {
     background: $body;
     // text-align: center;
-}
-
-.row {
-    width: 99vw;
+    overflow-x: hidden !important;
 }
 
 .card {
@@ -53,12 +50,4 @@ body {
 
 .card-footer {
     text-align: center !important;
-}
-
-.col-9 {
-    margin-left: 18vw !important;
-    margin-top: -45vw !important;
-    height: 40vw !important;
-    width: 80% !important;
-    position: absolute;
 }

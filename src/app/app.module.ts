@@ -25,7 +25,6 @@ import { CursoGateway } from './domain/models/Curso/curso-gateway';
 import { CursoService } from './infraestructure/driven-adapter/curso/curso.service';
 import { TemaGateway } from './domain/models/Tema/tema-gateway';
 import { TemasService } from './infraestructure/driven-adapter/temas/temas.service';
-import { SidebarComponent } from './UI/common/sidebar/sidebar.component';
 import { SubTemaGateway } from './domain/models/SubTema/subtema-gateway';
 import { SubTemasService } from './infraestructure/driven-adapter/sub-temas/sub-temas.service';
 import { PreguntasGateway } from './domain/models/Pregunta/pregunta-gateway';
@@ -40,7 +39,6 @@ import { RespuestasService } from './infraestructure/driven-adapter/respuestas/r
     AlbumCardComponent,
     CircularProgressIndicatorComponent,
     NavbarComponent,
-    SidebarComponent
   ],
   imports: [
     BrowserModule,
