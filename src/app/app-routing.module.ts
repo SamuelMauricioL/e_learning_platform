@@ -20,6 +20,8 @@ const routes: Routes = [
   { path: 'responder-preguntas/:idTema/:orden', loadChildren: () => import('./UI/view-models/responder-preguntas/responder-preguntas.module').then(m => m.ResponderPreguntasModule) },
   { path: 'dar-respuestas/:idPregunta/:ruta/:idtema', loadChildren: () => import('./UI/view-models/respuestas/respuestas.module').then(m => m.RespuestasModule) },
   { path: 'practicar', loadChildren: () => import('./UI/view-models/practicar/practicar.module').then(m => m.PracticarModule) },
+  { path: 'practicar-temas', loadChildren: () => import('./UI/view-models/practicar-temas/practicar-temas.module').then(m => m.PracticarTemasModule) },
+  { path: 'practicar-resolver', loadChildren: () => import('./UI/view-models/practicar-resolver/practicar-resolver.module').then(m => m.PracticarResolverModule) },
 ];
 
 @NgModule({
