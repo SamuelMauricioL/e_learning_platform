@@ -22,6 +22,7 @@
                     <input type="checkbox" class="dd-input" id="test">
 
                     <ul class="dd-menu">
+                        
                         <li routerLink="/administrar-usuarios" *ngIf="user" >Usuarios</li>
                         <li routerLink="/grados-academicos/Docente" *ngIf="user">Grados</li>
                         <li class="divider"></li>
@@ -41,6 +42,9 @@
 
     <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent" style="color: black; width: 50%; justify-content:right;">
         <ul class="navbar-nav mx-md">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/practicar" *ngIf="user" style="color: black;">Practicar</a>
+            </li>
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/inicio" *ngIf="user" style="color: black;">Home</a>
             </li>
