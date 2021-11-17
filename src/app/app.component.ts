@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   isStudent: boolean = false;
   public user$: Observable<any> = this.auth.afAuth.user;
   constructor(private auth: AuthService){
-
+    
   }
   changeProfile() {
     this.isStudent = !this.isStudent;
