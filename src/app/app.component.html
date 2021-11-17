@@ -1,4 +1,7 @@
-<app-navbar></app-navbar>
+<div *ngIf="user$ | async as user">
+    <app-navbar></app-navbar>
+</div>
+
 <div class="row">
     <!-- <app-sidebar></app-sidebar> -->
     <router-outlet></router-outlet>

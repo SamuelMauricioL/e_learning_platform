@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth" *ngIf="user$ | async as user; else login" style="z-index: 99;">
     <div style="width: 50%;">
-        <a class="navbar-brand" href="#" style="margin-left: 2%; color: black;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante
+        <a class="navbar-brand" routerLink="/" style="margin-left: 2%; color: black;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante
         </span> </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,6 +11,9 @@
         <ul class="navbar-nav mx-md">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/" *ngIf="user" style="color: black;">Inicio</a>
+            </li>
+            <li class="nav-item active" *ngFor="let menu of menus">
+                <a class="nav-link" routerLink="{{menu.ruta}}" *ngIf="user" style="color: black;">{{ menu.nombre }}</a>
             </li>
             <li class="nav-item" *ngIf="user" style="padding: 10px;">
                 <label class="dropdown">
@@ -63,4 +66,5 @@
 
 <ng-template #login>
     <!-- <app-home></app-home> -->
+    
 </ng-template>

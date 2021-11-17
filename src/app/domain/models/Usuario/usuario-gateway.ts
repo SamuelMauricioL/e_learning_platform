@@ -6,4 +6,5 @@ export abstract class UsuarioGateway {
     abstract createUser(_model :UsuarioModel) : Promise<any>;
     abstract updateUser(_id:string, _model :UsuarioModel) : Promise<any>;
     abstract deleteUser(_id:string) : Promise<any>;
+    abstract getUsersByEmail(_email:string):Observable<Array<UsuarioModel>>;
 }

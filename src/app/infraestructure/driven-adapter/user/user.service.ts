@@ -11,6 +11,7 @@ import { UsuarioModel } from 'src/app/domain/models/Usuario/usuario-model';
   providedIn: 'root'
 })
 export class UserService extends UsuarioGateway {
+  
   constructor(
     private firestore: AngularFirestore,
     private auth: AuthService,
@@ -38,5 +39,13 @@ export class UserService extends UsuarioGateway {
   deleteUser(id: any): Promise<any> {
     return this.firestore.collection('Usuarios').doc(id).delete();
   }
-
+  getUsersByEmail(_email:string): Observable<UsuarioModel[]> {
+    return this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('email','==',_email)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as UsuarioModel;
+        data.id = a.payload.doc.id;
+        return data;
+      }))
+    );
+  }
 }

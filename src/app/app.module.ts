@@ -33,6 +33,8 @@ import { CountdownModule } from 'ngx-countdown';
 import { RespuestaGateway } from './domain/models/Respuesta/respuesta-gateway';
 import { RespuestasService } from './infraestructure/driven-adapter/respuestas/respuestas.service';
 
+import { RolesGateway } from './domain/models/Roles/roles-gateway';
+import { RolesService } from './infraestructure/driven-adapter/roles/roles.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +86,10 @@ import { RespuestasService } from './infraestructure/driven-adapter/respuestas/r
     {
       provide: RespuestaGateway,
       useClass: RespuestasService,
+    },
+    {
+      provide: RolesGateway,
+      useClass: RolesService,
     }
   ],
   bootstrap: [AppComponent]

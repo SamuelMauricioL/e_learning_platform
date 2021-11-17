@@ -29,5 +29,7 @@ export class GetUserUseCases {
     //TODO: En este sitio podríamos manejar las configuraciones y hace un control de excepciones
     return this._userGateway.deleteUser(id);
   }
-
+  getUsersByEmail(email:string):Observable<Array<UsuarioModel>>{
+    return this._userGateway.getUsersByEmail(email)
+  }
 }
