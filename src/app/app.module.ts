@@ -35,6 +35,8 @@ import { RespuestasService } from './infraestructure/driven-adapter/respuestas/r
 
 import { RolesGateway } from './domain/models/Roles/roles-gateway';
 import { RolesService } from './infraestructure/driven-adapter/roles/roles.service';
+
+import { AuthGuard } from './UI/guards/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +61,7 @@ import { RolesService } from './infraestructure/driven-adapter/roles/roles.servi
     //   provide: AlbumGateway, 
     //   useClass: AlbumApiService
     // },
+    AuthGuard,
     {
       provide: UsuarioGateway,
       useClass: UserService,

@@ -72,12 +72,12 @@ const routes: Routes = [
   },
   {
     path: 'practicar-temas',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/practicar-temas/practicar-temas.module').then(m => m.PracticarTemasModule)
   },
   {
     path: 'practicar-resolver',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/practicar-resolver/practicar-resolver.module').then(m => m.PracticarResolverModule)
   },
 ];

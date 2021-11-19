@@ -7,6 +7,7 @@ export interface UsuarioModel {
     grado:      string;
     nombre:     string;
     rol:        string;
+    roles:any;
 }
 
 export class UsuarioConvert {

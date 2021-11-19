@@ -1,27 +1,38 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../auth/auth.service';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable,concat,pipe } from 'rxjs';
+import { map,concatMap, mapTo } from 'rxjs/operators';
 import { UsuarioGateway } from 'src/app/domain/models/Usuario/usuario-gateway';
 import { UsuarioModel } from 'src/app/domain/models/Usuario/usuario-model';
+
+import { RolesService } from '../roles/roles.service';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService extends UsuarioGateway {
+  getGeneralUser(): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
   
+  user$: Observable<any> = this.auth.afAuth.user;
+  roles:any;
   constructor(
     private firestore: AngularFirestore,
-    private auth: AuthService,
-  ) {super();}
+    private auth: AuthService,private seriveRol : RolesService
+  ) {
+    super();
+  }
 
   getAllUsers(): Observable<UsuarioModel[]> {
     return this.firestore.collection<UsuarioModel>('Usuarios').snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UsuarioModel;
         data.id = a.payload.doc.id;
+        // console.log("pruebadata",data);
         return data;
       }))
     );
@@ -48,4 +59,6 @@ export class UserService extends UsuarioGateway {
       }))
     );
   }
+
+  
 }

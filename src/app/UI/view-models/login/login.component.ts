@@ -36,10 +36,11 @@ export class LoginComponent implements OnInit {
       const user = this.auth.login(email, password);
       if (await user) {
         // Redirect to Home Page
+        this.auth.getRol();
         this.router.navigate(['/home']);
       }
     } catch (error) {
-      
+      console.log(error);
     }
   }
 

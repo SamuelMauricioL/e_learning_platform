@@ -2,13 +2,14 @@ import {Injectable } from '@angular/core';
 import {Observable } from 'rxjs';
 import { UsuarioModel } from '../models/Usuario/usuario-model';
 import { UsuarioGateway } from '../models/Usuario/usuario-gateway';
+import { AuthService } from 'src/app/infraestructure/driven-adapter/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class GetUserUseCases {
-  constructor( private _userGateway: UsuarioGateway) {}
+  constructor( private _userGateway: UsuarioGateway,private auth: AuthService) {}
 
   getAllUsers(): Observable<Array<UsuarioModel>> {
     //TODO: En este sitio podríamos manejar las configuraciones y hace un control de excepciones
@@ -32,4 +33,8 @@ export class GetUserUseCases {
   getUsersByEmail(email:string):Observable<Array<UsuarioModel>>{
     return this._userGateway.getUsersByEmail(email)
   }
+  getGeneralUser():Promise<any>{
+    return this._userGateway.getGeneralUser();
+  }
+
 }

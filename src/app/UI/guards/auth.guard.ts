@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree ,Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable,of, concat , range} from 'rxjs';
 import { AuthService } from '../../infraestructure/driven-adapter/auth/auth.service';
+import { GetRolesUseCase } from 'src/app/domain/usecase/get-roles-use-case';
+import { GetUserUseCases } from 'src/app/domain/usecase/get-user-use-case';
+import { map,take, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,24 +12,35 @@ export class AuthGuard implements CanActivate {
   public user$: Observable<any> = this.auth.afAuth.user;
   public usuario : any;
   public permisosRuta:any;
-  constructor(private auth: AuthService, private router: Router) {
-    this.user$.subscribe((result)=>{
-      this.usuario = result;
-    })
+  public cambio:boolean=true;
+  constructor(private auth: AuthService, private router: Router, private seriveRol:GetRolesUseCase,private serviceUser:GetUserUseCases) {
+    
    }
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log(this.user$);
+    state: RouterStateSnapshot): Observable<boolean |  any> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
-      if(this.usuario!=null){
-        return true;
-      }else{
-        this.router.navigate(['/home']);
-        return false
-      }
-    
-    
+      return this.user$.pipe(
+        map(val=>{
+          console.log(val);
+          if(val!=null){
+            const datos:any  = localStorage.getItem('userRoles');
+            let jsdatos:any = JSON.parse(datos);
+            console.log(jsdatos);
+            let permisos = jsdatos.roles.permisosRuta;
+            console.log(permisos);
+            let existe = permisos.indexOf(route.url[0].path)
+            console.log(existe);
+            if(existe >= 0){
+              return true;
+            }else{
+              return false;
+            }
+          }else{
+            return false;
+          }
+        })
+      )
   }
   
 }
