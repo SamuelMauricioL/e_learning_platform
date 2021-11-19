@@ -12,6 +12,10 @@ export class HomeComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.user;
   public test: string = "asd";
+  datoUsuario!: any;
+  nombre: any;
+  codigo:any;
+  email:any
 
   constructor(
     private auth: AuthService,
@@ -19,8 +23,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.user$);
+    // localStorage.setItem('usuario', JSON.stringify(this.user));
+    this.datoUsuario = localStorage.getItem('userRoles');
+    this.nombre = JSON.parse(this.datoUsuario).nombre;
+    this.codigo = JSON.parse(this.datoUsuario).codigo;
+    this.email = JSON.parse(this.datoUsuario).email;
   }
-  
+
 
 }

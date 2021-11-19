@@ -25,23 +25,23 @@ export class LoginComponent implements OnInit {
 
 
   type_user: string = this.route.snapshot.params.typeUser;
+  color: string = '';
 
   ngOnInit(): void {
+    var intro = document.getElementById('backg');
+    if(this.type_user === 'Profesor') {
+      intro!.style.backgroundColor = 'rgba(37, 162, 220, 1)';
+    } else if(this.type_user === 'Alumno') {
+      intro!.style.backgroundColor = 'rgba(243, 225, 60, 1)';
+    }
     
   }
 
   async onLogin(typeUser: string) {
     const {email, password} = this.loginForm.value;
-    console.log("this.type_user");
-    console.log(this.type_user);
-    console.log("typeUser");
-    console.log(typeUser);
     try {
       const user = this.auth.login(email, password);
-      console.log("User");
-      console.log(user);
       if (await user) {
-        // Redirect to Home Page
         this.auth.getRol();
         this.router.navigate(['/home']);
       }

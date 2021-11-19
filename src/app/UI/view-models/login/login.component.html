@@ -1,55 +1,51 @@
-<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="./login.component.scss" />
+<div class="container" style="margin-left: 50px; margin-left: 10%;">
+    <div class="container" style="margin-top: 50px; width: 100%;">
+        <div class="container">
+            <div class="container" style="width: 500px; height: 500px; margin-inline: auto; padding-top: 15px;">
+                <div class="container" id="backg" style='width: 320px; height: 480px; border-radius: 25px; margin-inline: auto;'>
+                    <div class="container" style="width: 100%; text-align: center; top: -60px; position: relative; ">
+                        <img *ngIf="type_user == 'Profesor'" data-name="img_profesora" src="./../../../../assets/img_profesora.png" style=" height: 130px;">
+                        <img *ngIf="type_user == 'Profesor'" data-name="img_profesor" src="./../../../../assets/img_profesor.png" style=" height: 130px;">
+                        <img *ngIf="type_user == 'Alumno'" data-name="img_profesora" src="./../../../../assets/img_alumnos_dt.png" style=" height: 130px;">
+                    </div>
+                    <div class="container" style="text-align: center; width: 100%; color: white; font-weight: bolder; font-size: 20px; top: -40px; position: relative;">
+                        <span>LOGIN {{type_user}}</span>
+                    </div>
+                    <form [formGroup]="loginForm" (ngSubmit)="onLogin(type_user)">
 
-<div id="v_doc_login" class="v_doc_login_Class">
-    <img style="position:absolute;width:210px;height:46px;left:410px;top:670px;overflow:visible;" data-type="Rectangle" data-name="button_google" class="button_google_Class" src="./../../../../assets/button_google.png" srcset="./../../../../assets/button_google.png 1x">
+                        <div class="container" style=" width: 80%; margin-inline: auto;">
+                            <div class="container">
+                                <span style="color: white; font-weight: bolder; font-size: 18px;"> Correo </span>
+                            </div>
+                            <div class="container">
+                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email" style="height: 5.5vh; margin-top: 2%; width: 100%; border-radius: 10px; padding: 3%;font-size: 15px; ">
+                            </div>
+                        </div>
 
-    <img style="position:absolute;width:210px;height:46px;left:640px;top:670px;overflow:visible;" data-type="Rectangle" data-name="button_facebook" class="button_facebook_Class" src="./../../../../assets/button_facebook.png" srcset="./../../../../assets/button_facebook.png 1x">
+                        <div class="container" style=" width: 80%; margin-inline: auto; margin-top: 20px;">
+                            <div class="container">
+                                <span style="color: white; font-weight: bolder; font-size: 18px;"> Contraseña </span>
+                            </div>
+                            <div class="container">
+                                <input type="password" class="form-control" placeholder="Password" formControlName="password" style="height: 5.5vh; margin-top: 2%; width: 100%; border-radius: 10px; padding: 3%;font-size: 15px;">
+                            </div>
+                        </div>
 
-    <div style="position:absolute;width:393px;height:602px;left:443px;top:57px;overflow:visible;" data-type="Group" data-name="div_general" class="div_general_Class">
-        <svg data-type="Rectangle" data-name="div_fondo" class="div_fondo">
-            <rect class="div_fondo_Class" rx="38" ry="38" x="0" y="0" width="393" height="523">
-            </rect>
-        </svg>
-        <div style="position:absolute;width:150px;height:205px;left:122px;top:0px;overflow:visible;" data-type="Group" data-name="Grupo 227" class="Grupo_227_Class">
-            <div data-type="Text" data-name="text_login_docente" class="text_login_docente_Class">
-                <span>LOGIN {{type_user}}</span>
+                        <div class="container" style=" width: 80%; margin-inline: auto; margin-top: 50px; text-align: center;">
+                            <div type="submit" data-type="Group" data-name="btn_ingresar" class="btn_ingresar_Class">
+                                <button type="submit" class="btn btn-primary text_ingresar_Class" style="width: 100%;height: 80%; font-size: 18px;">Login</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-            <img style="position:absolute;width:79px;height:151px;left:65px;top:0px;overflow:visible;" data-type="Rectangle" data-name="img_profesor" class="img_profesor_Class" src="./../../../../assets/img_profesor.png" srcset="./../../../../assets/img_profesor.png 1x">
-
-            <img style="position:absolute;width:37px;height:145px;left:28px;top:6px;overflow:visible;" data-type="Rectangle" data-name="img_profesora" class="img_profesora_Class" src="./../../../../assets/img_profesora.png" srcset="./../../../../assets/img_profesora.png 1x">
-
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin(type_user)">
-            <div style="position:absolute;width:266px;height:270px;left:64px;top:286px;overflow:visible;" data-type="Group" data-name="input_correo" class="input_correo_Class">
 
-                <div data-type="Text" data-name="text_correo" class="text_correo_Class">
-                    <span>CORREO</span>
-                </div>
-                <div>
-                    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email" style="height: 5.5vh; margin-top: 11%; width: 100%; border-radius: 10px; padding: 3%;font-size: 15px; ">
-                </div>
+        <div class="container" style="text-align-last: center;">
+            <img data-type="Rectangle" data-name="button_google" src="./../../../../assets/button_google.png" style="margin-right: 5px; margin-left: 5px;">
 
-                <div type="submit" style="position:absolute;width:164px;height:34px;left:50px;top:236px;overflow:visible;" data-type="Group" data-name="btn_ingresar" class="btn_ingresar_Class">
-                    <!-- <div data-type="Text" data-name="text_ingresar" class="text_ingresar_Class">
-                        <span>INGRESAR</span>
-                    </div> -->
-                    <button type="submit" class="btn btn-primary text_ingresar_Class" style="width: 100%;height: 80%;">Login</button>
-                </div>
-            </div>
-            <div style="position:absolute;width:266px;height:73px;left:64px;top:385px;overflow:visible;" data-type="Group" data-name="input_contrasenia" class="input_contrasenia_Class">
-                <div data-type="Text" data-name="text_contrasenia" class="text_contrasenia_Class">
-                    <span>CONTRASEÑA</span>
-                </div>
-                <div>
-                    <input type="password" class="form-control" placeholder="Password" formControlName="password" style="height: 5.5vh; margin-top: 11%; width: 100%; border-radius: 10px; padding: 3%;font-size: 15px;">
-                </div>
-
-            </div>
-        </form>
-
+            <img data-type="Rectangle" data-name="button_facebook" src="./../../../../assets/button_facebook.png" style="margin-right: 5px; margin-left: 5px;">
+        </div>
     </div>
 </div>
-
-<!-- <ng-template #login-alumno>
-
-</ng-template> -->

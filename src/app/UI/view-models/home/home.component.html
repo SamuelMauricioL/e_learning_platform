@@ -5,19 +5,17 @@
     <div class="container" style="padding-top: 20px; margin-bottom: 100px; width: 60%; ">
 
         <div class="card-header" style="margin-top:20px;">
-            <img src="../../../../assets/snoop-dogg.png" class="rounded-circle" alt="Profile picture" style="width: 80px; margin-top: 20px;">
-            <h4 class="card-title m-2">Alexandra Daddario</h4>
+            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" class="rounded-circle" alt="Profile picture" style="width: 80px; margin-top: 20px;">
+            <h4 class="card-title m-2">{{nombre}}</h4>
         </div>
         <div class="card-body" style="padding: 10px;">
 
-            <h4 class="card-title">Teacher change</h4>
-            <p class="card-text">
-                Mr. Zac Efron has left the university. Hence,
-
-            </p>
+            <h4 class="card-title">{{codigo}}</h4>
+            <p class="card-text"> {{email}} </p>
         </div>
         <div class="card-footer text-right">
-            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">Ver Perfil</button>
+            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">Ver
+                Perfil</button>
         </div>
 
     </div>
@@ -31,36 +29,17 @@
             <a style="font-family: 'Courier New', Courier, monospace; font-size: 4vh; zoom: 2;">E-Learning Platform</a>
         </div>
 
-        <div style="height: 80vh; margin-left: 8vw; margin-top: -3vw;">
-
-            <div style="width:266px;height:355px;overflow:visible; top: 17vh; left:42vh; " data-type="Group " data-name="button_alumnos " onclick="application.goToTargetView(event) " class="button_alumnos_Class " routerLink="/login/Alumno ">
-                <svg data-type="Rectangle " data-name="div_alumnos " class="div_alumnos ">
-                    <rect class="div_alumnos_Class " rx="38 " ry="38 " x="0 " y="0 " width="266 " height="355 ">
-                    </rect>
-                </svg>
-                <div data-type="Text " data-name="text_alumnos " class="text_alumnos_Class ">
-                    <span>ESTUDIANTES</span>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-6">
+                <div class="container" style="direction: rtl;" routerLink="/login/Alumno">
+                    <img data-type="Rectangle" style="margin-right: 40px; margin-top: 50px;" data-name="img_alumnos " src="./../../../../assets/alumnos.png " srcset="./../../../../assets/alumnos.png 1x ">
                 </div>
-                <img style="width:227px;height:225px;left:19px;top:58px;overflow:visible; " data-type="Rectangle " data-name="img_alumnos " class="img_alumnos_dt_Class " src="./../../../../assets/img_alumnos_dt.png " srcset="./../../../../assets/img_alumnos_dt.png
-            1x ">
-
             </div>
-            <div style="width:266px;height:355px;overflow:visible; top:-36vh; left:87vh; " data-type="Group " data-name="button_docentes " onclick="application.goToTargetView(event) " class="button_docentes_Class " routerLink="/login/Docente ">
-                <svg data-type="Rectangle " data-name="div_docentes " class="div_docentes ">
-                    <rect class="div_docentes_Class " rx="38 " ry="38 " x="0 " y="0 " width="266 " height="355 ">
-                    </rect>
-                </svg>
-                <img style="width:143px;height:279px;left:113px;top:22px;overflow:visible; " data-type="Rectangle " data-name="img_profesor " class="img_profesor_Class " src="./../../../../assets/img_profesor.png " srcset="./../../../../assets/img_profesor.png
-            1x ">
-
-                <div data-type="Text " data-name="text_docentes " class="text_docentes_Class ">
-                    <span>DOCENTES</span>
+            <div class="col-6 ">
+                <div class="container" routerLink="/login/Profesor">
+                    <img data-type="Rectangle" style="margin-left: 40px; margin-top: 50px;" data-name="img_alumnos " src="./../../../../assets/docentes.png " srcset="./../../../../assets/docentes.png 1x ">
                 </div>
-                <img style="width:68px;height:270px;left:45px;top:31px;overflow:visible; " data-type="Rectangle " data-name="img_profesora " class="img_profesora_Class " src="./../../../../assets/img_profesora.png " srcset="./../../../../assets/img_profesora.png
-            1x ">
-
             </div>
         </div>
-
     </div>
 </ng-template>
