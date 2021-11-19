@@ -43,10 +43,16 @@ export class RespuestasComponent implements OnInit {
   crct = 0;
   eval = 0;
 
+  sec = 0;
+  min = 0;
+  hrs = 0;
+  tiempo_transcurrido = '';
+  
+
   notas = Array();
 
   ngOnInit(): void {
-
+        
     this.service_preguntas.getAll(this.idPregunta).subscribe(pregunta => {
       for (let i = 0; i < pregunta.length; i++) {
         this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
@@ -66,8 +72,9 @@ export class RespuestasComponent implements OnInit {
           });
         });
       }
-      console.log(this.collection_de_preguntas_completo);
-      this.startTimer();
+      
+      this.timer();
+      
     },
       error => {
         console.error(error);
@@ -79,12 +86,7 @@ export class RespuestasComponent implements OnInit {
 
   interval: any;
 
-  startTimer() {
-    this.interval = setInterval(() => {
-      this.timeLeft++;
-      this.timePassed = this.formateraHMS(this.timeLeft);
-    }, 1000)
-  }
+  
 
   pauseTimer() {
     clearInterval(this.interval);
@@ -111,6 +113,28 @@ export class RespuestasComponent implements OnInit {
     }
   }
 
+  tick(){
+    this.sec++;
+    if (this.sec >= 60) {
+        this.sec = 0;
+        this.min++;
+        if (this.min >= 60) {
+            this.min = 0;
+            this.hrs++;
+        }
+    }
+  }
+  add() {
+    this.tick();
+    this.tiempo_transcurrido = (this.hrs > 9 ? this.hrs : "0" + this.hrs) 
+        	 + ":" + (this.min > 9 ? this.min : "0" + this.min)
+       		 + ":" + (this.sec > 9 ? this.sec : "0" + this.sec);        
+    this.timer();
+  }
+  timer() {    
+    setTimeout(()=>{ this.add(); },1000);
+
+  }
   finalizar() {
 
   }
