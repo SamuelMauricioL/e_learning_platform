@@ -46,7 +46,7 @@
 
 </div> -->
 
-<div class="container" style="max-width: none; max-height: none; padding-top: 20px; background-image: url('https://images.vexels.com/media/users/3/145252/raw/02dabb44e9ba039fe76c8f08dd67172a-lanzamiento-de-cohete-al-espacio-ilustracion.jpg'); background-repeat: no-repeat; background-size: cover;">
+<div class="container" style="max-width: none; height:100vh; padding-top: 20px; background-image: url('https://images.vexels.com/media/users/3/145252/raw/02dabb44e9ba039fe76c8f08dd67172a-lanzamiento-de-cohete-al-espacio-ilustracion.jpg'); background-repeat: no-repeat; background-size: cover;">
     <div class="header">
         <div class="container" style="margin: 20px;">
             <div class="row">
@@ -66,25 +66,25 @@
                             <app-steps-preguntas [preguntas]="collection_de_preguntas_completo"></app-steps-preguntas>
                         </div>
                         <div class="col-md-2">
-                            <div class="card border-success mb-1">
+                            <div class="card border-success mb-1 cardInfo">
                                 <div class="card-body text-success text-center">
                                     <p class="card-text">TIEMPO PASADO - FALTA</p>
                                     <h3 class="card-title">{{timePassed}}</h3>
                                 </div>
                             </div>
-                            <div class="card border-success mb-1">
+                            <div class="card border-success mb-1 cardInfo">
                                 <div class="card-body text-success text-center">
                                     <p class="card-text">TOTAL CORRECTOS</p>
                                     <h3 class="card-title">0</h3>
                                 </div>
                             </div>
-                            <div class="card border-danger mb-1">
+                            <div class="card border-danger mb-1 cardInfo">
                                 <div class="card-body text-danger text-center">
                                     <p class="card-text">TOTAL INCORRECTOS</p>
                                     <h3 class="card-title">0</h3>
                                 </div>
                             </div>
-                            <div class="card border-info ">
+                            <div class="card border-info mb-1 cardInfo">
                                 <div class="card-body text-info text-center">
                                     <p class="card-text">TOTAL PREGUNTAS</p>
                                     <h3 class="card-title">{{collection_de_preguntas_completo.length}}</h3>
