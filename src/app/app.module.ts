@@ -35,6 +35,7 @@ import { RespuestasService } from './infraestructure/driven-adapter/respuestas/r
 
 import { RolesGateway } from './domain/models/Roles/roles-gateway';
 import { RolesService } from './infraestructure/driven-adapter/roles/roles.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { RolesService } from './infraestructure/driven-adapter/roles/roles.servi
     AngularFirestoreModule,
     AngularFireAuthModule,
     CountdownModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     // {

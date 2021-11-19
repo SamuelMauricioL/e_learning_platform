@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
-import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
+import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 import Stepper from 'bs-stepper';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.service';
@@ -23,11 +23,14 @@ export class RespuestasComponent implements OnInit {
 
   private stepper!: Stepper;
 
+
+  isLinear = false;
+
   constructor(
     private route: ActivatedRoute,
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
-    private auth: AuthService
+    private auth: AuthService,
   ) { this.managerForm = new FormGroup({}); }
 
   managerForm: FormGroup;
@@ -43,6 +46,7 @@ export class RespuestasComponent implements OnInit {
   notas = Array();
 
   ngOnInit(): void {
+
     this.service_preguntas.getAll(this.idPregunta).subscribe(pregunta => {
       for (let i = 0; i < pregunta.length; i++) {
         this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
@@ -68,14 +72,6 @@ export class RespuestasComponent implements OnInit {
       error => {
         console.error(error);
       });
-
-    //@ts-ignore
-
-
-    //  this.stepper = new Stepper(document.querySelector('#stepper1')!, {
-    //   linear: false,
-    //   animation: true
-    // })
   }
 
   timePassed: any;
@@ -97,17 +93,9 @@ export class RespuestasComponent implements OnInit {
   formateraHMS(time: any) {
     let MS = time % 1000;
     let S = Math.floor(((time - MS) / 1000) % 60);
-    
     let M = Math.floor((S / 60) % 60);
     let H = Math.floor(M / 60);
     return H + ":" + M + ":" + S;
-  }
-
-  onSelect(respuesta: string, correcto: string) {
-    console.log(respuesta);
-    console.log(correcto);
-    // this.rpta = parseInt(respuesta);
-    // this.crct = parseInt(correcto);
   }
 
   evaluar() {
