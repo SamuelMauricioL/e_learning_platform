@@ -3,17 +3,17 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PreguntasGateway } from 'src/app/domain/models/Pregunta/pregunta-gateway';
-import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
+import { AlternativaPreguntaModel, ElementosPreguntaModel, PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreguntasService extends PreguntasGateway {
-  
+
   constructor(
     private firestore: AngularFirestore,
-  ) {super();}
-  
+  ) { super(); }
+
   getAllPreguntas(_idSubTema: string): Observable<PreguntaModel[]> {
     const path: string = `/SubTemas/${_idSubTema}`;
     return this.firestore.collection<PreguntaModel>('Preguntas', ref => ref.where('idSubTema', '==', path)).snapshotChanges().pipe(
@@ -24,6 +24,33 @@ export class PreguntasService extends PreguntasGateway {
       }))
     );
   }
+
+  // get All Preguntas And Alternaticas y elementos
+  getAllPreguntasAlternativas(_idPregunta: string): any {
+    const path: string = `Preguntas/${_idPregunta}/Alternativas`;
+    return this.firestore.collection(path).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as AlternativaPreguntaModel;
+          data.id = a.payload.doc.id;
+          return data;
+      }))
+    );
+
+  }
+
+   // get All Preguntas And Alternaticas y elementos
+   getAllPreguntasElementos(_idPregunta: string): any {
+    const path: string = `Preguntas/${_idPregunta}/Elementos`;
+    return this.firestore.collection(path).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as ElementosPreguntaModel;
+          data.id = a.payload.doc.id;
+          return data;
+      }))
+    );
+
+  }
+
   createPregunta(_model: PreguntaModel): Promise<any> {
     return this.firestore.collection('Preguntas').add(_model);
   }

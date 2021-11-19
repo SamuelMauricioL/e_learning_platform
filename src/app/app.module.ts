@@ -35,8 +35,9 @@ import { RespuestasService } from './infraestructure/driven-adapter/respuestas/r
 
 import { RolesGateway } from './domain/models/Roles/roles-gateway';
 import { RolesService } from './infraestructure/driven-adapter/roles/roles.service';
-
 import { AuthGuard } from './UI/guards/auth.guard';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { AuthGuard } from './UI/guards/auth.guard';
     AngularFirestoreModule,
     AngularFireAuthModule,
     CountdownModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     // {

@@ -1,0 +1,43 @@
+<div class="container">
+    <mat-horizontal-stepper [labelPosition]="'bottom'" style="background-color: white; ">
+        <mat-step *ngFor="let i of preguntas; let indexOfelement=index;">
+            <ng-template matStepLabel>
+                <p style="color: black;">Pregunta {{indexOfelement + 1}}</p>
+            </ng-template>
+            <div class="container">
+                <div class="container" style="margin: 5px;">
+                    <div class="container" id="pregunta">
+                        <div class="card-header">
+                            <h5 class="card-title">{{i.pregunta}}</h5>
+                            <p class="card-text">{{i.descripcion}}</p>
+                        </div>
+                        <div class="card-body" style="text-align-last: center;">
+                            <div class="container" *ngFor="let elem of i.elementos">
+                                <div class="card-body" *ngIf="elem.tipoElemento == 'texto'">
+                                    <h5 class="card-title">{{elem.valor}}</h5>
+                                </div>
+                                <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 150px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container" id="alternativas" style="width: 100%; ">
+                        <div class="row" style="justify-content: center;">
+                            <div class="col-1 card p-0 m-1" id="alter_X" *ngFor="let alte of i.alternativas" active>
+                                <div class="container" (click)="onSelect(alte.id, alte.correcta)">
+                                    <div class="text-center">
+                                        <h3 class="card-title">{{alte.valor}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container" style="writing-mode: tb-rl;">
+                    <button matStepperNext id="next">Next</button>
+                </div>
+            </div>
+        </mat-step>
+
+
+    </mat-horizontal-stepper>
+</div>

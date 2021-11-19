@@ -58,6 +58,7 @@ export class AuthService{
        
        return varUser;
     } catch (error) {
+      console.log("login error");
       console.log(error);
       return null;
     }

@@ -32,8 +32,14 @@ export class LoginComponent implements OnInit {
 
   async onLogin(typeUser: string) {
     const {email, password} = this.loginForm.value;
+    console.log("this.type_user");
+    console.log(this.type_user);
+    console.log("typeUser");
+    console.log(typeUser);
     try {
       const user = this.auth.login(email, password);
+      console.log("User");
+      console.log(user);
       if (await user) {
         // Redirect to Home Page
         this.auth.getRol();

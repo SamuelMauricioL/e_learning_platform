@@ -9,6 +9,20 @@ export interface PreguntaModel {
     estado: boolean;
 }
 
+export interface AlternativaPreguntaModel {
+    id: string;
+    correcta: string;
+    posicion: string;
+    valor: string;
+}
+
+export interface ElementosPreguntaModel {
+    id: string;
+    posicion: string;
+    tipoElemento: string;
+    valor: string;
+}
+
 export class PreguntaConvert {
     public static toWelcome(json: string): PreguntaModel[] {
         return JSON.parse(json);

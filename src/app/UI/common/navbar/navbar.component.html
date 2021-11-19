@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-ligth bg-ligth" *ngIf="user$ | async as user; else login" style="z-index: 99;">
+<nav class="navbar navbar-expand-lg navbar-ligth bg-ligth" *ngIf="user$ | async as user; else login" style="z-index: 9999;">
     <div style="width: 50%;">
         <a class="navbar-brand" routerLink="/" style="margin-left: 2%; color: black;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante
         </span> </a>
@@ -66,5 +66,5 @@
 
 <ng-template #login>
     <!-- <app-home></app-home> -->
-    
+
 </ng-template>

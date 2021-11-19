@@ -1,0 +1,26 @@
+#alter_X {
+    border: 1px solid green;
+    border-radius: 5%;
+    color: green;
+    cursor: pointer;
+}
+
+#alter_X :hover {
+    background-color: green;
+    color: white;
+}
+
+#alter_X:active {
+    background-color: green;
+    color: white;
+}
+
+#next {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid green;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+}

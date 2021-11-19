@@ -13,6 +13,14 @@ export class GetPreguntasUseCases {
   getAll(_idTema: string): Observable<Array<PreguntaModel>> {
     return this._gateway.getAllPreguntas(_idTema);
   }
+
+  getAllAlternative(_idPregunta: string):any {
+    return this._gateway.getAllPreguntasAlternativas(_idPregunta);
+  }
+
+  getAllElementos(_idPregunta: string):any {
+    return this._gateway.getAllPreguntasElementos(_idPregunta);
+  }
   
   create(model: PreguntaModel): Promise<any> {
     return this._gateway.createPregunta(model);

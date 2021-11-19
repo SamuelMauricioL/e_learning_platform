@@ -1,25 +1,24 @@
 <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="./home.component.scss" />
 
-<div class="container" *ngIf="user$ | async as user; else login">
+<div class="container" *ngIf="user$ | async as user; else login" style="width: 70%; float: right;">
 
-    <div class="content" style="padding-top: 10%; padding-left: 10%; margin-bottom: 100px;">
-        <article class="card">
-            <section class="card-header">
-                <img src="../../../../assets/snoop-dogg.png" class="rounded-circle" alt="Profile picture">
-                <h4 class="card-title m-2">Alexandra Daddario</h4>
-            </section>
-            <section class="card-body" style="padding: 10px;">
+    <div class="container" style="padding-top: 20px; margin-bottom: 100px; width: 60%; ">
 
-                <h4 class="card-title">Teacher change</h4>
-                <p class="card-text">
-                    Mr. Zac Efron has left the university. Hence,
+        <div class="card-header" style="margin-top:20px;">
+            <img src="../../../../assets/snoop-dogg.png" class="rounded-circle" alt="Profile picture" style="width: 80px; margin-top: 20px;">
+            <h4 class="card-title m-2">Alexandra Daddario</h4>
+        </div>
+        <div class="card-body" style="padding: 10px;">
 
-                </p>
-            </section>
-            <section class="card-footer text-right">
-                <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">Ver Perfil</button>
-            </section>
-        </article>
+            <h4 class="card-title">Teacher change</h4>
+            <p class="card-text">
+                Mr. Zac Efron has left the university. Hence,
+
+            </p>
+        </div>
+        <div class="card-footer text-right">
+            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">Ver Perfil</button>
+        </div>
 
     </div>
 </div>
