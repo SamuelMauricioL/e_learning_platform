@@ -1,162 +1,105 @@
-* {
-    --red: hsl(0, 78%, 62%);
-    --cyan: hsl(180, 62%, 55%);
-    --orange: hsl(34, 97%, 64%);
-    --blue: hsl(212, 86%, 64%);
-    --varydarkblue: hsl(234, 12%, 34%);
-    --grayishblue: hsl(229, 6%, 66%);
-    --verylightgray: hsl(0, 0%, 98%);
-    --weight1: 200;
-    --weight2: 400;
-    --weight3: 600;
+.contenido {
+    height: 0;
+    margin:0px 30px;
+    overflow: hidden;
+    transition: all .5s ease;
 }
-
-body {
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--veryLightGray);
+.titulo{
+    height: 30px;
 }
-
-.attribution {
-    font-size: 11px;
+.bloque.activo .contenido{
+    height: auto;
+}
+.alternativa{
+    width: 60%;
     text-align: center;
-    a {
-        color: hsl(228, 45%, 44%);
-    }
 }
 
-h1 {
-    &:first-of-type {
-        font-weight: var(--weight1);
-        color: var(--varyDarkBlue);
-    }
-    &:last-of-type {
-        color: var(--varyDarkBlue);
-    }
+
+.mostrar {
+    display: block;
+}
+.ocultar {
+display: none;
+}
+p{
+    margin: 0;
 }
 
-.header {
-    text-align: center;
-    line-height: 0.8;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    p {
-        margin: 0 auto;
-        line-height: 2;
-        color: var(--grayishBlue);
-    }
-}
-
-.box {
-    p {
-        color: var(--grayishBlue);
-    }
-    border-radius: 5px;
-    padding: 30px;
-    margin: 10px;
-    // -webkit-box-shadow: 0px 10px 20px -20px;
-    // -moz-box-shadow: 0px 30px 40px -20px;
-    // -ms-box-shadow: 0px 30px 40px -20px;
-    // -o-box-shadow: 0px 30px 40px -20px;
-    box-shadow: 0px 5px 30px -20px;
-}
-
-img {
-    float: right;
-}
-
-.cyan {
-    border-top: 3px solid var(--cyan);
-}
-
-.red {
-    border-top: 3px solid var(--red);
-}
-
-.blue {
-    border-top: 3px solid var(--blue);
-}
-
-.orange {
-    border-top: 3px solid var(--orange);
-}
-
-h2 {
-    color: var(--varyDarkBlue);
-    font-weight: var(--weight3);
-}
-
-@media (max-width: 400px) {
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 450px) {
-    .box {
-        height: 200px;
-    }
-}
-
-@media (max-width: 950px) and (min-width: 450px) {
-    .box {
-        text-align: center;
-        height: 180px;
-    }
-}
-
-@media (min-width: 950px) {
-    .row1-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .row2-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .box-down {
-        position: relative;
-        top: 150px;
-    }
-    .box {
-        width: 67%;
-    }
-    .header {
-        p {
-            width: 30%;
-        }
-    }
-}
-
-a {
-    position: relative;
-    text-decoration: none;
-    color: rgba(51, 7, 7, 0.9);
-}
-
-a::after {
-    position: absolute;
-    top: 25px;
-    left: 0;
-    content: "";
-    width: 0%;
-    height: 3px;
-    background-color: hsl(180, 62%, 55%);
-    transition: all 0.5s;
-}
-
-a:hover::after {
+// css del modal 
+.modal-agregar{
+    z-index: 99;
     width: 100%;
+    height: 100vh;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
 }
+.modal-agregar.activo{
+    opacity: 1; 
+    visibility: visible;
+}
+.contenedor{
+    width: 1000px;
+    height: 800px;
+    margin: auto;
+    background: #fff;
+    box-shadow: 1px 3px 5px rgba(80, 80, 80, 0.7);
+    transition: all 500ms ease;
+    position: relative;
+    transform: translateY(-30%);
+    border-radius: 6px;
 
-.card__apply {
-    grid-row: 4/5;
-    align-self: center;
+}
+.contenedor.activo{
+    transform: translateY(0%);
+}
+.contenedor .cabeza{
+    border-radius: 5px 5px 0px 0px;
+    background: rgb(12, 89, 204);
+    padding:10px;
+    color: #fff;
+}
+.cerrar{
     cursor: pointer;
 }
-
-i {
-    margin-left: 10px;
+// css de elementos
+.elemento{
+    margin:10px;
+    transition: all 500ms ease;
+    
 }
+.elemento:hover{
+margin-left: 0px;
+margin-right: 0px;
+}
+.pluss-elemento{
+    cursor: pointer;
+    opacity: 0.8;
+}
+.pluss-elemento:hover{
+   opacity: 1;
+}
+.selector-elemento{
+    cursor: grab;
+    opacity: 0.8;
+}
+.selector-elemento:hover{
+    opacity: 1;
+ }
+ .identificador-entrada{
+     width: 20px;
+ }
+ .espacio-entrada{
+     width: 20px;
+ }
+ .divider-elemento{
+     margin-top:12px;
+     background: #000000;
+ }

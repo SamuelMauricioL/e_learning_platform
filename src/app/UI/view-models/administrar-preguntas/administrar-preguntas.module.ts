@@ -5,7 +5,7 @@ import { AdministrarPreguntasRoutingModule } from './administrar-preguntas-routi
 import { AdministrarPreguntasComponent } from './administrar-preguntas.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AdministrarPreguntasComponent
@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdministrarPreguntasRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
   ]
 })
 export class AdministrarPreguntasModule { }

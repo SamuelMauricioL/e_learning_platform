@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,12 +39,14 @@ import { RolesService } from './infraestructure/driven-adapter/roles/roles.servi
 import { AuthGuard } from './UI/guards/auth.guard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 @NgModule({
   declarations: [
     AppComponent,
     AlbumCardComponent,
     CircularProgressIndicatorComponent,
     NavbarComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireAuthModule,
     CountdownModule,
     BrowserAnimationsModule,
+    AccordionModule,
+    ModalModule.forRoot(),
+  ],
+  exports:[
+    AccordionModule,
   ],
   providers: [
     // {

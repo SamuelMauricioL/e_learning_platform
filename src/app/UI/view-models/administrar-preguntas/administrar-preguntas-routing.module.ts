@@ -8,4 +8,6 @@ const routes: Routes = [{ path: '', component: AdministrarPreguntasComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdministrarPreguntasRoutingModule { }
+export class AdministrarPreguntasRoutingModule { 
+ 
+}
