@@ -1,6 +1,6 @@
 <div class="container">
-    <mat-horizontal-stepper [labelPosition]="'bottom'" style="background-color: white; ">
-        <mat-step *ngFor="let i of preguntas; let indexOfelement=index;">
+    <mat-horizontal-stepper [labelPosition]="'end'" style="background-color: white; " #stepper>
+        <mat-step *ngFor="let i of preguntas; let indexOfelement=index;" [editable]="false">
             <ng-template matStepLabel>
                 <p style="color: black;">Pregunta {{indexOfelement + 1}}</p>
             </ng-template>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="container" id="alternativas" style="width: 100%; ">
                         <div class="row" style="justify-content: center;">
-                            <div class="col-1 card p-0 m-1" id="alter_X" *ngFor="let alte of i.alternativas" active>
+                            <div class="col-1 card p-0 m-1 {{alte.id}}" id="alter_X" *ngFor="let alte of i.alternativas">
                                 <div class="container" (click)="onSelect(alte.id, alte.correcta)">
                                     <div class="text-center">
                                         <h3 class="card-title">{{alte.valor}}</h3>
@@ -33,11 +33,12 @@
                     </div>
                 </div>
                 <div class="container" style="writing-mode: tb-rl;">
-                    <button matStepperNext id="next">Next</button>
+                    <button matStepperNext id="next" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: hidden;': 'visibility: visible;'">Next</button>
+                    <button id="finish" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button>
+                    <!-- <button matStepperNext id="finish" [disabled]="stepper.selectedIndex === stepper._steps.length-1" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button> -->
+                    <!-- <button (click)="nextfunction(stepper)">sed</button> -->
                 </div>
             </div>
         </mat-step>
-
-
     </mat-horizontal-stepper>
 </div>

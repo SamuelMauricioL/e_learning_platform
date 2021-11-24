@@ -10,9 +10,17 @@
     color: white;
 }
 
-#alter_X:active {
+.correct {
+    color: white !important;
     background-color: green;
-    color: white;
+    cursor: not-allowed;
+}
+
+.incorrect {
+    color: white !important;
+    background-color: red !important;
+    border: 1px solid red !important;
+    cursor: not-allowed !important;
 }
 
 #next {
@@ -20,6 +28,16 @@
     border: thick;
     border: 1px solid green;
     color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+}
+
+#finish {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid red;
+    color: red;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 18px;
