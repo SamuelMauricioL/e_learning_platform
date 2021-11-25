@@ -25,7 +25,6 @@ export class CursosComponent implements OnInit {
 
     this.service.getAllCursos(this.idGrado).subscribe(resp => {
       this.collection = resp;
-      console.log(this.collection)
     },
       error => {
         console.error(error);

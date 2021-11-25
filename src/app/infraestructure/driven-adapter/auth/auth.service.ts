@@ -48,7 +48,6 @@ export class AuthService{
   }
   async Partes(val:any){
     let prueba =  await this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('email','==',val.email)).valueChanges().toPromise().then(cal=>{return cal;});
-    console.log(prueba);
     return  this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('email','==',val.email)).valueChanges()
   }
   async login(email: string, password: string) {
@@ -90,12 +89,10 @@ export class AuthService{
           (actions:any)=> {
             
             const datos = actions[0]as UsuarioModel;
-            console.log(actions);
             this.firestore.collection<RolesModel>('Roles',ref=> ref.where('rol','==',datos.rol)).valueChanges().subscribe(
               a => {
                 const data = a[0] as RolesModel;
                 datos.roles = data;
-                console.log(datos);
                 localStorage.setItem('userRoles',JSON.stringify(datos));
 
               }

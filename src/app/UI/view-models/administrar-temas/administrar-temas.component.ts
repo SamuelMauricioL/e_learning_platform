@@ -38,11 +38,9 @@ export class AdministrarTemasComponent implements OnInit {
   managerForm: FormGroup;
 
   ngOnInit(): void {
-    console.log(this.idGrado);
-    console.log(this.idCurso);
+   
     this.service.getAllTemas(this.idGrado, this.idCurso).subscribe(resp => {
       this.collection = resp;
-      console.log(this.collection)
     },
       error => {
         console.error(error);

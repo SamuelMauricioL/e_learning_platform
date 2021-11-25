@@ -22,7 +22,6 @@ export class AdministrarPreguntasComponent implements OnInit {
     let everytitle:any = document.querySelectorAll('.titulo');
     everytitle.forEach((one:any,i:number) => {
       this.eventManager.addEventListener(one,'click',()=>{
-        console.log(every[i].classList);
         let find = every[i].classList.contains('activo');
         if(find){
           every[i].classList.remove('activo');

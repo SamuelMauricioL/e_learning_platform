@@ -22,15 +22,14 @@ export class AuthGuard implements CanActivate {
       
       return this.user$.pipe(
         map(val=>{
-          console.log(val);
           if(val!=null){
             const datos:any  = localStorage.getItem('userRoles');
             let jsdatos:any = JSON.parse(datos);
-            console.log(jsdatos);
+          
             let permisos = jsdatos.roles.permisosRuta;
-            console.log(permisos);
+           
             let existe = permisos.indexOf(route.url[0].path)
-            console.log(existe);
+           
             if(existe >= 0){
               return true;
             }else{

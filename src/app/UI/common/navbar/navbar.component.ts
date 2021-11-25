@@ -30,23 +30,20 @@ export class NavbarComponent{
 
   changeProfile() {
     this.isStudent = !this.isStudent;
-    // console.log(this.isStudent);
   }
 
   getRol(){
     this.user$.subscribe((result)=>{
-      // console.log(result);
-      // console.log(result.email);
       this.serviceUser.getUsersByEmail(result.email).subscribe((result)=>{
         
         if(result!=null){
-          // console.log(result);
           let usuario:any = result[0];
           this.seriveRol.getOneRol(usuario.rol).subscribe((result)=>{
-            console.log(result);
+          
             if(result!=null){
               let menuResult = result[0].menu;
               this.menus = menuResult;
+              localStorage.setItem('user',JSON.stringify({"rol":usuario.rol, "id":usuario.id}));
             }
             
           })

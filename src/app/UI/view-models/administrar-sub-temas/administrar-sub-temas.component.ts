@@ -41,7 +41,6 @@ export class AdministrarSubTemasComponent implements OnInit {
     this.service.getAll(this.idTema).subscribe(resp => {
       this.collection = resp;
       this.list_len = resp.length;
-      console.log(this.collection)
     },
       error => {
         console.error(error);

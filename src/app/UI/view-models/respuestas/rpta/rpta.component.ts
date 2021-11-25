@@ -27,9 +27,6 @@ export class RptaComponent implements OnInit {
 
   next() {
     this.close.emit(this.rpta);
-    // console.log(this.myStepper);
-    // this.stepnext.nextfunction();
-    // stepper.next();
 
   }
 

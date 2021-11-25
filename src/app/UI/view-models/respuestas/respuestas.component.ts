@@ -1,9 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.service';
+import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 
 
 @Component({
@@ -19,8 +21,16 @@ export class RespuestasComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service_preguntas: GetPreguntasUseCases,
+    private service_respuestas: GetRespuestasUseCases,
     private auth: AuthService,
-  ) { }
+  ) {  this.managerForm = new FormGroup({});  }
+
+  idUsuario: any;
+
+  ruta: string = this.route.snapshot.params.ruta;
+  idtema: string = this.route.snapshot.params.idtema;
+  managerForm: FormGroup;
+  notas = Array();
 
   collection_de_preguntas_completo = Array();
 
@@ -120,6 +130,31 @@ export class RespuestasComponent implements OnInit {
 
   cerrarAlert(close: any) {
     this.rpta_modal = 0;
+  }
+
+  guardar(): void {
+    this.idUsuario =  localStorage.getItem('user');
+    console.log(this.idUsuario.id);
+    // let total = this.notas.reduce((a, b) => a + b, 0);
+    // let sumatotal = total / this.notas.length;
+
+    // this.managerForm = new FormGroup({
+    //   id: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
+    //   identificador: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
+    //   idAlumno: new FormControl('prueba', Validators.required),
+    //   idTema: new FormControl(this.idtema, Validators.required),
+    //   promedio: new FormControl(sumatotal, Validators.required),
+    //   ruta: new FormControl(this.ruta, Validators.required),
+    //   tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
+    //   estado: new FormControl(true, Validators.required),
+    // });
+
+    // const { id, ...obj } = this.managerForm.value;
+    // this.service_respuestas.create(obj).then((_response) => {
+    //   this.managerForm.reset();
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
   }
 
 }
