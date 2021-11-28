@@ -45,6 +45,10 @@ export class AdministrarSubTemasComponent implements OnInit {
       error => {
         console.error(error);
       });
+      localStorage.setItem("administrar-sub-temas",JSON.stringify({
+        idTema:this.idTema,
+        tema:this.name_tema
+      }))
   }
 
   navigate(id_subtema: string, name_subtema: string, type_user: string) {

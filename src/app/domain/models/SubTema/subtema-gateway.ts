@@ -6,4 +6,6 @@ export abstract class SubTemaGateway {
     abstract createSubTema(_model : SubTemaModel) : Promise<any>;
     abstract updateSubTema(_id:string, _model : SubTemaModel) : Promise<any>;
     abstract deleteSubTema(_id:string) : Promise<any>;
+    abstract getOneSubtema(_id:string) : Observable<SubTemaModel>;
+    
 }

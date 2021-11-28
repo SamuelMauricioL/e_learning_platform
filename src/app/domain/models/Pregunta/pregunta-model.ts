@@ -1,12 +1,14 @@
 export interface PreguntaModel {
     id: string;
     idSubTema: string;
+    idTema:string,
     indice: string;
     pregunta: string;
     descripcion: string;
     alternativas: string;
     respuesta: string;
     estado: boolean;
+    tipoPregunta:string;
 }
 
 export interface AlternativaPreguntaModel {
@@ -20,7 +22,7 @@ export interface ElementosPreguntaModel {
     id: string;
     posicion: string;
     tipoElemento: string;
-    valor: string;
+    valor: any;
 }
 
 export class PreguntaConvert {

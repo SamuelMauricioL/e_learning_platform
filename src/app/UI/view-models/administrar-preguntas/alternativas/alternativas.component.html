@@ -1,0 +1,24 @@
+
+<div class="row w-100">
+    <div class="" *ngIf="tipoPregunta=='alternativa'">
+        <div *ngFor="let alternativa of alternativas">
+            <div class="shadow-sm alternativa-alternativa text-center bg-success text-light rounded p-1 float-start m-2" *ngIf="alternativa.correcta=='si'">
+                <p class="fs-4">{{alternativa.valor}}</p>
+            </div>
+            <div class="shadow-sm alternativa-alternativa text-center bg-warning  rounded p-1 float-start m-2" *ngIf="alternativa.correcta=='no'">
+                <p class="fs-4">{{alternativa.valor}}</p>
+            </div>
+        </div>
+        
+    </div>
+    <div class="" *ngIf="tipoPregunta=='pregunta'">
+        <div class="alternativa-pregunta border-bottom border-2 border-success p-1 shadow rounded d-flex float-start m-3" *ngFor="let alternativa of alternativas">
+            <div class=" rounded bg-primary border-primary pos-pregunta text-light text-center">
+                {{alternativa.valor}}
+            </div>
+            <div class="  ms-3">
+                {{alternativa.entrada}}
+            </div>
+        </div>
+    </div>
+</div>  

@@ -1,0 +1,31 @@
+
+<div class="row w-100 my-1 " *ngFor="let elemento of elementos">
+    <div *ngIf="elemento.tipoElemento=='imagen'">
+        <img [src]="elemento.valor" alt="" class="mx-auto" height="150px">
+    </div>
+    <div *ngIf="elemento.tipoElemento=='texto'">
+        <p>{{elemento.valor}}</p>
+    </div>
+    <div *ngIf="elemento.tipoElemento=='divider'">
+        <div class="border border-dark border-2 bg-dark w-100">
+
+        </div>
+    </div>
+    <div *ngIf="elemento.tipoElemento=='textoEntrada'">
+        <div class="float-start" *ngFor="let value of elemento.valor">
+            <div *ngIf="value.tipo=='texto'">
+                {{value.valor}}
+            </div>
+            <div *ngIf="value.tipo=='input'" class="input-elemento text-light d-flex justify-content-center"  >
+                
+                <div class="val-input-elemento border bg-primary text-center">
+                    {{value.valor}}
+                </div>
+                <div class="space-elemento border">
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

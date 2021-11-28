@@ -10,6 +10,7 @@ import { SubTemaModel } from 'src/app/domain/models/SubTema/subtema-model';
 })
 export class SubTemasService extends SubTemaGateway {
   
+  
   constructor(
     private firestore: AngularFirestore,
   ) {super();}
@@ -34,5 +35,7 @@ export class SubTemasService extends SubTemaGateway {
   deleteSubTema(_id: string): Promise<any> {
     return this.firestore.collection('SubTemas').doc(_id).delete();
   }
-
+  getOneSubtema(_id: string): Observable<any> {
+    return this.firestore.collection('SubTemas').doc(_id).valueChanges();
+  }
 }

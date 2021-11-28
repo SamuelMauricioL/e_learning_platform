@@ -25,5 +25,8 @@ export class GetSubTemasUseCases {
   delete(_id:string): Promise<any> {
     return this._gateway.deleteSubTema(_id);
   }
+  getOneSubtema(_id:string):Observable<any>{
+    return this._gateway.getOneSubtema(_id);
+  }
 
 }

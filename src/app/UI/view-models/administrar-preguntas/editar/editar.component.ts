@@ -1,102 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
-import { EventManager } from '@angular/platform-browser';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Options } from 'sortablejs';
-
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import { ActivatedRoute } from '@angular/router';
+import { Options } from 'sortablejs';
 import { AlternativaPreguntaModel, ElementosPreguntaModel, PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
 import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
-import { Observable } from 'rxjs';
+
 @Component({
-  selector: 'app-administrar-preguntas',
-  templateUrl: './administrar-preguntas.component.html',
-  styleUrls: ['./administrar-preguntas.component.scss']
+  selector: 'app-editar',
+  templateUrl: './editar.component.html',
+  styleUrls: ['./editar.component.scss']
 })
-export class AdministrarPreguntasComponent implements OnInit {
+export class EditarComponent implements OnInit {
+  @Input()
+  idPregunta:string="";
+
+  
   constructor(
     private service: GetPreguntasUseCases,
     private route: ActivatedRoute,
-    private eventManager: EventManager,
     private storage: AngularFireStorage,
-    private firestore: AngularFirestore,
     private serviceSubtemas : GetSubTemasUseCases,
-  ) {
-
-  }
+  ) { }
+  pregunta:any = {};
+  Alternativas:any;
   idSubTema: string = this.route.snapshot.params.idSubTema;
   subTema:any ;
 
   ngOnInit(): void {
-<<<<<<< Updated upstream
-    let every:any = document.querySelectorAll('.bloque');
-    let everytitle:any = document.querySelectorAll('.titulo');
-    everytitle.forEach((one:any,i:number) => {
-      this.eventManager.addEventListener(one,'click',()=>{
-        let find = every[i].classList.contains('activo');
-        if(find){
-          every[i].classList.remove('activo');
-        }else{
-          every[i].classList.add('activo');
-        }
-        
-      })
-    });
-=======
     this.serviceSubtemas.getOneSubtema(this.idSubTema).subscribe((val:any)=>{
       this.subTema = val;
-      this.getPreguntas();
+      // this.getPreguntas();
     })
-    
->>>>>>> Stashed changes
   }
-   // =================================║  ║ ╔== ==╦== ╔==╗ ╔==╗=======
-   // =================================║  ║ ╚=╗   ║   ║  ║ ║=╬╝======
-   // =================================╚==║ ==╝   ║   ╠==╣ ║ ║ ===========
-  //   *ngFor="let pregunta of preguntas; let pos = index "
-  public preguntas:any = []
-  getPreguntas(){
-    console.log(this.idSubTema);
-    this.service.getAll(this.idSubTema).subscribe((val:any)=>{
-      console.log("preguntas",val);
-      this.preguntas=val;
+  getPregunta(){
+    console.log("idpregunta",this.idPregunta);
+    this.service.getPregunta(this.idPregunta).subscribe((val:any)=>{
+      this.pregunta = val;
+      console.log(this.pregunta)
       
+      this.service.getElementos(this.idPregunta).subscribe((other:any)=>{
+        // val.sort((a:any,b:any)=>{
+        //   return a.posicion - b.posicion;
+        // })
+        this.Elementos=other;
+        console.log(this.Elementos);
+      })
     })
   }
-  openClosePregunta(e:any){
-    let padre:any = e.target.parentNode.parentNode;
-    let find = padre.classList.contains('activo');
-    if (find) {
-      padre.classList.remove('activo');
-    } else {
-      padre.classList.add('activo');
-    }
-    
-  }
-
-
-
-
-
-
-
-
-
 
   //==============================================AGREGAR - MODAL ======================
   // ===========================================================================
-  openModal(nameModal: string) {
-    let modal: any = document.querySelector(nameModal);
+  public selectorCentral:any;
+  openModal(nameModal: string,e:any) {
+    this.getPregunta();
+    this.selectorCentral=e.target.parentNode.parentNode;
+    let modal: any = this.selectorCentral.querySelector(nameModal);
     let contenedor: any = modal.querySelector('.contenedor');
     contenedor.classList.add('activo');
     modal.classList.add('activo');
   }
   closeModal(nameModal: string) {
-    let modal: any = document.querySelector(nameModal);
+    
+    let modal: any = this.selectorCentral.querySelector(nameModal);
     let contenedor: any = modal.querySelector('.contenedor');
     contenedor.classList.remove('activo');
     modal.classList.remove('activo');
@@ -151,12 +117,12 @@ export class AdministrarPreguntasComponent implements OnInit {
   //========= Configuración de add de elementos 
   preConfig() {
     // configuracion de plus 
-    let elementosPlus: any = document.querySelectorAll(".pluss-elemento");
+    let elementosPlus: any = this.selectorCentral.querySelectorAll(".pluss-elemento");
     elementosPlus.forEach((one: any, pos: number) => {
       one.classList.remove('ocultar');
     });
 
-    let elementos: any = document.querySelectorAll(".add-position-elemento");
+    let elementos: any = this.selectorCentral.querySelectorAll(".add-position-elemento");
     elementos.forEach((one: any, pos: number) => {
       //quita todos las clases mostrar
       let find = one.classList.contains('mostrar');
@@ -181,7 +147,7 @@ export class AdministrarPreguntasComponent implements OnInit {
   ChangeCargaImagen(val: number) {
     this.imgPc = null;
     this.imgLink = "";
-    let imgPrevio: any = document.querySelector("#vistPreviaImg");
+    let imgPrevio: any = this.selectorCentral.querySelector("#vistPreviaImg");
     imgPrevio.innerHTML = '';
     if (val == 1) {
       this.checkImg1 = true;
@@ -200,7 +166,7 @@ export class AdministrarPreguntasComponent implements OnInit {
       let read = new FileReader();
       read.onload = (e: any) => {
         // console.log(e);
-        let imgPrevio: any = document.querySelector("#vistPreviaImg");
+        let imgPrevio: any = this.selectorCentral.querySelector("#vistPreviaImg");
         imgPrevio.innerHTML = '<img class="img-fluid"   src="' + e.target.result + '" alt="">'
 
       }
@@ -208,23 +174,23 @@ export class AdministrarPreguntasComponent implements OnInit {
       read.readAsDataURL(input.target.files[0]);
       this.imgPc = input.target.files[0];
     } else {
-      let imgPrevio: any = document.querySelector("#vistPreviaImg");
+      let imgPrevio: any = this.selectorCentral.querySelector("#vistPreviaImg");
       imgPrevio.innerHTML = '';
     }
   }
   public imgLink: string = "";
   showImgLink(link: any) {
     console.log(link.value);
-    let imgPrevio: any = document.querySelector("#vistPreviaImg");
+    let imgPrevio: any = this.selectorCentral.querySelector("#vistPreviaImg");
     imgPrevio.innerHTML = '<img class="img-fluid"   src="' + link.value + '" alt="">'
     this.imgLink = link.value;
   }
 
   eventAddImagen() {
     this.preConfig();
-    let ownElement: any = document.querySelector("#plus-imagen");
+    let ownElement: any = this.selectorCentral.querySelector("#plus-imagen");
     ownElement.classList.add('ocultar');
-    let elemento: any = document.querySelector("#addImagenElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addImagenElemento");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -233,10 +199,10 @@ export class AdministrarPreguntasComponent implements OnInit {
   }
   eventAddTexto() {
     this.preConfig();
-    let ownElement: any = document.querySelector("#plus-texto");
+    let ownElement: any = this.selectorCentral.querySelector("#plus-texto");
     ownElement.classList.add('ocultar');
 
-    let elemento: any = document.querySelector("#addTextoElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addTextoElemento");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -300,10 +266,10 @@ export class AdministrarPreguntasComponent implements OnInit {
   eventAddTextEntrada() {
     this.preConfig();
     this.textoEntradaElementos = [];
-    let ownElement: any = document.querySelector("#plus-texto-entrada");
+    let ownElement: any = this.selectorCentral.querySelector("#plus-texto-entrada");
     ownElement.classList.add('ocultar');
 
-    let elemento: any = document.querySelector("#addTextoEntradaElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addTextoEntradaElemento");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -418,7 +384,7 @@ export class AdministrarPreguntasComponent implements OnInit {
       correcta:"no",
       switchEditar:false,
     })
-    let opcionInput:any = document.querySelector("#opcionInput");
+    let opcionInput:any = this.selectorCentral.querySelector("#opcionInput");
     opcionInput.value="";
 
   }
@@ -489,14 +455,14 @@ export class AdministrarPreguntasComponent implements OnInit {
   public posicionEntradaEditar:number=0;
   public textoPlanoEditar:string="";
   switchModalAgregarEditar(nameModal:string,ss:number,i:number){
-    let modal: any = document.querySelector(nameModal);
+    let modal: any = this.selectorCentral.querySelector(nameModal);
     let contenedor: any = modal.querySelector('.contenedor');
     contenedor.classList.add('activo');
     modal.classList.add('activo');
     this.switchAgregarEditar=ss;
     this.posicionEntradaEditar=i;
     if(ss==1){
-      let textArea:any = document.querySelector("#floatingTextareaEditar");
+      let textArea:any = this.selectorCentral.querySelector("#floatingTextareaEditar");
       textArea.value=this.Elementos[i].valor
     }else if(ss==2){
       this.textoEntradaEditar=[];
@@ -590,7 +556,7 @@ export class AdministrarPreguntasComponent implements OnInit {
   // =============================================
 
   addElemento(){
-    let descripcion:any = document.querySelector("#floatingAreaIni");
+    let descripcion:any = this.selectorCentral.querySelector("#floatingAreaIni");
     
 
     let newPregunta = {
@@ -619,22 +585,16 @@ export class AdministrarPreguntasComponent implements OnInit {
     }
 
     let Elementos = this.Elementos as Array<ElementosPreguntaModel>;
-    this.service.create(newPregunta,alternativas,Elementos).then((val:any)=>{
-      console.log(val)
-      this.closeModal('#modalAgregar');
-    });
-  }
-
-// =========================   .______     ______   .______      .______           ___      .______      
-// ========================= |   _  \   /  __  \  |   _  \     |   _  \         /   \     |   _  \     
-// ========================= |  |_)  | |  |  |  | |  |_)  |    |  |_)  |       /  ^  \    |  |_)  |    
-// ========================= |   _  <  |  |  |  | |      /     |      /       /  /_\  \   |      /     
-// ========================= |  |_)  | |  `--'  | |  |\  \----.|  |\  \----. /  _____  \  |  |\  \----.
-// ========================= |______/   \______/  | _| `._____|| _| `._____|/__/     \__\ | _| `._____|
-
-  deletePregunta(id:string){
     
+    console.log({
+      pregunta: newPregunta,
+      tipoAlternativa:this.tipoAlternativa,
+      alternativas:alternativas,
+      Elementos:Elementos
+    })
+    // this.service.create(newPregunta,alternativas,Elementos).then((val:any)=>{
+    //   console.log(val)
+    //   this.closeModal('#modalAgregar');
+    // });
   }
-
 }
-

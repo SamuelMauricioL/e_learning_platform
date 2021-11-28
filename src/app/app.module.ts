@@ -40,6 +40,9 @@ import { AuthGuard } from './UI/guards/auth.guard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { SortablejsModule } from 'ngx-sortablejs';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +65,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     BrowserAnimationsModule,
     AccordionModule,
     ModalModule.forRoot(),
+    SortablejsModule.forRoot({ animation: 150 }),
+    AngularFireStorageModule,
   ],
   exports:[
     AccordionModule,
