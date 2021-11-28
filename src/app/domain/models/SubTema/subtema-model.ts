@@ -1,8 +1,11 @@
 export interface SubTemaModel {
     id: string;
     idTema: string;
-    indice: string;
+    indice: number;
     subtema: string;
+    descripcion: string;
+    time:string;
+    dificultad: string;
     estado: boolean;
 }
 

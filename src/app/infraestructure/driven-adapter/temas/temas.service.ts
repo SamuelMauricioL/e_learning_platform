@@ -26,6 +26,17 @@ export class TemasService extends TemaGateway {
     );
   }
 
+  getAllTemasWithGrado(_idGrado: string, _idCurso: string): Observable<TemaModel[]> {
+    const path: string = `/${_idGrado}/Cursos/${_idCurso}`;
+    return this.firestore.collection<TemaModel>('Temas', ref => ref.where('curso', '==', path)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as TemaModel;
+        data.id = a.payload.doc.id;
+        return data;
+      }))
+    );
+  }
+
   createTema(_model: TemaModel): Promise<any> {
     return this.firestore.collection('Temas').add(_model);
   }

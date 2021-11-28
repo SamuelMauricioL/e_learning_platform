@@ -14,6 +14,10 @@ export class GetTemasUseCases {
     return this._gateway.getAllTemas(_idGrado, _idCurso);
   }
 
+  getAllTemasGrado(_idGrado: string, _idCurso: string): Observable<Array<TemaModel>> {
+    return this._gateway.getAllTemasWithGrado(_idGrado, _idCurso);
+  }
+
   createTema(model :TemaModel): Promise<any> {
     return this._gateway.createTema(model);
   }

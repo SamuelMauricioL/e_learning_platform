@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
@@ -16,19 +16,21 @@ import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use
 export class RespuestasComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.idToken;
-  idPregunta: string = this.route.snapshot.params.idPregunta;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
     private auth: AuthService,
-  ) {  this.managerForm = new FormGroup({});  }
+  ) { this.managerForm = new FormGroup({}); }
 
   idUsuario: any;
 
   ruta: string = this.route.snapshot.params.ruta;
   idtema: string = this.route.snapshot.params.idtema;
+  tema: string = this.route.snapshot.params.tema;
+  idSubTema: string = this.route.snapshot.params.idSubTema;
   managerForm: FormGroup;
   notas = Array();
 
@@ -53,8 +55,7 @@ export class RespuestasComponent implements OnInit {
 
 
   ngOnInit(): void {
-
-    this.service_preguntas.getAll(this.idPregunta).subscribe(pregunta => {
+    this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
       for (let i = 0; i < pregunta.length; i++) {
         this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
 
@@ -118,12 +119,12 @@ export class RespuestasComponent implements OnInit {
   evaluar(resp: any) {
     if (resp[1] == "si") {
       this.rpta_si_no = 1;
-      this.rpta_modal=1;
+      this.rpta_modal = 1;
       this.rpta_correcta++;
 
     } else if (resp[1] == "no") {
       this.rpta_si_no = 0;
-      this.rpta_modal=1;
+      this.rpta_modal = 1;
       this.rpta_incorrecta++;
     }
   }
@@ -133,28 +134,38 @@ export class RespuestasComponent implements OnInit {
   }
 
   guardar(): void {
-    this.idUsuario =  localStorage.getItem('user');
-    console.log(this.idUsuario.id);
-    // let total = this.notas.reduce((a, b) => a + b, 0);
-    // let sumatotal = total / this.notas.length;
+    this.idUsuario = localStorage.getItem('user');
+    let total = this.notas.reduce((a, b) => a + b, 0);
+    let sumatotal = total / this.notas.length;
 
-    // this.managerForm = new FormGroup({
-    //   id: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
-    //   identificador: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
-    //   idAlumno: new FormControl('prueba', Validators.required),
-    //   idTema: new FormControl(this.idtema, Validators.required),
-    //   promedio: new FormControl(sumatotal, Validators.required),
-    //   ruta: new FormControl(this.ruta, Validators.required),
-    //   tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
-    //   estado: new FormControl(true, Validators.required),
-    // });
+    this.managerForm = new FormGroup({
+      id: new FormControl(this.idtema, Validators.required),
+      identificador: new FormControl(this.idtema, Validators.required),
+      idAlumno: new FormControl(JSON.parse(this.idUsuario).id, Validators.required),
+      idTema: new FormControl(this.idtema, Validators.required),
+      promedio: new FormControl(sumatotal, Validators.required),
+      ruta: new FormControl(this.ruta, Validators.required),
+      tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
+      estado: new FormControl(true, Validators.required),
+    });
 
-    // const { id, ...obj } = this.managerForm.value;
-    // this.service_respuestas.create(obj).then((_response) => {
-    //   this.managerForm.reset();
-    // }).catch((error) => {
-    //   console.error(error);
-    // });
+    const { id, ...obj } = this.managerForm.value;
+    this.service_respuestas.create(obj).then((_response) => {
+      this.managerForm.reset();
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  retroceder() {
+    this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
   }
 
 }
+
+// old
+// http://localhost:4200/responder-preguntas/JlNb9RUUpusyP15R226D/1,%203,%205,%204,%202
+
+
+// new
+// http://localhost:4200/dar-respuestas/7mOq3PB9Ae8PmeXZ1h4d/1,%203,%205,%204,%202/JlNb9RUUpusyP15R226D

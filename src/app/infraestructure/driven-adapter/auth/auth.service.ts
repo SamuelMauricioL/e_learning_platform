@@ -52,13 +52,9 @@ export class AuthService{
   }
   async login(email: string, password: string) {
     try {
-      
        let varUser = await this.afAuth.signInWithEmailAndPassword(email, password);
-       
        return varUser;
     } catch (error) {
-      console.log("login error");
-      console.log(error);
       return null;
     }
   }
@@ -73,6 +69,7 @@ export class AuthService{
   
   async logout() {
     try {
+      // await localStorage.removeItem('userRoles');
       await this.afAuth.signOut();
     } catch (error) {
       console.log(error);
@@ -82,17 +79,30 @@ export class AuthService{
   getCurrentUser() {
     return this.afAuth.authState.pipe(first()).toPromise()
   }
+
   getRol(){
     let varUss:any;
     this.afAuth.user.subscribe((val:any)=>{
         this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('email','==',val.email)).valueChanges().subscribe(
           (actions:any)=> {
-            
+            console.log(actions);
             const datos = actions[0]as UsuarioModel;
             this.firestore.collection<RolesModel>('Roles',ref=> ref.where('rol','==',datos.rol)).valueChanges().subscribe(
               a => {
                 const data = a[0] as RolesModel;
                 datos.roles = data;
+                // let cookie = {
+                //   id: data.id,
+                //   id_second: datos.id,
+                //   nombre: datos.nombre,
+                //   email: datos.email,
+                //   codigo: datos.codigo,
+                //   grados: datos.grado,
+                //   rol: datos.rol,
+                //   roles: [data],
+                //   // data: datos
+                // }
+
                 localStorage.setItem('userRoles',JSON.stringify(datos));
 
               }

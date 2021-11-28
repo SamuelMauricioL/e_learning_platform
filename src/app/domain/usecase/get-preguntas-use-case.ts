@@ -10,8 +10,12 @@ import { PreguntaModel } from '../models/Pregunta/pregunta-model';
 export class GetPreguntasUseCases {
   constructor( private _gateway: PreguntasGateway) {}
 
-  getAll(_idTema: string): Observable<Array<PreguntaModel>> {
-    return this._gateway.getAllPreguntas(_idTema);
+  getAll(_idSubTema: string): Observable<Array<PreguntaModel>> {
+    return this._gateway.getAllPreguntas(_idSubTema);
+  }
+
+  getAllByTema(_idTema: string): Observable<Array<PreguntaModel>> {
+    return this._gateway.getAllPreguntasByTema(_idTema);
   }
 
   getAllAlternative(_idPregunta: string):any {

@@ -3,6 +3,7 @@ import { PreguntaModel } from './pregunta-model';
 
 export abstract class PreguntasGateway {
     abstract getAllPreguntas(_idSubTema: string): Observable<Array<PreguntaModel>>;
+    abstract getAllPreguntasByTema(_idTema: string): Observable<Array<PreguntaModel>>;
     abstract getAllPreguntasAlternativas(_idPregunta: string): any;
     abstract getAllPreguntasElementos(_idPregunta: string): any;
     abstract createPregunta(_model : PreguntaModel) : Promise<any>;

@@ -25,6 +25,17 @@ export class PreguntasService extends PreguntasGateway {
     );
   }
 
+  getAllPreguntasByTema(_idTema: string): Observable<PreguntaModel[]> {
+    const path: string = `/Tema/${_idTema}`;
+    return this.firestore.collection<PreguntaModel>('Preguntas', ref => ref.where('idTema', '==', path)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as PreguntaModel;
+        data.id = a.payload.doc.id;
+        return data;
+      }))
+    );
+  }
+
   // get All Preguntas And Alternaticas y elementos
   getAllPreguntasAlternativas(_idPregunta: string): any {
     const path: string = `Preguntas/${_idPregunta}/Alternativas`;

@@ -31,6 +31,7 @@ const routes: Routes = [
     loadChildren: () => import('./UI/view-models/cursos/cursos.module').then(m => m.CursosModule)
   },
   {
+    /// ESTO PARA QUE ERA????
     path: 'temas',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/temas/temas.module').then(m => m.TemasModule)
@@ -61,7 +62,7 @@ const routes: Routes = [
     loadChildren: () => import('./UI/view-models/responder-preguntas/responder-preguntas.module').then(m => m.ResponderPreguntasModule)
   },
   {
-    path: 'dar-respuestas/:idPregunta/:ruta/:idtema',
+    path: 'dar-respuestas/:idSubTema/:ruta/:idtema/:tema',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/respuestas/respuestas.module').then(m => m.RespuestasModule)
   },
@@ -71,13 +72,13 @@ const routes: Routes = [
     loadChildren: () => import('./UI/view-models/practicar/practicar.module').then(m => m.PracticarModule)
   },
   {
-    path: 'practicar-temas',
-    canActivate: [AuthGuard],
+    path: 'practicar-temas/:NameCurso/:idCurso',
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/practicar-temas/practicar-temas.module').then(m => m.PracticarTemasModule)
   },
   {
     path: 'practicar-resolver',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/practicar-resolver/practicar-resolver.module').then(m => m.PracticarResolverModule)
   },
 ];

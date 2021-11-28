@@ -1,13 +1,38 @@
-<div class="row1-container" *ngFor="let i of collection">
+<div class="row1-container " *ngFor="let i of collection ">
     <div class="box orange">
-        <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
-        <h4> Tema - {{i.indice}}</h4>
-        <h2>{{i.subtema}}</h2>
-        <p>Sumas hasta {{i.indice}}</p>
-        <p class="card__apply" (click)="navigateCursos(i.id)"><a>Ver las Preguntas<i class="fa fa-edit"></i></a></p>
-    </div>
-</div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4> Tema - {{i.indice}}</h4>
+                    <h2>{{i.subtema}}</h2>
+                    <p>{{i.descripcion}}</p>
+                    <p class="card__apply" (click)="navigateCursos(i.id, i.subtema)"><a>Ver las Preguntas<i class="fa fa-edit"></i></a></p>
+                </div>
+                <div class="col">
+                    <div class="container" style="border-bottom: 1px dashed black; margin-bottom: 15px;">
+                        <p>Dificultad</p>
 
-<div>
-    asd
+                        <div class="col" style="display: inline-flex;">
+                            <p style="text-transform: uppercase; width: min-content; ">{{i.dificultad}} </p>
+                            <p style="text-transform: uppercase; width: min-content;  margin-left: 5px;"> | </p>
+                            <i *ngIf="i.dificultad=='baja'" class="fa fa-star" style="color: gold; font-size: 25px; "></i>
+                            <i *ngIf="i.dificultad=='media'" class="fa fa-star" style="color: gold; font-size: 25px;"></i>
+                            <i *ngIf="i.dificultad=='media'" class="fa fa-star" style="color: gold; font-size: 25px;"></i>
+                            <i *ngIf="i.dificultad=='alta'" class="fa fa-star" style="color: gold; font-size: 25px;"></i>
+                            <i *ngIf="i.dificultad=='alta'" class="fa fa-star" style="color: gold; font-size: 25px;"></i>
+                            <i *ngIf="i.dificultad=='alta'" class="fa fa-star" style="color: gold; font-size: 25px;"></i>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <p>Tiempo estimado</p>
+                        <p><i class="fa fa-hourglass-half"></i> {{i.time}} </p>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

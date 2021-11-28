@@ -14,4 +14,8 @@ export class GetCursosUseCases {
     return this._gateway.getAllCursos(id);
   }
 
+  getAllCursosEstudent(idGrado: string): Observable<Array<CursoModel>> {
+    return this._gateway.getAllCursosEstudent(idGrado);
+  }
+
 }

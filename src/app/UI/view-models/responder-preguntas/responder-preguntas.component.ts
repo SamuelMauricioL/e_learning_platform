@@ -33,9 +33,10 @@ export class ResponderPreguntasComponent implements OnInit {
   collection_de_preguntas = [] as PreguntaModel[];
   
   ngOnInit(): void {
-    // LISA DE SUBTEMAS
     this.service.getAll(this.idTema).subscribe(resp => {
         this.collection = resp;
+        console.log("responder-preguntas");
+        console.log(resp);
       },
       error => {
         console.error(error);
@@ -51,7 +52,7 @@ export class ResponderPreguntasComponent implements OnInit {
       });
   }
 
-  navigateCursos(idPregunta: string ) {
-    this.router.navigate(['dar-respuestas', idPregunta, this.orden_de_subtemas,this.idTema ]);
+  navigateCursos(idPregunta: string, tema: string) {
+    this.router.navigate(['dar-respuestas', idPregunta, this.orden_de_subtemas,this.idTema, tema]);
   }
 }
