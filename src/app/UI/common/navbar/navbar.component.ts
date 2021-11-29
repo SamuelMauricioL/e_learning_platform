@@ -1,24 +1,27 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.service';
-import {GetRolesUseCase} from '../../../domain/usecase/get-roles-use-case';
+import { GetRolesUseCase } from '../../../domain/usecase/get-roles-use-case';
 import { GetUserUseCases } from 'src/app/domain/usecase/get-user-use-case';
-@Component({ 
+@Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent{
+export class NavbarComponent {
 
   public user$: Observable<any> = this.auth.afAuth.user;
-  constructor(private auth: AuthService, private router: Router, 
-    private seriveRol : GetRolesUseCase,private serviceUser:GetUserUseCases) {
+  constructor(private auth: AuthService, private router: Router,
+    private seriveRol: GetRolesUseCase, private serviceUser: GetUserUseCases) {
     this.getRol();
-   }
+  }
 
   isStudent: boolean = false;
-  public menus:any[] = [];
+  isAdmin: boolean = false;
+  isRol: string = ""
+
+  public menus: any[] = [];
   async onLogout() {
     try {
       await this.auth.logout();
@@ -32,27 +35,32 @@ export class NavbarComponent{
     this.isStudent = !this.isStudent;
   }
 
-  getRol(){
-    this.user$.subscribe((result)=>{
-      this.serviceUser.getUsersByEmail(result.email).subscribe((result)=>{
-        
-        if(result!=null){
-          let usuario:any = result[0];
-          this.seriveRol.getOneRol(usuario.rol).subscribe((result)=>{
-          
-            if(result!=null){
+  getRol() {
+
+    this.user$.subscribe((result) => {
+      this.serviceUser.getUsersByEmail(result.email).subscribe((result) => {
+        if (result != null) {
+          let usuario: any = result[0];
+          this.isRol = usuario.rol;
+          if(String(usuario.rol) == "Administrador" || String(usuario.rol) == "Docente"){
+            this.isStudent = false;
+            this.isAdmin = true;
+          }
+
+          localStorage.setItem('user', JSON.stringify({ "rol": usuario.rol, "id": usuario.id }));
+          this.seriveRol.getOneRol(usuario.rol).subscribe((result) => {
+            if (result != null) {
               let menuResult = result[0].menu;
               this.menus = menuResult;
-              localStorage.setItem('user',JSON.stringify({"rol":usuario.rol, "id":usuario.id}));
             }
-            
+
           })
-          
+
         }
-        
+
       })
-      
-    
+
+
     })
   }
 

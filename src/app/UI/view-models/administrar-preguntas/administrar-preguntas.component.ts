@@ -32,27 +32,11 @@ export class AdministrarPreguntasComponent implements OnInit {
   subTema:any ;
 
   ngOnInit(): void {
-<<<<<<< Updated upstream
-    let every:any = document.querySelectorAll('.bloque');
-    let everytitle:any = document.querySelectorAll('.titulo');
-    everytitle.forEach((one:any,i:number) => {
-      this.eventManager.addEventListener(one,'click',()=>{
-        let find = every[i].classList.contains('activo');
-        if(find){
-          every[i].classList.remove('activo');
-        }else{
-          every[i].classList.add('activo');
-        }
-        
-      })
-    });
-=======
     this.serviceSubtemas.getOneSubtema(this.idSubTema).subscribe((val:any)=>{
       this.subTema = val;
       this.getPreguntas();
     })
     
->>>>>>> Stashed changes
   }
    // =================================║  ║ ╔== ==╦== ╔==╗ ╔==╗=======
    // =================================║  ║ ╚=╗   ║   ║  ║ ║=╬╝======

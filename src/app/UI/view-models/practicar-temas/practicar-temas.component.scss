@@ -8,3 +8,44 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.bodySub {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.bodySub::-webkit-scrollbar {
+    width: 9px;
+}
+
+.bodySub::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: orange !important;
+    border: solid 0px;
+}
+
+.bodySub::-webkit-scrollbar-track {
+    background-color: transparent !important;
+    border-radius: 10px;
+}
+
+.aprender {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid green;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.reforzar {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid brown;
+    color: brown;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+}

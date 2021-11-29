@@ -35,8 +35,6 @@ export class ResponderPreguntasComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAll(this.idTema).subscribe(resp => {
         this.collection = resp;
-        console.log("responder-preguntas");
-        console.log(resp);
       },
       error => {
         console.error(error);

@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth" *ngIf="user$ | async as user; else login" style="z-index: 99;">
     <div style="width: 50%;">
-        <a class="navbar-brand" routerLink="/" style="margin-left: 2%; color: black;"> <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante
-        </span> </a>
+        <a class="navbar-brand" routerLink="/" style="margin-left: 2%; color: black;">
+            <img src="../../../../favicon.ico" alt="E-Learning" style="width: 20px;"> -LEARNING PLATFORM
+            <span style="font-size: x-small;"> | {{isRol}} </span>
+            <!-- <span style="font-size: x-small;" *ngIf="!isStudent"> | Docente </span> -->
+            <!-- <span style="font-size: x-small;" *ngIf="isStudent"> | Estudiante </span> -->
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,8 +29,8 @@
                     <input type="checkbox" class="dd-input" id="test">
 
                     <ul class="dd-menu">
-                        
-                        <li routerLink="/administrar-usuarios" *ngIf="user" >Usuarios</li>
+
+                        <li routerLink="/administrar-usuarios" *ngIf="user">Usuarios</li>
                         <li routerLink="/grados-academicos/Docente" *ngIf="user">Grados</li>
                         <li class="divider"></li>
                         <li>{{ user?.email}}</li>
@@ -40,7 +44,8 @@
             </li>
         </ul>
 
-        <button type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button>
+        <!-- <button type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;">
+            <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button> -->
     </div>
 
     <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent" style="color: black; width: 50%; justify-content:right;">
@@ -56,12 +61,13 @@
             </li>
             <li class="nav-item" *ngIf="user">
                 <a href="#" class="nav-link" (click)="onLogout()"><i alt="Cambiar Perfil" class="fa fa-sign-out"
-                    style="color: black;"></i></a>
+                        style="color: black;"></i></a>
             </li>
         </ul>
 
-        <button type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"> <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button>
     </div>
+    <button *ngIf="isAdmin" type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;">
+        <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button>
 </nav>
 
 <ng-template #login>
