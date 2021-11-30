@@ -41,4 +41,21 @@ export class RespuestasService extends RespuestaGateway {
     await this.firestore.collection('Intentos').doc(id).set(_model);
     return String(id);
   }
+
+  getIntento(_idmodel: any): Observable<any> {
+    // return this.firestore.collection<IntentoModel>('Intentos').snapshotChanges().pipe(
+    //   map(actions => actions.map(a => {
+    //     const data = a.payload.doc.data() as IntentoModel;
+    //     data.id = a.payload.doc.id;
+    //     return data;
+    //   }))
+    // );
+
+    return this.firestore.collection<any>("Intentos").doc(_idmodel).valueChanges().pipe(
+      map(data => {
+        data.id = _idmodel
+        return data;
+      })
+    );
+  }
 }

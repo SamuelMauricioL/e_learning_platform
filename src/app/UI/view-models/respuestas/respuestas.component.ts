@@ -34,6 +34,7 @@ export class RespuestasComponent implements OnInit {
   nameCurso: string = this.route.snapshot.params.nameCurso;
   act: string = this.route.snapshot.params.act;
   idCurso: string = this.route.snapshot.params.idCurso;
+  idIntento: string = this.route.snapshot.params.intento;
 
   managerForm: FormGroup;
   notas = Array();
@@ -57,45 +58,47 @@ export class RespuestasComponent implements OnInit {
   rpta_modal: number = 0;
   rpta_si_no: number = 0;
 
+  // col_resp = new Array();
+
 
   ngOnInit(): void {
-    this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
-      console.log("pregunta")
-      console.log(pregunta)
-      for (let i = 0; i < pregunta.length; i++) {
-        this.collection_de_preguntas_completo.push({
-          id: pregunta[i].id,
-          idSubTema: pregunta[i].idSubTema,
-          indice: pregunta[i].indice,
-          pregunta: pregunta[i].pregunta,
-          descripcion: pregunta[i].descripcion,
-          estado: pregunta[i].estado,
-          tipoPregunta: pregunta[i].tipoPregunta,
-          elementos: pregunta[i].elementos,
-          alternativas: pregunta[i].alternativas,
+    if (this.act != undefined) {
+      this.service_respuestas.getIntento(this.idIntento).subscribe(response => {
+        
+        let col_resp = response.subtemas.sort((n1: any ,n2: any) => n1.indice - n2.indice);
+        
+        for(let i = 0; i < col_resp.length; i++){
+          for(let ipre = 0; ipre < col_resp[i].preguntas.length; ipre++){
+            this.collection_de_preguntas_completo.push( col_resp[i].preguntas[ipre])
+          }
+        }
+        this.timer();
+      },
+      (error => { console.error(error); })
+    );
+      
+    }else{
+      this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
+        for (let i = 0; i < pregunta.length; i++) {
+          this.collection_de_preguntas_completo.push({
+            id: pregunta[i].id,
+            idSubTema: pregunta[i].idSubTema,
+            indice: pregunta[i].indice,
+            pregunta: pregunta[i].pregunta,
+            descripcion: pregunta[i].descripcion,
+            estado: pregunta[i].estado,
+            tipoPregunta: pregunta[i].tipoPregunta,
+            elementos: pregunta[i].elementos,
+            alternativas: pregunta[i].alternativas,
 
-        });
-        // pregunta[i].alternativas
-        //   this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
-        //     this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
-        //       this.collection_de_preguntas_completo.push({
-        //         id: pregunta[i].id,
-        //         idSubTema: pregunta[i].idSubTema,
-        //         indice: pregunta[i].indice,
-        //         pregunta: pregunta[i].pregunta,
-        //         descripcion: pregunta[i].descripcion,
-        //         estado: pregunta[i].estado,
-        //         elementos: elemento,
-        //         alternativas: alternativa,
-        //       });
-        //     });
-        //   });
-      }
-      this.timer();
-    },
-      error => {
-        console.error(error);
-      });
+          });
+        }
+        this.timer();
+      },
+        (error => { console.error(error); })
+      );
+    }
+
   }
 
   pauseTimer() {
@@ -134,20 +137,11 @@ export class RespuestasComponent implements OnInit {
   }
 
   evaluar(resp: any) {
-    if (resp[1] == "si") {
-      this.rpta_si_no = 1;
-      this.rpta_modal = 1;
+    if (resp == true) {
       this.rpta_correcta++;
-
-    } else if (resp[1] == "no") {
-      this.rpta_si_no = 0;
-      this.rpta_modal = 1;
+    } else if (resp == false) {
       this.rpta_incorrecta++;
     }
-  }
-
-  cerrarAlert(close: any) {
-    this.rpta_modal = 0;
   }
 
   guardar(): void {

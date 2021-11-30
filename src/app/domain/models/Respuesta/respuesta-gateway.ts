@@ -8,5 +8,6 @@ export abstract class RespuestaGateway {
     abstract deleteRespuesta(_id:string) : Promise<any>;
 
     abstract createIntento(_model : IntentoModel) : Promise<any>;
+    abstract getIntento(_idmodel : any) : Observable<any>;
 
 }

@@ -32,5 +32,9 @@ export class GetRespuestasUseCases {
     return this._gateway.createIntento(model);
   }
 
+  getIntento(_idmodel: any): Observable<any>{
+    return this._gateway.getIntento(_idmodel);
+  }
+
 
 }

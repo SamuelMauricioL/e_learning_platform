@@ -73,7 +73,7 @@ export class PracticarTemasComponent implements OnInit {
   
   crearIntento(dataInsert: any, act:any, idtema: any, subtem: any) {
     this.service_respuestas.createIntento(dataInsert).then((_response) => {
-      this.router.navigate(['/resolver/' + act + '/'+ this.idCurso + '/'+ this.nameCurso + '/' + idtema + '/' + subtem]);
+      this.router.navigate(['/resolver/' + act + '/'+ _response + '/' + subtem]);
     }).catch((error) => {
       console.error(error);
     });
