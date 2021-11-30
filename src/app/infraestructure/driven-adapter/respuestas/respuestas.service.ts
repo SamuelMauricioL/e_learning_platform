@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RespuestaGateway } from 'src/app/domain/models/Respuesta/respuesta-gateway';
-import { RespuestaModel } from 'src/app/domain/models/Respuesta/respuesta-model';
+import { IntentoModel, RespuestaModel } from 'src/app/domain/models/Respuesta/respuesta-model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +33,12 @@ export class RespuestasService extends RespuestaGateway {
     return this.firestore.collection('Respuestas').doc(_id).delete();
   }
 
+
+
+
+  async createIntento(_model: IntentoModel): Promise<any> {
+    const id = this.firestore.createId();
+    await this.firestore.collection('Intentos').doc(id).set(_model);
+    return String(id);
+  }
 }

@@ -6,23 +6,23 @@
             </div>
 
             <div class="row bodySub">
-                <div class="col-md-4" *ngFor="let isub of collectionSub">
+                <div class="col-md-4" *ngFor="let itema of collectionSub">
                     <div class="card border-warning mb-3">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-8">
-                                    <h5 class="card-title" style="text-align: start;">{{isub.subtema}}</h5>
+                                    <h5 class="card-title" style="text-align: start;">{{itema.tema}}</h5>
                                 </div>
                                 <div class="col-4">
-                                    <h5 style="font-size: 10px; text-align: end;">{{isub.time}}</h5>
+                                    <!-- <h5 style="font-size: 10px; text-align: end;">{{itema.time}}</h5> -->
                                 </div>
                             </div>
-                            <h6 class="card-subtitle mb-2 text-muted">{{isub.descripcion}}</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE 15/20</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{itema.orden}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE {{itema.puntaje}}/20</h6>
                         </div>
                         <div class="card-footer bg-transparent ">
-                            <button (click)="practicar('aprender', isub.id, isub.subtema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>
-                            <button (click)="practicar('reforzar', isub.id, isub.subtema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
+                            <button (click)="practicar('aprender', itema.id, itema.subtema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>
+                            <button (click)="practicar('reforzar', itema.id, itema.subtema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { PreguntasGateway } from '../models/Pregunta/pregunta-gateway';
 import { PreguntaModel } from '../models/Pregunta/pregunta-model';
 import { RespuestaGateway } from '../models/Respuesta/respuesta-gateway';
-import { RespuestaModel } from '../models/Respuesta/respuesta-model';
+import { IntentoModel, RespuestaModel } from '../models/Respuesta/respuesta-model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +27,10 @@ export class GetRespuestasUseCases {
   delete(_id:string): Promise<any> {
     return this._gateway.deleteRespuesta(_id);
   }
+
+  createIntento(model: IntentoModel): Promise<any> {
+    return this._gateway.createIntento(model);
+  }
+
 
 }

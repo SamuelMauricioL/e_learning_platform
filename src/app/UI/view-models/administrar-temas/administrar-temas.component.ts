@@ -47,11 +47,11 @@ export class AdministrarTemasComponent implements OnInit {
       });
   }
 
-  navigate(id_tema: string, name_tema: string, type_user: string, orden: string) {
-    if (type_user == 'Estudiante'){
+  navigate(id_tema: string, name_tema: string, orden: string) {
+    if (this.type_user == 'Estudiante'){
       this.router.navigate(['responder-preguntas', id_tema, orden]);
     } else {
-      this.router.navigate(['administrar-sub-temas', id_tema, name_tema, type_user]);
+      this.router.navigate(['administrar-sub-temas', id_tema, name_tema, this.type_user]);
     }    
   }
 

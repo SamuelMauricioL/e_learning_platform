@@ -9,6 +9,15 @@ export interface RespuestaModel {
     estado: boolean;
 }
 
+export interface IntentoModel {
+    id: string;
+    idTema: string;
+    fecha: string;
+    intencion: string;
+    tipoIntento: string;
+    subtemas: any;
+}
+
 export class RespuestaConvert {
     public static toWelcome(json: string): RespuestaModel[] {
         return JSON.parse(json);

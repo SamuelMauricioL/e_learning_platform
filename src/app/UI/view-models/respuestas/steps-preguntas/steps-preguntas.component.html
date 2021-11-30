@@ -9,18 +9,29 @@
                     <div class="container" id="pregunta">
                         <div class="card-header">
                             <h5 class="card-title">{{i.pregunta}}</h5>
-                            <p class="card-text">{{i.descripcion}} des</p>
+                            <p class="card-text">{{i.descripcion}}</p>
                         </div>
                         <div class="card-body" style="text-align-last: center;">
                             <div class="container" *ngFor="let elem of i.elementos">
                                 <div class="card-body" *ngIf="elem.tipoElemento == 'texto'">
                                     <h5 class="card-title">{{elem.valor}}</h5>
                                 </div>
-                                <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 150px;">
+                                <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 350px;">
                             </div>
                         </div>
                     </div>
-                    <div class="container" id="alternativas" style="width: 100%; ">
+                    <div *ngIf="i.tipoPregunta == 'alternativa'" class="container" id="alternativas" style="width: 100%; ">
+                        <div class="row" style="justify-content: center;">
+                            <div class="col-1 card p-0 m-1 {{alte.id}}" id="alter_X" *ngFor="let alte of i.alternativas">
+                                <div class="container" (click)="onSelect(alte.id, alte.correcta)">
+                                    <div class="text-center">
+                                        <h3 class="card-title">{{alte.valor}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="i.tipoPregunta == 'llenar'" class="container" id="alternativas" style="width: 100%; ">
                         <div class="row" style="justify-content: center;">
                             <div class="col-1 card p-0 m-1 {{alte.id}}" id="alter_X" *ngFor="let alte of i.alternativas">
                                 <div class="container" (click)="onSelect(alte.id, alte.correcta)">

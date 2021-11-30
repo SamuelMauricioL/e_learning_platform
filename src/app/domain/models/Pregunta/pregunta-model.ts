@@ -5,7 +5,8 @@ export interface PreguntaModel {
     indice: string;
     pregunta: string;
     descripcion: string;
-    alternativas: string;
+    alternativas: any;
+    elementos: any;
     respuesta: string;
     estado: boolean;
     tipoPregunta:string;

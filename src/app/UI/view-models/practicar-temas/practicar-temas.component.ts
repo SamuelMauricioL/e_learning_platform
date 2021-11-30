@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
+import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
+import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 
 @Component({
   selector: 'app-practicar-temas',
@@ -17,12 +19,15 @@ export class PracticarTemasComponent implements OnInit {
     private service: GetTemasUseCases,
     private route: ActivatedRoute,
     private serviceSub: GetSubTemasUseCases,
+    private service_preguntas: GetPreguntasUseCases,
+    private service_respuestas: GetRespuestasUseCases,
+
   ) { }
 
   nameCurso: string = this.route.snapshot.params.NameCurso;
   idCurso: string = this.route.snapshot.params.idCurso;
-  // collection = [] as TemaModel[];
   collectionSub = new Array();
+  collectionDataInsert = new Array();
 
   ngOnInit(): void {
     this.titleService.setTitle("E-Learning Platform | Practicar Temas");
@@ -30,25 +35,29 @@ export class PracticarTemasComponent implements OnInit {
     let idGrado: any = JSON.parse(datos).gradoId;
 
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {
-      for (let i = 0; i < tema.length; i++) {
-        this.serviceSub.getAll(tema[i].id).subscribe(subtema => {
-          for (let isub = 0; isub < subtema.length; isub++) {
-            // console.log("subtema")
-            // console.log(subtema)
-            this.collectionSub.push(
-              {
-                descripcion: subtema[isub].descripcion,
-                dificultad: subtema[isub].dificultad,
-                estado: subtema[isub].estado,
-                id: subtema[isub].id,
-                idTema: subtema[isub].idTema,
-                indice: subtema[isub].indice,
-                subtema: subtema[isub].subtema,
-                time: subtema[isub].time,
-              }
-            );
+      this.collectionSub = tema
+    },
+      error => {
+        console.error(error);
+      });
+  }
+
+  practicar(act: any, idtema: any, subtem: any) {
+    let dataInsert: any = {
+      idTema: idtema,
+      fecha: String(new Date()),
+      intencion: act,
+      tipoIntento: "recoleccion", // recoleccion - consumo
+    }
+
+    this.serviceSub.getAll(idtema).subscribe(subtema => {
+      dataInsert.subtemas = subtema
+      for (let i = 0; i < subtema.length; i++) {
+        this.service_preguntas.getAll(subtema[i].id).subscribe(pregunta => {
+          dataInsert.subtemas[i].preguntas = pregunta
+          if (i == subtema.length - 1) {
+            this.crearIntento(dataInsert, act, idtema, subtem);
           }
-          // this.collectionSub = subtema;
         },
           error => {
             console.error(error);
@@ -58,10 +67,15 @@ export class PracticarTemasComponent implements OnInit {
       error => {
         console.error(error);
       });
-  }
 
-  practicar(act: any, idsub:any, subtem: any) {
-    this.router.navigate(['/resolver/' + act + '/'+ this.idCurso + '/'+ this.nameCurso + '/' + idsub + '/' + subtem]);
+    // this.crearIntento(dataInsert)
   }
-
+  
+  crearIntento(dataInsert: any, act:any, idtema: any, subtem: any) {
+    this.service_respuestas.createIntento(dataInsert).then((_response) => {
+      this.router.navigate(['/resolver/' + act + '/'+ this.idCurso + '/'+ this.nameCurso + '/' + idtema + '/' + subtem]);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 }

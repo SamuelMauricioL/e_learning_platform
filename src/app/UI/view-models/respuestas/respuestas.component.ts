@@ -31,7 +31,7 @@ export class RespuestasComponent implements OnInit {
   idtema: string = this.route.snapshot.params.idtema;
   tema: string = this.route.snapshot.params.tema;
   idSubTema: string = this.route.snapshot.params.idSubTema;
-  nameCurso:string = this.route.snapshot.params.nameCurso;
+  nameCurso: string = this.route.snapshot.params.nameCurso;
   act: string = this.route.snapshot.params.act;
   idCurso: string = this.route.snapshot.params.idCurso;
 
@@ -62,22 +62,35 @@ export class RespuestasComponent implements OnInit {
     this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
       console.log("pregunta")
       console.log(pregunta)
-      // for (let i = 0; i < pregunta.length; i++) {
-      //   this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
-      //     this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
-      //       this.collection_de_preguntas_completo.push({
-      //         id: pregunta[i].id,
-      //         idSubTema: pregunta[i].idSubTema,
-      //         indice: pregunta[i].indice,
-      //         pregunta: pregunta[i].pregunta,
-      //         descripcion: pregunta[i].descripcion,
-      //         estado: pregunta[i].estado,
-      //         elementos: elemento,
-      //         alternativas: alternativa,
-      //       });
-      //     });
-      //   });
-      // }
+      for (let i = 0; i < pregunta.length; i++) {
+        this.collection_de_preguntas_completo.push({
+          id: pregunta[i].id,
+          idSubTema: pregunta[i].idSubTema,
+          indice: pregunta[i].indice,
+          pregunta: pregunta[i].pregunta,
+          descripcion: pregunta[i].descripcion,
+          estado: pregunta[i].estado,
+          tipoPregunta: pregunta[i].tipoPregunta,
+          elementos: pregunta[i].elementos,
+          alternativas: pregunta[i].alternativas,
+
+        });
+        // pregunta[i].alternativas
+        //   this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
+        //     this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
+        //       this.collection_de_preguntas_completo.push({
+        //         id: pregunta[i].id,
+        //         idSubTema: pregunta[i].idSubTema,
+        //         indice: pregunta[i].indice,
+        //         pregunta: pregunta[i].pregunta,
+        //         descripcion: pregunta[i].descripcion,
+        //         estado: pregunta[i].estado,
+        //         elementos: elemento,
+        //         alternativas: alternativa,
+        //       });
+        //     });
+        //   });
+      }
       this.timer();
     },
       error => {
@@ -138,7 +151,7 @@ export class RespuestasComponent implements OnInit {
   }
 
   guardar(): void {
-    
+
     console.log("guardar");
     // this.idUsuario = localStorage.getItem('user');
     // let total = this.notas.reduce((a, b) => a + b, 0);
@@ -164,10 +177,10 @@ export class RespuestasComponent implements OnInit {
   }
 
   retroceder() {
-    
-    if(this.act != undefined){
-      this.router.navigate(['/practicar-temas/' + this.nameCurso + '/'+this.idCurso ]);
-    }else{
+
+    if (this.act != undefined) {
+      this.router.navigate(['/practicar-temas/' + this.nameCurso + '/' + this.idCurso]);
+    } else {
       this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
     }
   }
