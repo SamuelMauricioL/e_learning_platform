@@ -19,7 +19,17 @@
         <!-- <h4 style="width: 80%;">{{ pos + 1 }}. {{ pregunta.pregunta}}</h4>  -->
         <p class="float-start ms-3" style="cursor:pointer;">{{ pos + 1 }}. {{ pregunta.pregunta}}</p>
         <div class="d-flex float-end">
-          <app-editar [idPregunta]="pregunta.id" ></app-editar>
+          <div *ngIf="pregunta.tipoPregunta=='alternativa'">
+            <app-editar [idPregunta]="pregunta.id" [elementos]="pregunta.elementos "
+            [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
+             [AlternativaBoton]="pregunta.alternativas"></app-editar>
+          </div>
+          <div *ngIf="pregunta.tipoPregunta=='pregunta'">
+            <app-editar [idPregunta]="pregunta.id" [elementos]="pregunta.elementos" 
+            [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
+            [AlternativaBoton]="[{poscion:1,tipoElemento:'textoEntrada',valor:pregunta.alternativas}]"></app-editar>
+          </div>
+          
           <div class="ms-2 pluss-elemento" (click)="deletePregunta(pregunta.id)">
             <i class="fa fa-trash text-danger fa-2x" aria-hidden="true"></i>
           </div>
@@ -28,7 +38,7 @@
 
       <div class="contenido border border-top-0 p-2">
         <div class="mt-3">
-          <app-elementos [idPregunta]="pregunta.id"></app-elementos>
+          <app-elementos [idPregunta]="pregunta.id" [elementos]="pregunta.elementos"></app-elementos>
         </div>
         <hr />
         <div class="p-1">
@@ -42,7 +52,7 @@
               <div class="float-end"><b>Tipo Alternativas:</b> {{pregunta.tipoPregunta}}</div>
             </div>
           </div>
-          <app-alternativas  [idPregunta]="pregunta.id" [tipoPregunta]="pregunta.tipoPregunta"></app-alternativas>
+          <app-alternativas  [idPregunta]="pregunta.id" [tipoPregunta]="pregunta.tipoPregunta" [alternativas]="pregunta.alternativas"></app-alternativas>
         </div>
       </div>
     </div>
@@ -61,9 +71,9 @@
       <div class="row">
         <div class="col-sm-8">
           <div class="form-floating mb-3">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingAreaIni"
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingAreaIni_add"
               style="height: 100px"></textarea>
-            <label for="floatingAreaIni">Descripción</label>
+            <label for="floatingAreaIni_add">Descripción</label>
           </div>
         </div>
         <div class="col-sm-4">

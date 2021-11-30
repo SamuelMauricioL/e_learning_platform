@@ -12,25 +12,13 @@ export class AlternativasComponent implements OnInit {
   idPregunta:string="";
   @Input()
   tipoPregunta:string="";
-
+  @Input()
   alternativas:any = []
   constructor(
     private service: GetPreguntasUseCases,
   ) { }
 
   ngOnInit(): void {
-    this.service.getAlternativas(this.idPregunta).subscribe((val:any)=>{
-      val.sort((a:any,b:any)=>{
-        if(this.tipoPregunta=="alternativa"){
-          return a.posicion - b.posicion;
-        }else{
-          return a.valor - b.valor;
-        }
-        
-      })
-      this.alternativas = val
-      console.log("alternativa",this.alternativas)
-    })
   }
 
 }
