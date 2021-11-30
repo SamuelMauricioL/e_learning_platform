@@ -15,6 +15,10 @@ export class EditarComponent implements OnInit {
   @Input()
   idPregunta:string="";
 
+  @Input()
+  tipoPregunta:string="";
+  @Input()
+  elementos:any=[];
   
   constructor(
     private service: GetPreguntasUseCases,
@@ -22,7 +26,9 @@ export class EditarComponent implements OnInit {
     private storage: AngularFireStorage,
     private serviceSubtemas : GetSubTemasUseCases,
   ) { }
+  @Input()
   pregunta:any = {};
+
   Alternativas:any;
   idSubTema: string = this.route.snapshot.params.idSubTema;
   subTema:any ;
@@ -32,28 +38,40 @@ export class EditarComponent implements OnInit {
       this.subTema = val;
       // this.getPreguntas();
     })
+
   }
   getPregunta(){
-    console.log("idpregunta",this.idPregunta);
-    this.service.getPregunta(this.idPregunta).subscribe((val:any)=>{
-      this.pregunta = val;
-      console.log(this.pregunta)
+    // console.log("idpregunta",this.idPregunta);
+    // this.service.getPregunta(this.idPregunta).subscribe((val:any)=>{
+    //   this.pregunta = val;
+    //   console.log(this.pregunta)
       
-      this.service.getElementos(this.idPregunta).subscribe((other:any)=>{
-        // val.sort((a:any,b:any)=>{
-        //   return a.posicion - b.posicion;
-        // })
-        this.Elementos=other;
-        console.log(this.Elementos);
-      })
-    })
+    //   this.service.getElementos(this.idPregunta).subscribe((other:any)=>{
+    //     // val.sort((a:any,b:any)=>{
+    //     //   return a.posicion - b.posicion;
+    //     // })
+    //     this.Elementos=other;
+    //     console.log(this.Elementos);
+    //   })
+    // })
   }
 
   //==============================================AGREGAR - MODAL ======================
   // ===========================================================================
   public selectorCentral:any;
   openModal(nameModal: string,e:any) {
+    this.Elementos=[];
+    this.elementos.forEach((element:any) => {
+      this.Elementos.push(Object.assign({},element));
+    });
     this.getPregunta();
+    //cambio de select
+    if(this.tipoPregunta=="pregunta"){
+      this.cambiarSelect("2");
+      this.generarAlternativas();
+    }
+
+
     this.selectorCentral=e.target.parentNode.parentNode;
     let modal: any = this.selectorCentral.querySelector(nameModal);
     let contenedor: any = modal.querySelector('.contenedor');
@@ -75,9 +93,11 @@ export class EditarComponent implements OnInit {
   //select 
   changeSelectAlternativas(e: any) {
     this.preConfigAlternativa()
+    this.cambiarSelect(e.target.value)
     
-    console.log(e.target.value);
-    if (e.target.value == "1") {
+  }
+  cambiarSelect(val:string){
+    if (val == "1") {
       this.tipoAlternativa = true;
       this.tipoEntrada = false;
     } else {
@@ -87,8 +107,9 @@ export class EditarComponent implements OnInit {
   }
   //=========Cargado de Array
   // Array
-  public Elementos: any = [
-  ]
+  public Elementos: any = []
+
+
   public PosicionElemento: any = [1]
 
   //========= Dragg And Drop de elementos 
@@ -190,7 +211,7 @@ export class EditarComponent implements OnInit {
     this.preConfig();
     let ownElement: any = this.selectorCentral.querySelector("#plus-imagen");
     ownElement.classList.add('ocultar');
-    let elemento: any = this.selectorCentral.querySelector("#addImagenElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addImagenElemento_e");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -202,7 +223,7 @@ export class EditarComponent implements OnInit {
     let ownElement: any = this.selectorCentral.querySelector("#plus-texto");
     ownElement.classList.add('ocultar');
 
-    let elemento: any = this.selectorCentral.querySelector("#addTextoElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addTextoElemento_e");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -269,7 +290,7 @@ export class EditarComponent implements OnInit {
     let ownElement: any = this.selectorCentral.querySelector("#plus-texto-entrada");
     ownElement.classList.add('ocultar');
 
-    let elemento: any = this.selectorCentral.querySelector("#addTextoEntradaElemento");
+    let elemento: any = this.selectorCentral.querySelector("#addTextoEntradaElemento_e");
     let find = elemento.classList.contains('ocultar');
     if (find) {
       elemento.classList.remove('ocultar');
@@ -368,6 +389,7 @@ export class EditarComponent implements OnInit {
     this.preConfig();
   }
   // ============Alternativas
+  @Input()
   public AlternativaBoton:any = [];
  
   preConfigAlternativa(){
@@ -384,8 +406,8 @@ export class EditarComponent implements OnInit {
       correcta:"no",
       switchEditar:false,
     })
-    let opcionInput:any = this.selectorCentral.querySelector("#opcionInput");
-    opcionInput.value="";
+    let opcionInput_e:any = this.selectorCentral.querySelector("#opcionInput_e");
+    opcionInput_e.value="";
 
   }
   //switch si alternativa opcion es carrecta o no 
@@ -410,6 +432,7 @@ export class EditarComponent implements OnInit {
   }
 
   //alternativas entrada 
+  @Input()
   public AlternativasEntrada:any=[]
   generarAlternativas(){
     this.AlternativasEntrada=[];
@@ -462,7 +485,7 @@ export class EditarComponent implements OnInit {
     this.switchAgregarEditar=ss;
     this.posicionEntradaEditar=i;
     if(ss==1){
-      let textArea:any = this.selectorCentral.querySelector("#floatingTextareaEditar");
+      let textArea:any = this.selectorCentral.querySelector("#floatingTextareaEditar_e");
       textArea.value=this.Elementos[i].valor
     }else if(ss==2){
       this.textoEntradaEditar=[];
@@ -477,7 +500,7 @@ export class EditarComponent implements OnInit {
   //==========Editar Texto 
   addTextoElementoEditar(textAreaEditar:any){
     this.Elementos[this.posicionEntradaEditar].valor=textAreaEditar.value;
-    this.closeModal('#modalAgregarEditar');
+    this.closeModal('#modalEditarPreguntaEditar');
   }
   //==========Editar texto entrada 
   //agregar texto
@@ -546,7 +569,7 @@ export class EditarComponent implements OnInit {
     this.textoEntradaEditar.forEach((element:any) => {
       this.Elementos[this.posicionEntradaEditar].valor.push(element)
     });
-    this.closeModal('#modalAgregarEditar');
+    this.closeModal('#modalEditarPreguntaEditar');
 
   }
   
@@ -560,12 +583,14 @@ export class EditarComponent implements OnInit {
     
 
     let newPregunta = {
+      id:"",
       idSubTema: "/SubTemas/"+this.idSubTema,
       idTema:this.subTema.idTema,
       indice: "3",
       pregunta: descripcion.value,
       descripcion: descripcion.value,
-      alternativas: "borrado",
+      alternativas: [],
+      elementos:this.Elementos as Array<ElementosPreguntaModel>,
       respuesta: "borrado",
       estado: true,
       tipoPregunta:"",
@@ -573,7 +598,7 @@ export class EditarComponent implements OnInit {
     let alternativas:any=[]
     if(this.tipoAlternativa){
       newPregunta.tipoPregunta = "alternativa";
-      alternativas=this.AlternativaBoton as Array<AlternativaPreguntaModel>;
+      newPregunta.alternativas=this.AlternativaBoton as Array<AlternativaPreguntaModel>;
     }else{
       newPregunta.tipoPregunta = "pregunta";
       let newAlternativasEntrada:any = [];
@@ -581,20 +606,12 @@ export class EditarComponent implements OnInit {
         newAlternativasEntrada = newAlternativasEntrada.concat(element.valor)
       });
       console.log(newAlternativasEntrada)
-      alternativas=newAlternativasEntrada as Array<AlternativaPreguntaModel>;
+      newPregunta.alternativas=newAlternativasEntrada as Array<AlternativaPreguntaModel>;
     }
 
-    let Elementos = this.Elementos as Array<ElementosPreguntaModel>;
-    
-    console.log({
-      pregunta: newPregunta,
-      tipoAlternativa:this.tipoAlternativa,
-      alternativas:alternativas,
-      Elementos:Elementos
+    console.log("editado",newPregunta);
+    this.service.update(this.idPregunta,newPregunta).then((val:any)=>{
+      this.closeModal('#modalEditarPregunta');
     })
-    // this.service.create(newPregunta,alternativas,Elementos).then((val:any)=>{
-    //   console.log(val)
-    //   this.closeModal('#modalAgregar');
-    // });
   }
 }

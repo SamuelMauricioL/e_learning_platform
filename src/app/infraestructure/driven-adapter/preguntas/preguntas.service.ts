@@ -71,17 +71,17 @@ export class PreguntasService extends PreguntasGateway {
     let batch = this.firestore.firestore.batch();
     
     
-    modelEle.forEach(element => {
-      const idEle = this.firestore.createId();
-      let refEle = this.firestore.collection('Preguntas').doc(id).collection("Elementos").doc(idEle).ref;
-      batch.set(refEle,element);
-    });
+    // modelEle.forEach(element => {
+    //   const idEle = this.firestore.createId();
+    //   let refEle = this.firestore.collection('Preguntas').doc(id).collection("Elementos").doc(idEle).ref;
+    //   batch.set(refEle,element);
+    // });
     
-    modelAlt.forEach(element => {
-      const idAlt = this.firestore.createId();
-      let refEle = this.firestore.collection('Preguntas').doc(id).collection("Alternativas").doc(idAlt).ref;
-      batch.set(refEle,element);
-    });
+    // modelAlt.forEach(element => {
+    //   const idAlt = this.firestore.createId();
+    //   let refEle = this.firestore.collection('Preguntas').doc(id).collection("Alternativas").doc(idAlt).ref;
+    //   batch.set(refEle,element);
+    // });
     // this.firestore.collection('Preguntas').add(_model)
     return batch.commit();
   }

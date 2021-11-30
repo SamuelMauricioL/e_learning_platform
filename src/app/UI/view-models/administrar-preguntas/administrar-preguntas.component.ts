@@ -32,27 +32,11 @@ export class AdministrarPreguntasComponent implements OnInit {
   subTema:any ;
 
   ngOnInit(): void {
-<<<<<<< Updated upstream
-    let every:any = document.querySelectorAll('.bloque');
-    let everytitle:any = document.querySelectorAll('.titulo');
-    everytitle.forEach((one:any,i:number) => {
-      this.eventManager.addEventListener(one,'click',()=>{
-        let find = every[i].classList.contains('activo');
-        if(find){
-          every[i].classList.remove('activo');
-        }else{
-          every[i].classList.add('activo');
-        }
-        
-      })
-    });
-=======
     this.serviceSubtemas.getOneSubtema(this.idSubTema).subscribe((val:any)=>{
       this.subTema = val;
       this.getPreguntas();
     })
     
->>>>>>> Stashed changes
   }
    // =================================║  ║ ╔== ==╦== ╔==╗ ╔==╗=======
    // =================================║  ║ ╚=╗   ║   ║  ║ ║=╬╝======
@@ -90,6 +74,11 @@ export class AdministrarPreguntasComponent implements OnInit {
   //==============================================AGREGAR - MODAL ======================
   // ===========================================================================
   openModal(nameModal: string) {
+    this.Elementos = [];
+    this.AlternativaBoton=[];
+    this.AlternativasEntrada=[];
+    let descripcion:any = document.querySelector("#floatingAreaIni_add");
+    descripcion.value="";
     let modal: any = document.querySelector(nameModal);
     let contenedor: any = modal.querySelector('.contenedor');
     contenedor.classList.add('activo');
@@ -497,6 +486,7 @@ export class AdministrarPreguntasComponent implements OnInit {
     this.posicionEntradaEditar=i;
     if(ss==1){
       let textArea:any = document.querySelector("#floatingTextareaEditar");
+      
       textArea.value=this.Elementos[i].valor
     }else if(ss==2){
       this.textoEntradaEditar=[];
@@ -590,16 +580,18 @@ export class AdministrarPreguntasComponent implements OnInit {
   // =============================================
 
   addElemento(){
-    let descripcion:any = document.querySelector("#floatingAreaIni");
+    let descripcion:any = document.querySelector("#floatingAreaIni_add");
     
 
     let newPregunta = {
+      id:"",
       idSubTema: "/SubTemas/"+this.idSubTema,
       idTema:this.subTema.idTema,
       indice: "3",
       pregunta: descripcion.value,
       descripcion: descripcion.value,
-      alternativas: "borrado",
+      alternativas: [],
+      elementos:this.Elementos as Array<ElementosPreguntaModel>,
       respuesta: "borrado",
       estado: true,
       tipoPregunta:"",
@@ -607,19 +599,20 @@ export class AdministrarPreguntasComponent implements OnInit {
     let alternativas:any=[]
     if(this.tipoAlternativa){
       newPregunta.tipoPregunta = "alternativa";
-      alternativas=this.AlternativaBoton as Array<AlternativaPreguntaModel>;
+      newPregunta.alternativas=this.AlternativaBoton ;
+      console.log("alternativas:",newPregunta.alternativas);
     }else{
       newPregunta.tipoPregunta = "pregunta";
       let newAlternativasEntrada:any = [];
       this.AlternativasEntrada.forEach((element:any) => {
         newAlternativasEntrada = newAlternativasEntrada.concat(element.valor)
       });
-      console.log(newAlternativasEntrada)
-      alternativas=newAlternativasEntrada as Array<AlternativaPreguntaModel>;
+      console.log(this.AlternativasEntrada)
+      newPregunta.alternativas=newAlternativasEntrada ;
     }
-
-    let Elementos = this.Elementos as Array<ElementosPreguntaModel>;
-    this.service.create(newPregunta,alternativas,Elementos).then((val:any)=>{
+    
+    let elementos = this.Elementos as Array<ElementosPreguntaModel>;
+    this.service.create(newPregunta,alternativas,elementos).then((val:any)=>{
       console.log(val)
       this.closeModal('#modalAgregar');
     });
@@ -633,7 +626,7 @@ export class AdministrarPreguntasComponent implements OnInit {
 // ========================= |______/   \______/  | _| `._____|| _| `._____|/__/     \__\ | _| `._____|
 
   deletePregunta(id:string){
-    
+    this.service.delete(id);
   }
 
 }

@@ -10,8 +10,9 @@ export class ElementosComponent implements OnInit {
   @Input()
   idPregunta:string ="";
 
-  public elementos:any = [];
-
+  @Input()
+  elementos:any = [];
+  
   constructor(
     private service: GetPreguntasUseCases,
   ) { }
@@ -21,13 +22,13 @@ export class ElementosComponent implements OnInit {
   }
   
   getElementos(){
-    this.service.getElementos(this.idPregunta).subscribe((val:any)=>{
-      // console.log("elementos",val);
-      val.sort((a:any,b:any)=>{
-        return a.posicion - b.posicion;
-      })
-      this.elementos=val;
-    })
+    // this.service.getElementos(this.idPregunta).subscribe((val:any)=>{
+    //   // console.log("elementos",val);
+    //   val.sort((a:any,b:any)=>{
+    //     return a.posicion - b.posicion;
+    //   })
+    //   this.elementos=val;
+    // })
   }
 
 }

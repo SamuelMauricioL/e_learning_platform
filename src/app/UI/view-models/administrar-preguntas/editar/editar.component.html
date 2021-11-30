@@ -76,7 +76,7 @@
                 <div class="col-sm-9">
                     <!-- Cargado de elementos -->
                     <!-- add Texto -->
-                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoElemento">
+                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoElemento_e">
                         <h5>Agregar Texto</h5>
                         <div class="form-floating mb-3">
                             <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <!-- add Imagen -->
-                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addImagenElemento">
+                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addImagenElemento_e">
                         <h5>Agregar Imagen</h5>
                         <div class="row">
                             <div class="col-sm">
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <!-- add-texto-entrada -->
-                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoEntradaElemento">
+                    <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoEntradaElemento_e">
                         <h5>Agregar Texto Entrada</h5>
                         <button type="button" class="btn btn-primary m-2" (click)="addTextoEntrada()">
                             Texto <i class="fa fa-plus-square" aria-hidden="true"></i>
@@ -260,7 +260,7 @@
                 <div class="d-flex justify-content-start">
                     <div class="input-group w-50">
                         <span class="input-group-text" id="basic-addon1">Valor:</span>
-                        <input type="text" class="form-control" id="opcionInput" aria-describedby="basic-addon1"
+                        <input type="text" class="form-control" id="opcionInput_e" aria-describedby="basic-addon1"
                             #inputAlternativaBoton />
                     </div>
                     <button class="btn btn-primary mx-2" (click)="addAlternativaBoton(inputAlternativaBoton)">
@@ -357,7 +357,7 @@
         <div class="row ">
             <div class="col-sm m-1 d-flex justify-content-between">
                 <button class="btn btn-light m-2" (click)="closeModal('#modalEditarPregunta')">Cancelar</button>
-                <button class="btn btn-success m-2" (click)="addElemento()">Agregar</button>
+                <button class="btn btn-success m-2" (click)="addElemento()">Editar</button>
             </div>
 
         </div>
@@ -374,11 +374,11 @@
         <div class="row">
             <div *ngIf="switchAgregarEditar==1">
                 <!-- Texto -->
-                <div class="  p-2" id="addTextoElemento">
+                <div class="  p-2" id="addTextoElemento_e">
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaEditar"
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaEditar_e"
                             style="height: 100px" #textAreaEditar></textarea>
-                        <label for="floatingTextareaEditar">Descripción</label>
+                        <label for="floatingTextareaEditar_e">Descripción</label>
                     </div>
                     <hr />
                     <div class="d-flex justify-content-between">

@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   codigo:any;
   email:any
 
+  rol:string="";
   constructor(
     private auth: AuthService,
     private route: ActivatedRoute,
@@ -28,6 +29,8 @@ export class HomeComponent implements OnInit {
     this.nombre = JSON.parse(this.datoUsuario).nombre;
     this.codigo = JSON.parse(this.datoUsuario).codigo;
     this.email = JSON.parse(this.datoUsuario).email;
+    let usuario:any = localStorage.getItem('user');
+    this.rol = JSON.parse(this.datoUsuario).rol;
   }
 
 
