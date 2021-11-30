@@ -31,6 +31,10 @@ export class RespuestasComponent implements OnInit {
   idtema: string = this.route.snapshot.params.idtema;
   tema: string = this.route.snapshot.params.tema;
   idSubTema: string = this.route.snapshot.params.idSubTema;
+  nameCurso:string = this.route.snapshot.params.nameCurso;
+  act: string = this.route.snapshot.params.act;
+  idCurso: string = this.route.snapshot.params.idCurso;
+
   managerForm: FormGroup;
   notas = Array();
 
@@ -56,24 +60,24 @@ export class RespuestasComponent implements OnInit {
 
   ngOnInit(): void {
     this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
-      for (let i = 0; i < pregunta.length; i++) {
-        this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
-
-          this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
-
-            this.collection_de_preguntas_completo.push({
-              id: pregunta[i].id,
-              idSubTema: pregunta[i].idSubTema,
-              indice: pregunta[i].indice,
-              pregunta: pregunta[i].pregunta,
-              descripcion: pregunta[i].descripcion,
-              estado: pregunta[i].estado,
-              elementos: elemento,
-              alternativas: alternativa,
-            });
-          });
-        });
-      }
+      console.log("pregunta")
+      console.log(pregunta)
+      // for (let i = 0; i < pregunta.length; i++) {
+      //   this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
+      //     this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
+      //       this.collection_de_preguntas_completo.push({
+      //         id: pregunta[i].id,
+      //         idSubTema: pregunta[i].idSubTema,
+      //         indice: pregunta[i].indice,
+      //         pregunta: pregunta[i].pregunta,
+      //         descripcion: pregunta[i].descripcion,
+      //         estado: pregunta[i].estado,
+      //         elementos: elemento,
+      //         alternativas: alternativa,
+      //       });
+      //     });
+      //   });
+      // }
       this.timer();
     },
       error => {
@@ -134,38 +138,38 @@ export class RespuestasComponent implements OnInit {
   }
 
   guardar(): void {
-    this.idUsuario = localStorage.getItem('user');
-    let total = this.notas.reduce((a, b) => a + b, 0);
-    let sumatotal = total / this.notas.length;
+    
+    console.log("guardar");
+    // this.idUsuario = localStorage.getItem('user');
+    // let total = this.notas.reduce((a, b) => a + b, 0);
+    // let sumatotal = total / this.notas.length;
 
-    this.managerForm = new FormGroup({
-      id: new FormControl(this.idtema, Validators.required),
-      identificador: new FormControl(this.idtema, Validators.required),
-      idAlumno: new FormControl(JSON.parse(this.idUsuario).id, Validators.required),
-      idTema: new FormControl(this.idtema, Validators.required),
-      promedio: new FormControl(sumatotal, Validators.required),
-      ruta: new FormControl(this.ruta, Validators.required),
-      tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
-      estado: new FormControl(true, Validators.required),
-    });
+    // this.managerForm = new FormGroup({
+    //   id: new FormControl(this.idtema, Validators.required),
+    //   identificador: new FormControl(this.idtema, Validators.required),
+    //   idAlumno: new FormControl(JSON.parse(this.idUsuario).id, Validators.required),
+    //   idTema: new FormControl(this.idtema, Validators.required),
+    //   promedio: new FormControl(sumatotal, Validators.required),
+    //   ruta: new FormControl(this.ruta, Validators.required),
+    //   tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
+    //   estado: new FormControl(true, Validators.required),
+    // });
 
-    const { id, ...obj } = this.managerForm.value;
-    this.service_respuestas.create(obj).then((_response) => {
-      this.managerForm.reset();
-    }).catch((error) => {
-      console.error(error);
-    });
+    // const { id, ...obj } = this.managerForm.value;
+    // this.service_respuestas.create(obj).then((_response) => {
+    //   this.managerForm.reset();
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
   }
 
   retroceder() {
-    this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
+    
+    if(this.act != undefined){
+      this.router.navigate(['/practicar-temas/' + this.nameCurso + '/'+this.idCurso ]);
+    }else{
+      this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
+    }
   }
 
 }
-
-// old
-// http://localhost:4200/responder-preguntas/JlNb9RUUpusyP15R226D/1,%203,%205,%204,%202
-
-
-// new
-// http://localhost:4200/dar-respuestas/7mOq3PB9Ae8PmeXZ1h4d/1,%203,%205,%204,%202/JlNb9RUUpusyP15R226D

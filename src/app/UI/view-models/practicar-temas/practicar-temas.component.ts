@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SubTemaModel } from 'src/app/domain/models/SubTema/subtema-model';
-import { TemaModel } from 'src/app/domain/models/Tema/tema-model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
 
@@ -13,7 +12,8 @@ import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
 export class PracticarTemasComponent implements OnInit {
 
   constructor(
-    // private service_preguntas: GetPreguntasUseCases,
+    private titleService: Title,
+    private router: Router,
     private service: GetTemasUseCases,
     private route: ActivatedRoute,
     private serviceSub: GetSubTemasUseCases,
@@ -25,28 +25,43 @@ export class PracticarTemasComponent implements OnInit {
   collectionSub = new Array();
 
   ngOnInit(): void {
-
+    this.titleService.setTitle("E-Learning Platform | Practicar Temas");
     const datos: any = localStorage.getItem('userRoles');
     let idGrado: any = JSON.parse(datos).gradoId;
-
-    console.log(idGrado)
 
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {
       for (let i = 0; i < tema.length; i++) {
         this.serviceSub.getAll(tema[i].id).subscribe(subtema => {
-          this.collectionSub.push({subtema});
+          for (let isub = 0; isub < subtema.length; isub++) {
+            // console.log("subtema")
+            // console.log(subtema)
+            this.collectionSub.push(
+              {
+                descripcion: subtema[isub].descripcion,
+                dificultad: subtema[isub].dificultad,
+                estado: subtema[isub].estado,
+                id: subtema[isub].id,
+                idTema: subtema[isub].idTema,
+                indice: subtema[isub].indice,
+                subtema: subtema[isub].subtema,
+                time: subtema[isub].time,
+              }
+            );
+          }
           // this.collectionSub = subtema;
         },
-        error => {
-          console.error(error);
-        });
+          error => {
+            console.error(error);
+          });
       }
-      console.log("this.collectionSub")
-      console.log(this.collectionSub)
     },
       error => {
         console.error(error);
       });
+  }
+
+  practicar(act: any, idsub:any, subtem: any) {
+    this.router.navigate(['/resolver/' + act + '/'+ this.idCurso + '/'+ this.nameCurso + '/' + idsub + '/' + subtem]);
   }
 
 }

@@ -5,20 +5,27 @@
                 <h1 style="color: white; font-weight: bolder;">{{nameCurso}}</h1>
             </div>
 
-            <div class="row">
-                <div class="col-md-4">
+            <div class="row bodySub">
+                <div class="col-md-4" *ngFor="let isub of collectionSub">
                     <div class="card border-warning mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Nombre del tema</h5>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h5 class="card-title" style="text-align: start;">{{isub.subtema}}</h5>
+                                </div>
+                                <div class="col-4">
+                                    <h5 style="font-size: 10px; text-align: end;">{{isub.time}}</h5>
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-muted">{{isub.descripcion}}</h6>
                             <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE 15/20</h6>
                         </div>
                         <div class="card-footer bg-transparent ">
-                            <a href="#" class="card-link"><i class="fa fa-edit"></i> Aprender</a>
-                            <a href="#" class="card-link"><i class="fa fa-edit"></i> Reforzar</a>
+                            <button (click)="practicar('aprender', isub.id, isub.subtema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>
+                            <button (click)="practicar('reforzar', isub.id, isub.subtema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
