@@ -14,5 +14,9 @@ export class GetGradosUseCases {
     //TODO: En este sitio podríamos manejar las configuraciones y hace un control de excepciones
     return this._gateway.getAllGrados();
   }
+  getGradoById (id: string) : any {
+    // Retorna el grado por el ID
+    return this._gateway.getGradoById(id);
+  }
 
 }

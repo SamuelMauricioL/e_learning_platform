@@ -19,19 +19,31 @@ export class GradosAcademicosComponent implements OnInit {
   type_user: string = this.route.snapshot.params.typeUser;
 
   collection = [] as GradoModel[]
+  collectionGrado = [] as any
   
   ngOnInit(): void {
     this.service.getAllCursos().subscribe(resp => {
       this.collection = resp;
       console.log(this.collection)
     },
-      error => {
-        console.error(error);
-      });
+    error => {
+      console.error(error);
+    });
+    this.buscarGradoTipoUsuario()
   }
 
   navigateCursos(idGrado: string, typeUser: string) {
     this.router.navigate(['cursos', idGrado, typeUser]);
+  }
+  buscarGradoTipoUsuario(){    
+    this.service.getGradoById('VJ3p01YbfxUCqxTWJmkU').subscribe((resp : any) => {
+      this.collectionGrado = resp;
+      
+      console.log(this.collectionGrado)
+    },
+      (error : any) => {
+      console.error(error);
+    });
   }
 
 }
