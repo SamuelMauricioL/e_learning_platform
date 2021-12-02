@@ -15,7 +15,7 @@ export class PreguntasService extends PreguntasGateway {
   ) { super(); }
 
   getAllPreguntas(_idSubTema: string): Observable<PreguntaModel[]> {
-    const path: string = `SubTemas/${_idSubTema}`;
+    const path: string = `/SubTemas/${_idSubTema}`;
     return this.firestore.collection<PreguntaModel>('Preguntas',ref=> ref.where('idSubTema','==',path)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as PreguntaModel;
