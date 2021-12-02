@@ -29,6 +29,7 @@ export class AdministrarPreguntasComponent implements OnInit {
 
   }
   idSubTema: string = this.route.snapshot.params.idSubTema;
+  subtemaNombre : string = this.route.snapshot.params.subtema;
   subTema:any ;
 
   ngOnInit(): void {
