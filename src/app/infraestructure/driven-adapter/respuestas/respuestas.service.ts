@@ -1,5 +1,6 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore ,Query} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { RespuestaGateway } from 'src/app/domain/models/Respuesta/respuesta-gateway';
@@ -40,5 +41,5 @@ export class RespuestasService extends RespuestaGateway {
     const id = this.firestore.createId();
     await this.firestore.collection('Intentos').doc(id).set(_model);
     return String(id);
-  }
+  } 
 }

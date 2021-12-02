@@ -10,6 +10,7 @@ import { ReportePastelComponent } from './componentes/reporte-pastel/reporte-pas
 import { ReporteIntentosComponent } from './componentes/reporte-intentos/reporte-intentos.component';
 
 
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -17,7 +18,8 @@ import { ReporteIntentosComponent } from './componentes/reporte-intentos/reporte
     ListadoEstudiantesComponent,
     ReporteTiempoComponent,
     ReportePastelComponent,
-    ReporteIntentosComponent,
+    ReporteIntentosComponent
+    
   ],
   imports: [
     CommonModule,
