@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Chart, registerables,} from 'chart.js';
+import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 import { months } from './Utils';
 Chart.register(...registerables);
 
@@ -14,11 +15,13 @@ export class ReporteTiempoComponent implements OnInit {
   @Input() 
   idEstudiante : string ="";
 
-  constructor() { }
+  constructor(
+    private serviceResp : GetRespuestasUseCases,
+  ) { }
 
   ngOnInit(): void {
     this.cargaGrafico();
-    
+    this.getDatos();
   }
   
   
@@ -46,7 +49,11 @@ export class ReporteTiempoComponent implements OnInit {
   }
 
   getDatos(){
-
+    let estudiante:string = "TbnUR5AMXMS0W2r8rzXp";
+    let tema:string = "JlNb9RUUpusyP15R226D";
+    this.serviceResp.getLastDocumentIntento(estudiante,tema).subscribe((val:any)=>{
+      console.log(val);
+    })
   }
   
   
