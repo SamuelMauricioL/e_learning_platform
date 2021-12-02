@@ -405,6 +405,7 @@ export class AdministrarPreguntasComponent implements OnInit {
       posicion:(this.AlternativaBoton.length + 1),
       valor:e.value,
       correcta:"no",
+      rpta:"no",
       switchEditar:false,
     })
     let opcionInput:any = document.querySelector("#opcionInput");
@@ -547,6 +548,7 @@ export class AdministrarPreguntasComponent implements OnInit {
       tipo: "input",
       valor: Math.max(filtroTextoEntradaInput,maxPosEditar)  + 1,
       entrada:"",
+      rpta:"",
     }
     this.textoEntradaEditar.push(newInput);
   }
@@ -602,7 +604,7 @@ export class AdministrarPreguntasComponent implements OnInit {
       newPregunta.alternativas=this.AlternativaBoton ;
       console.log("alternativas:",newPregunta.alternativas);
     }else{
-      newPregunta.tipoPregunta = "pregunta";
+      newPregunta.tipoPregunta = "llenar";
       let newAlternativasEntrada:any = [];
       this.AlternativasEntrada.forEach((element:any) => {
         newAlternativasEntrada = newAlternativasEntrada.concat(element.valor)
@@ -612,6 +614,7 @@ export class AdministrarPreguntasComponent implements OnInit {
     }
     
     let elementos = this.Elementos as Array<ElementosPreguntaModel>;
+    console.log(elementos);
     this.service.create(newPregunta,alternativas,elementos).then((val:any)=>{
       console.log(val)
       this.closeModal('#modalAgregar');

@@ -33,5 +33,8 @@ export class HomeComponent implements OnInit {
     this.rol = JSON.parse(this.datoUsuario).rol;
   }
 
+  cargarInformacionGrados(){
+    
+  }
 
 }
