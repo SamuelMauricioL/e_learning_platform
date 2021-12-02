@@ -10,7 +10,7 @@ import { StepsPreguntasComponent } from '../steps-preguntas/steps-preguntas.comp
 })
 export class RptaComponent implements OnInit {
 
-  @ViewChild('stepper') private myStepper!: MatStepper;
+  // @ViewChild('stepper') private myStepper!: MatStepper;
 
   @Input() rpta!: number;
   @Input() rpta_si_no!: number;

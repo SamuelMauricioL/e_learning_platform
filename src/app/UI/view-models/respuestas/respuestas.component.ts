@@ -23,7 +23,7 @@ export class RespuestasComponent implements OnInit {
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
     private auth: AuthService,
-  ) { this.managerForm = new FormGroup({}); }
+  ) { this.managerForm = new FormGroup({}); this.getIntento() }
 
   idUsuario: any;
 
@@ -31,14 +31,15 @@ export class RespuestasComponent implements OnInit {
   idtema: string = this.route.snapshot.params.idtema;
   tema: string = this.route.snapshot.params.tema;
   idSubTema: string = this.route.snapshot.params.idSubTema;
-  nameCurso: string = this.route.snapshot.params.nameCurso;
+  nameCurso: string = this.route.snapshot.params.NameCurso;
   act: string = this.route.snapshot.params.act;
   idCurso: string = this.route.snapshot.params.idCurso;
+  idIntento: string = this.route.snapshot.params.intento;
 
   managerForm: FormGroup;
-  notas = Array();
+  notafinal: number = 0;
 
-  collection_de_preguntas_completo = Array();
+  collection_de_preguntas_completo: any = [];
 
   rpta_correcta = 0;
   rpta_incorrecta = 0;
@@ -57,45 +58,52 @@ export class RespuestasComponent implements OnInit {
   rpta_modal: number = 0;
   rpta_si_no: number = 0;
 
+  intento_resp: any = [];
 
-  ngOnInit(): void {
-    this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
-      console.log("pregunta")
-      console.log(pregunta)
-      for (let i = 0; i < pregunta.length; i++) {
-        this.collection_de_preguntas_completo.push({
-          id: pregunta[i].id,
-          idSubTema: pregunta[i].idSubTema,
-          indice: pregunta[i].indice,
-          pregunta: pregunta[i].pregunta,
-          descripcion: pregunta[i].descripcion,
-          estado: pregunta[i].estado,
-          tipoPregunta: pregunta[i].tipoPregunta,
-          elementos: pregunta[i].elementos,
-          alternativas: pregunta[i].alternativas,
+  visibility_modal_final: number = 0;
+  visibility_modal_btn_final: number = 0;
 
-        });
-        // pregunta[i].alternativas
-        //   this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
-        //     this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
-        //       this.collection_de_preguntas_completo.push({
-        //         id: pregunta[i].id,
-        //         idSubTema: pregunta[i].idSubTema,
-        //         indice: pregunta[i].indice,
-        //         pregunta: pregunta[i].pregunta,
-        //         descripcion: pregunta[i].descripcion,
-        //         estado: pregunta[i].estado,
-        //         elementos: elemento,
-        //         alternativas: alternativa,
-        //       });
-        //     });
-        //   });
-      }
-      this.timer();
-    },
-      error => {
-        console.error(error);
-      });
+  ngOnInit(): void { }
+
+  getIntento() {
+    if (this.act != undefined) {
+      this.service_respuestas.getIntento(this.idIntento).subscribe(response => {
+
+        this.intento_resp = response;
+        let col_resp = response.subtemas.sort((n1: any, n2: any) => n1.indice - n2.indice);
+        this.collection_de_preguntas_completo = []
+        for (let i = 0; i < col_resp.length; i++) {
+          for (let ipre = 0; ipre < col_resp[i].preguntas.length; ipre++) {
+            this.collection_de_preguntas_completo.push(col_resp[i].preguntas[ipre])
+          }
+        }
+        this.timer();
+      },
+        (error => { console.error(error); })
+      );
+
+    } else {
+      this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
+        this.collection_de_preguntas_completo = []
+        for (let i = 0; i < pregunta.length; i++) {
+          this.collection_de_preguntas_completo.push({
+            id: pregunta[i].id,
+            idSubTema: pregunta[i].idSubTema,
+            indice: pregunta[i].indice,
+            pregunta: pregunta[i].pregunta,
+            descripcion: pregunta[i].descripcion,
+            estado: pregunta[i].estado,
+            tipoPregunta: pregunta[i].tipoPregunta,
+            elementos: pregunta[i].elementos,
+            alternativas: pregunta[i].alternativas,
+
+          });
+        }
+        this.timer();
+      },
+        (error => { console.error(error); })
+      );
+    }
   }
 
   pauseTimer() {
@@ -121,6 +129,7 @@ export class RespuestasComponent implements OnInit {
       }
     }
   }
+
   add() {
     this.tick();
     this.tiempo_transcurrido = (this.hrs > 9 ? this.hrs : "0" + this.hrs)
@@ -128,52 +137,37 @@ export class RespuestasComponent implements OnInit {
       + ":" + (this.sec > 9 ? this.sec : "0" + this.sec);
     this.timer();
   }
-  timer() {
-    setTimeout(() => { this.add(); }, 1000);
 
+  timer() {
+    this.interval = setTimeout(() => { this.add(); }, 1000);
   }
 
   evaluar(resp: any) {
-    if (resp[1] == "si") {
-      this.rpta_si_no = 1;
-      this.rpta_modal = 1;
+    if (resp == true) {
       this.rpta_correcta++;
-
-    } else if (resp[1] == "no") {
-      this.rpta_si_no = 0;
-      this.rpta_modal = 1;
+    } else if (resp == false) {
       this.rpta_incorrecta++;
     }
   }
 
-  cerrarAlert(close: any) {
-    this.rpta_modal = 0;
-  }
+  finish(intento: any): void {
+    this.pauseTimer();
+    this.visibility_modal_final = 1;
 
-  guardar(): void {
+    let promedio_total = ((20 * this.rpta_correcta) / this.collection_de_preguntas_completo.length)
+    this.notafinal = Number(promedio_total.toFixed(0))
 
-    console.log("guardar");
-    // this.idUsuario = localStorage.getItem('user');
-    // let total = this.notas.reduce((a, b) => a + b, 0);
-    // let sumatotal = total / this.notas.length;
+    this.intento_resp.correctas = this.rpta_correcta;
+    this.intento_resp.incorrectas = this.rpta_incorrecta;
+    this.intento_resp.tiempoTranscurrido = this.tiempo_transcurrido;
+    this.intento_resp.termino = String(new Date);
+    this.intento_resp.promedio = promedio_total.toFixed(0)
 
-    // this.managerForm = new FormGroup({
-    //   id: new FormControl(this.idtema, Validators.required),
-    //   identificador: new FormControl(this.idtema, Validators.required),
-    //   idAlumno: new FormControl(JSON.parse(this.idUsuario).id, Validators.required),
-    //   idTema: new FormControl(this.idtema, Validators.required),
-    //   promedio: new FormControl(sumatotal, Validators.required),
-    //   ruta: new FormControl(this.ruta, Validators.required),
-    //   tiempo: new FormControl(this.tiempo_transcurrido, Validators.required),
-    //   estado: new FormControl(true, Validators.required),
-    // });
-
-    // const { id, ...obj } = this.managerForm.value;
-    // this.service_respuestas.create(obj).then((_response) => {
-    //   this.managerForm.reset();
-    // }).catch((error) => {
-    //   console.error(error);
-    // });
+    this.service_respuestas.updateIntento(this.idIntento, this.intento_resp).then((_resp) => {
+      this.visibility_modal_btn_final = 1;
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   retroceder() {

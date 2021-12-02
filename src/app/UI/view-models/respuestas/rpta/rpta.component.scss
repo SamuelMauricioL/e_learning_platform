@@ -17,19 +17,6 @@ $secondary: #99DBB4;
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 $font: 'Lato',
 sans-serif;
-html {
-    display: grid;
-    min-height: 100%;
-}
-
-body {
-    display: grid;
-    overflow: hidden;
-    font-family: $font;
-    text-transform: uppercase;
-    text-align: center;
-}
-
 #container {
     position: relative;
     margin: auto;
@@ -38,12 +25,12 @@ body {
     height: 250px;
 }
 
-h1 {
+#h1 {
     font-size: 0.9em;
     font-weight: 100;
     letter-spacing: 3px;
     padding-top: 5px;
-    color: $white;
+    color: black;
     padding-bottom: 5px;
     text-transform: uppercase;
 }

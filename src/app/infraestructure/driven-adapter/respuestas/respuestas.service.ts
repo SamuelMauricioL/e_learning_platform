@@ -10,11 +10,11 @@ import { IntentoModel, RespuestaModel } from 'src/app/domain/models/Respuesta/re
   providedIn: 'root'
 })
 export class RespuestasService extends RespuestaGateway {
-  
+
   constructor(
     private firestore: AngularFirestore,
-  ) {super();}
-  
+  ) { super(); }
+
   getAllRespuestas(): Observable<RespuestaModel[]> {
     return this.firestore.collection<RespuestaModel>('Respuestas').snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -41,5 +41,51 @@ export class RespuestasService extends RespuestaGateway {
     const id = this.firestore.createId();
     await this.firestore.collection('Intentos').doc(id).set(_model);
     return String(id);
-  } 
+
+  }
+
+  getIntento(_idmodel: any): Observable<any> {
+
+    return this.firestore.collection<any>("Intentos").doc(_idmodel).valueChanges().pipe(
+      map(data => {
+        data.id = _idmodel
+        return data;
+      })
+    );
+  }
+
+  updateIntento(_idmodel: any, _model: any): Promise<any> {
+    return this.firestore.collection('Intentos').doc(_idmodel).update(_model)
+  }
+
+
+  getLastDocumentIntento(_idUsuario: any, _idTema: any): Observable<any> {
+    const path_idUsuario = "Usuarios/" + _idUsuario;
+    const path_idTema = "Temas/" + _idTema;
+
+    const query2 = this.firestore.collection('Intentos').ref
+      .where("idUsuario", "==", path_idUsuario)
+      // .where("idTema", "==", path_idTema)
+      .orderBy("createDate").limit(1)
+      .get()
+
+    query2.then(cal => {
+      cal.forEach((doc) => {
+        console.log()
+      })
+    })
+    // .endAt("termino");
+
+    // query2.forEach(data => {
+    //   data.docs.map((e)=>{
+    //     console.log(e.data())
+    //   })
+    // });
+
+    // console.log(query2)
+
+    return this.firestore.collection<any>('Intentos', ref => ref.
+      where("idUsuario", "==", path_idUsuario).
+      where("idTema", "==", path_idTema)).valueChanges();
+  }
 }

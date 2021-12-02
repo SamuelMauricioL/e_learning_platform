@@ -22,20 +22,31 @@ export class PracticarTemasComponent implements OnInit {
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
 
-  ) { }
+  ) { 
+    this.idUsuario =  JSON.parse(String(localStorage.getItem('user'))).id ;
+  }
 
   nameCurso: string = this.route.snapshot.params.NameCurso;
   idCurso: string = this.route.snapshot.params.idCurso;
   collectionSub = new Array();
   collectionDataInsert = new Array();
+  idUsuario : string;
+
+  visibilidad: number = 0;
 
   ngOnInit(): void {
     this.titleService.setTitle("E-Learning Platform | Practicar Temas");
     const datos: any = localStorage.getItem('userRoles');
     let idGrado: any = JSON.parse(datos).gradoId;
 
+    
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {
       this.collectionSub = tema
+      for(let i = 0; i < tema.length; i++){
+        this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res)=>{
+          // console.log(_res)
+        })
+      }
     },
       error => {
         console.error(error);
@@ -43,8 +54,11 @@ export class PracticarTemasComponent implements OnInit {
   }
 
   practicar(act: any, idtema: any, subtem: any) {
+    this.visibilidad = 1;
+
     let dataInsert: any = {
-      idTema: idtema,
+      idUsuario : 'Usuarios/'+this.idUsuario,
+      idTema: 'Temas/' + idtema,
       fecha: String(new Date()),
       intencion: act,
       tipoIntento: "recoleccion", // recoleccion - consumo
@@ -73,7 +87,8 @@ export class PracticarTemasComponent implements OnInit {
   
   crearIntento(dataInsert: any, act:any, idtema: any, subtem: any) {
     this.service_respuestas.createIntento(dataInsert).then((_response) => {
-      this.router.navigate(['/resolver/' + act + '/'+ this.idCurso + '/'+ this.nameCurso + '/' + idtema + '/' + subtem]);
+      /// resolver/:act/:NameCurso/:idCurso/:intento/:tema
+      this.router.navigate(['/resolver/' + act+ '/'+ this.nameCurso + '/'+this.idCurso + '/'+ _response + '/' + subtem]);
     }).catch((error) => {
       console.error(error);
     });

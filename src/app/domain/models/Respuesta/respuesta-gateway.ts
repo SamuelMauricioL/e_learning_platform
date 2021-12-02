@@ -8,5 +8,8 @@ export abstract class RespuestaGateway {
     abstract deleteRespuesta(_id:string) : Promise<any>;
 
     abstract createIntento(_model : IntentoModel) : Promise<any>;
+    abstract getIntento(_idmodel : any) : Observable<any>;
+    abstract updateIntento(_idmodel : any, _model: any) : Promise<any>;
+    abstract getLastDocumentIntento(_idUsuario : any, _idTema: any) : Observable<any>;
 
 }

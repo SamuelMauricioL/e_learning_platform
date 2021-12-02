@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,9 +11,6 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { AlbumCardComponent } from './UI/view-models/album-card/album-card.component';
 import { CircularProgressIndicatorComponent } from './UI/common/circular-progress-indicator/circular-progress-indicator.component';
-import { AlbumGateway } from './domain/models/Album/album-gateway';
-import { AlbumApiService } from './infraestructure/driven-adapter/album-api/album-api.service';
-import { AlbumApiServiceWithoutDelay } from './infraestructure/driven-adapter/album-api/album-api-withou-delay.service';
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
@@ -42,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { SortablejsModule } from 'ngx-sortablejs';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+// import { ChargeCoeheteComponent } from './UI/common/charge-coehete/charge-coehete.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +47,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AlbumCardComponent,
     CircularProgressIndicatorComponent,
     NavbarComponent,
-    
+    // ChargeCoeheteComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,6 +108,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
       useClass: RolesService,
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }
