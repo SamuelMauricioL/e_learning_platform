@@ -70,24 +70,17 @@
                                         <div class="float-start" *ngIf="val.tipo == 'input'" style="width: 60px;">
                                             <input type="input" (input)="onSelect( $event, val)" class="form-control" style="height:50px; font-size:45px ">
                                         </div>
-
-                                        <!-- <div class="container d-flex" *ngIf="val.tipo == 'input'"
-                                            style="text-align: center;">
-                                            <p style="font-size:50px ">{{val.valor}}</p>
-                                            <input style="height:50px " type="input">
-                                        </div> -->
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div *ngIf="i.tipoPregunta == 'alternativa'" class="container" id="alternativas" style="width: 100%; ">
                         <div class="row" style="justify-content: center;">
-                            <div class="col-1 card p-0 m-1 {{'rpta' + alte.posicion}}" (click)="onSelectOption($event)" style="z-index: 999;" id="alter_X" *ngFor="let alte of i.alternativas">
-                                <div class="container" style="z-index: -999;">
-                                    <div class="text-center" style="z-index: -999;">
-                                        <h3 class="card-title" style="z-index: -999;">{{alte.valor}}</h3>
+                            <div class="col-1 card p-0 m-1 {{'rpta' + alte.posicion}}" (click)="onSelectOption($event, alte)" id="alter_X" *ngFor="let alte of i.alternativas">
+                                <div class="container">
+                                    <div class="text-center">
+                                        <h3 class="card-title">{{alte.valor}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +89,7 @@
                 </div>
                 <div class="container" style="writing-mode: tb-rl;">
                     <button (click)="comprobar(indexOfelement)" id="next" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: hidden;': 'visibility: visible;'">Next</button>
-                    <button id="finish" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button>
+                    <button (click)="comprobar(indexOfelement)" id="finish" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button>
                     <!-- <button matStepperNext id="finish" [disabled]="stepper.selectedIndex === stepper._steps.length-1" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button> -->
                     <!-- <button (click)="nextfunction(stepper)">sed</button> -->
                 </div>

@@ -36,5 +36,12 @@ export class GetRespuestasUseCases {
     return this._gateway.getIntento(_idmodel);
   }
 
+  updateIntento(_idmodel: any, _model: any): Promise<any>{
+    return this._gateway.updateIntento(_idmodel, _model);
+  }
+
+  getLastDocumentIntento(_idUsuario: any, _idTema: any): Observable<any>{
+    return this._gateway.getLastDocumentIntento(_idUsuario, _idTema);
+  }
 
 }

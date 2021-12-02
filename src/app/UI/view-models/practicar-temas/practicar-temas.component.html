@@ -1,4 +1,6 @@
+<app-charge-coehete [style]="visibilidad == 0 ? 'visibility: hidden': 'visibility: visible'"></app-charge-coehete>
 <div class="general_practicar_temas">
+
     <div class="container">
         <div class="header">
             <div class="container">
@@ -22,7 +24,7 @@
                         </div>
                         <div class="card-footer bg-transparent ">
                             <button (click)="practicar('aprender', itema.id, itema.tema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>
-                            <button (click)="practicar('reforzar', itema.id,itema.tema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
+                            <button (click)="practicar('reforzar', itema.id, itema.tema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
                         </div>
                     </div>
                 </div>
@@ -30,3 +32,5 @@
         </div>
     </div>
 </div>
+
+<!-- <app-charge-coehete></app-charge-coehete> -->

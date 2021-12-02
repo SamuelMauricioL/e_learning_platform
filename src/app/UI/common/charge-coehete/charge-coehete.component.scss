@@ -1,13 +1,20 @@
-body {
+.body {
     margin: 0;
     height: 100vh;
+    width: 100%;
+    // background-color: rgba(0, 0, 0, 0.802);
+    // background-color: rgba(0, 64, 81, 0.857);
+    background: radial-gradient(circle, rgba(0, 63, 81, 1) 50%, rgba(140, 140, 140, 0.6727065826330532) 93%);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    z-index: 999;
+    position: absolute;
 }
 
 .rocket {
+    z-index: 999;
     width: 7em;
     height: 11em;
     font-size: 16px;
@@ -17,6 +24,7 @@ body {
 }
 
 .rocket::before {
+    z-index: 999;
     content: '';
     position: absolute;
     width: 6em;
@@ -29,6 +37,7 @@ body {
 }
 
 .rocket::after {
+    z-index: 999;
     content: '';
     position: absolute;
     box-sizing: border-box;
@@ -56,6 +65,7 @@ body {
 
 .fins::before,
 .fins::after {
+    z-index: 999;
     content: '';
     position: absolute;
     width: 2em;
@@ -65,11 +75,23 @@ body {
 }
 
 .fins::before {
+    z-index: 999;
     left: -2em;
     border-radius: 3em 0 50% 100%;
 }
 
 .fins::after {
+    z-index: 999;
     right: -2em;
     border-radius: 0 3em 100% 50%;
+}
+
+.texto {
+    position: absolute;
+    font-size: 30px;
+    height: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    top: 80%;
 }

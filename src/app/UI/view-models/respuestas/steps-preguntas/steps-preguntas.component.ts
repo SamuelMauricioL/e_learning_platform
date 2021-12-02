@@ -11,6 +11,7 @@ export class StepsPreguntasComponent implements OnInit {
 
   @Input() preguntas: Array<any> = [];
   @Output() correct = new EventEmitter<boolean>();
+  @Output() finish = new EventEmitter<any>();
 
   rpta!: number;
   rpta_si_no!: number;
@@ -24,27 +25,22 @@ export class StepsPreguntasComponent implements OnInit {
 
   collection_preguntas_completo = Array();
 
-  valor: any;
-  resp: any;
-
   ngOnInit() {
   }
 
-
   comprobar(index: any) {
+
     let vla = this.preguntas[index]
     if (vla.tipoPregunta == "llenar") {
       let ab: any = [];
       vla.elementos.forEach((element_a: any) => {
         let s = element_a.valor.filter((val: any) => val.tipo == 'input')
-        console.log("s")
-        console.log(s)
         ab = ab.concat(s)
       });
 
       let as: any = [];
       ab.forEach((element: any) => {
-        if (element.valor == element.rpta) {
+        if (element.entrada == element.rpta) {
           as.push(true)
         } else {
           as.push(false)
@@ -59,26 +55,34 @@ export class StepsPreguntasComponent implements OnInit {
         this.preguntas[index].estadoPregunta = true
       }
 
-      this.preguntas[index].estadoPregunta == false ? (this.rpta = 1, this.rpta_si_no = 0, this.correct.emit(false) ): (this.rpta = 1, this.rpta_si_no = 1, this.correct.emit(true))
 
-    }else{
-      if(vla.tipoPregunta =="alternativa"){
-        let arrEstado:any = [];
-        vla.alternativas.forEach((alternativa:any)=>{
-          if(alternativa.correcta == alternativa.rpta){
+    } else {
+      if (vla.tipoPregunta == "alternativa") {
+        let arrEstado: any = [];
+        vla.alternativas.forEach((alternativa: any) => {
+          if (alternativa.correcta == alternativa.rpta) {
             arrEstado.push(true)
-          }else{
+          } else {
             arrEstado.push(false)
           }
         })
-        let fallasEncontradas = arrEstado.find((val:any)=>val==false);
-        if(fallasEncontradas==false){
-        this.preguntas[index].estadoPregunta = false;
-        }else{
-        this.preguntas[index].estadoPregunta = true;
+        let fallasEncontradas = arrEstado.find((val: any) => val == false);
+        if (fallasEncontradas == false) {
+          this.preguntas[index].estadoPregunta = false;
+        } else {
+          this.preguntas[index].estadoPregunta = true;
         }
       }
     }
+
+    this.preguntas[index].estadoPregunta == false ? this.correct.emit(false) :  this.correct.emit(true)
+
+    if(this.preguntas.length - 1 == index){
+      this.finish.emit(this.preguntas)
+    }else{
+      this.preguntas[index].estadoPregunta == false ? (this.rpta = 1, this.rpta_si_no = 0) : (this.rpta = 1, this.rpta_si_no = 1)
+
+    } 
 
   }
 
@@ -86,22 +90,11 @@ export class StepsPreguntasComponent implements OnInit {
     respuesta.rpta = idelement.target.value;
   }
 
-  onSelectOption(respuesta: any){
+  onSelectOption(respuesta: any, alternativa: any) {
     let aopt = respuesta.target.parentNode
     let bopt = aopt.classList.contains('correct')
-    bopt ? aopt.classList.remove('correct') : aopt.classList.add('correct')
+    bopt ? (aopt.classList.remove('correct'), alternativa.rpta = "no" ): (aopt.classList.add('correct'), alternativa.rpta = "si" )
 
-    console.log(aopt) 
-
-
-      // let myTag = this.el.nativeElement.querySelector(`.rpta${idelement}`);
-    // if (respuesta == "si") {
-    //   this.correct.emit([1, respuesta]);
-    //   myTag.classList.add('correct');
-    // } else {
-    //   myTag.classList.add('incorrect');
-    //   this.correct.emit([1, respuesta]);
-    // }
   }
 
   nextfunction(stepper: MatStepper) {
