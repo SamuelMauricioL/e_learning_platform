@@ -11,49 +11,17 @@
 
     <div class="collapse navbar-collapse" id="navbarText" style="color: black; width: 50%; justify-content:right;">
         <ul class="navbar-nav mx-md">
-            <!-- <li class="nav-item active">
-                <a class="nav-link" routerLink="/" *ngIf="user" style="color: black;">Inicio</a>
-            </li> -->
             <li class="nav-item active" *ngFor="let menu of menus">
                 <a class="nav-link" routerLink="{{menu.ruta}}" *ngIf="user" style="color: black;">{{ menu.nombre }}</a>
             </li>
-            <!-- <li class="nav-item" *ngIf="user" style="padding: 10px;">
-                <label class="dropdown">
-                    <div class="dd-button">
-                        Opciones
-                    </div>
-                    <input type="checkbox" class="dd-input" id="test">
-                    <ul class="dd-menu">
-                        <li routerLink="/administrar-usuarios" *ngIf="user">Usuarios</li>
-                        <li routerLink="/grados-academicos/Docente" *ngIf="user">Grados</li>
-                        <li class="divider"></li>
-                        <li>{{ user?.email}}</li>
-                    </ul>
-                </label>
-            </li> -->
-
-        </ul>
-
-    </div>
-    <!-- 
-    <div class="collapse navbar-collapse" id="navbarText" *ngIf="isStudent" style="color: black; width: 50%; justify-content:right;">
-        <ul class="navbar-nav mx-md">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/practicar" *ngIf="user" style="color: black;">Practicar</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/inicio" *ngIf="user" style="color: black;">Home</a>
-            </li>
-
             <li class="nav-item" *ngIf="user">
                 <a href="#" class="nav-link" (click)="onLogout()"><i alt="Cambiar Perfil" class="fa fa-sign-out"
                         style="color: black;"></i></a>
             </li>
-        </ul>
-    </div> -->
 
-    <!-- <button *ngIf="isAdmin" type="button" class="btn btn-success" (click)="changeProfile()" alt="Cambiar Perfil" style="margin-left: 1vw; margin-right: 1vw; background-color: transparent; border: 0px solid transparent;">
-        <i class="fa fa-exchange" alt="Cambiar Perfil" style="color: green;"></i></button> -->
+        </ul>
+
+    </div>
 </nav>
 
 <ng-template #login>
