@@ -156,7 +156,29 @@ a::after {
     padding-right: 10px;
     font-size: 18px;
     // margin-right: 10px;
-    width: 40%;
+    width: 80%;
+}
+
+.aprender:hover {
+    background-color: green;
+    color: white;
+}
+
+.aprender-robot {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid goldenrod;
+    color: goldenrod;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    // margin-right: 10px;
+    width: 80%;
+}
+
+.aprender-robot:hover {
+    background-color: goldenrod;
+    color: white;
 }
 
 a:hover::after {

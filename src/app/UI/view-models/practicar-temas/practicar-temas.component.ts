@@ -28,6 +28,7 @@ export class PracticarTemasComponent implements OnInit {
 
   nameCurso: string = this.route.snapshot.params.NameCurso;
   idCurso: string = this.route.snapshot.params.idCurso;
+  uso: string = this.route.snapshot.params.uso;
   collectionSub = new Array();
   collectionDataInsert = new Array();
   idUsuario : string;
@@ -103,5 +104,10 @@ export class PracticarTemasComponent implements OnInit {
     }).catch((error) => {
       console.error(error);
     });
+  }
+
+  salir(){
+    this.router.navigate(['/practicar']);
+
   }
 }

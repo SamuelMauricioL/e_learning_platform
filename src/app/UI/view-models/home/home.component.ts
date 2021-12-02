@@ -11,11 +11,6 @@ import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.s
 export class HomeComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.user;
-  public test: string = "asd";
-  datoUsuario!: any;
-  nombre: any;
-  codigo:any;
-  email:any
 
   rol:string="";
   constructor(
@@ -24,13 +19,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // localStorage.setItem('usuario', JSON.stringify(this.user));
-    this.datoUsuario = localStorage.getItem('userRoles');
-    this.nombre = JSON.parse(this.datoUsuario).nombre;
-    this.codigo = JSON.parse(this.datoUsuario).codigo;
-    this.email = JSON.parse(this.datoUsuario).email;
-    let usuario:any = localStorage.getItem('user');
-    this.rol = JSON.parse(this.datoUsuario).rol;
   }
 
   cargarInformacionGrados(){

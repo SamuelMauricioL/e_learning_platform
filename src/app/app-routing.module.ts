@@ -72,7 +72,7 @@ const routes: Routes = [
     loadChildren: () => import('./UI/view-models/practicar/practicar.module').then(m => m.PracticarModule)
   },
   {
-    path: 'practicar-temas/:NameCurso/:idCurso',
+    path: 'practicar-temas/:uso/:NameCurso/:idCurso',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/practicar-temas/practicar-temas.module').then(m => m.PracticarTemasModule)
   },

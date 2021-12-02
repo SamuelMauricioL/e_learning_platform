@@ -29,13 +29,9 @@ export class PracticarComponent implements OnInit {
       });
   }
 
-  vertemas(idCurso: any, nameCurso: any){
-    this.router.navigate(['practicar-temas', nameCurso, idCurso]);
+  vertemas(idCurso: any, nameCurso: any, why:any){
+    this.router.navigate(['practicar-temas',why, nameCurso, idCurso]);
 
-  }
-
-  vertemasAlgoritmo(idCurso: any, nameCurso: any){
-    this.router.navigate(['practicar-temas', nameCurso, idCurso]);
   }
 
 }

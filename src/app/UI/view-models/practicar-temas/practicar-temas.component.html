@@ -3,8 +3,17 @@
 
     <div class="container">
         <div class="header">
-            <div class="container">
-                <h1 style="color: white; font-weight: bolder;">{{nameCurso}}</h1>
+            <div class="container" style="background-color: rgba(0, 0, 0, 0.576); padding: 10px; margin: 5px; ">
+
+                <div class="row">
+                    <div class="col-9 ">
+                        <h1 style="color: white; font-weight: bolder;">{{nameCurso}}</h1>
+                    </div>
+                    <div class="col-3" style="text-align: end;">
+                        <button class="btn btn-danger" (click)="salir()">Regresar</button>
+                    </div>
+                </div>
+
             </div>
 
             <div class="row bodySub">
@@ -16,7 +25,7 @@
                                     <h5 class="card-title" style="text-align: start;">{{itema.tema}}</h5>
                                 </div>
                                 <div class="col-4" style="direction: rtl;">
-                                    <div id="circulo_green" *ngIf="itema.estado == true"></div>
+                                    <div id="circulo_green" *ngIf="itema.estado == true"> <i [class]="uso == 'robot' ? 'fa fa-robot': 'fas fa-user-astronaut' "></i></div>
                                     <div id="circulo_red" *ngIf="itema.estado == false"></div>
                                 </div>
                             </div>
