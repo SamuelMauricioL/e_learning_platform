@@ -49,3 +49,22 @@
     padding-right: 10px;
     font-size: 18px;
 }
+
+// circulo
+#circulo_green {
+    height: 20px;
+    width: 20px;
+    background: green;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+#circulo_red {
+    height: 20px;
+    width: 20px;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}

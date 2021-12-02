@@ -42,9 +42,16 @@ export class PracticarTemasComponent implements OnInit {
     
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {
       this.collectionSub = tema
+      console.log(tema)
       for(let i = 0; i < tema.length; i++){
-        this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res)=>{
-          // console.log(_res)
+        tema[i].promedio = 0;
+        this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res:any)=>{
+          tema[i].promedio = _res[0].promedio;
+
+          if(i== tema.length - 1){
+            this.collectionDataInsert = tema;
+          }
+
         })
       }
     },
@@ -60,6 +67,7 @@ export class PracticarTemasComponent implements OnInit {
       idUsuario : 'Usuarios/'+this.idUsuario,
       idTema: 'Temas/' + idtema,
       fecha: String(new Date()),
+      fechaId: String(new Date().getTime()),
       intencion: act,
       tipoIntento: "recoleccion", // recoleccion - consumo
     }

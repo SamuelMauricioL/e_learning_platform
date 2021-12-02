@@ -15,12 +15,13 @@
                                 <div class="col-8">
                                     <h5 class="card-title" style="text-align: start;">{{itema.tema}}</h5>
                                 </div>
-                                <div class="col-4">
-                                    <!-- <h5 style="font-size: 10px; text-align: end;">{{itema.time}}</h5> -->
+                                <div class="col-4" style="direction: rtl;">
+                                    <div id="circulo_green" *ngIf="itema.estado == true"></div>
+                                    <div id="circulo_red" *ngIf="itema.estado == false"></div>
+
                                 </div>
                             </div>
-                            <h6 class="card-subtitle mb-2 text-muted">{{itema.orden}}</h6>
-                            <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE {{itema.puntaje}}/20</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE {{itema.promedio}}/20</h6>
                         </div>
                         <div class="card-footer bg-transparent ">
                             <button (click)="practicar('aprender', itema.id, itema.tema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>

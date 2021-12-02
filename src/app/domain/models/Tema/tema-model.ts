@@ -3,6 +3,7 @@ export interface TemaModel {
     tema: string;
     orden: string;
     estado: boolean;
+    promedio: number;
 }
 
 export class TemaConvert {
