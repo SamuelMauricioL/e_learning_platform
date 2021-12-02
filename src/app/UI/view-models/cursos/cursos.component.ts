@@ -25,15 +25,14 @@ export class CursosComponent implements OnInit {
 
     this.service.getAllCursos(this.idGrado).subscribe(resp => {
       this.collection = resp;
-      console.log(this.collection)
     },
       error => {
         console.error(error);
       });
   }
 
-  navigate(idGrado: string, idCurso: string, curso_name: string, typeUser: string) {
-    this.router.navigate(['administrar-temas', idGrado, idCurso, curso_name, typeUser]);
+  navigate(idGrado: string, idCurso: string, curso_name: string) {
+    this.router.navigate(['administrar-temas', idGrado, idCurso, curso_name, this.type_user]);
   }
 
 }

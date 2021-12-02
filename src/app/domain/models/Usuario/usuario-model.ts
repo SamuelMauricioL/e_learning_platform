@@ -1,13 +1,15 @@
 export interface UsuarioModel {
     id: string;
-    codigo: string;
+    nombre: string;
     email: string;
+    codigo: string;
+    gradoRef: any;
+    grado: string;
+    gradoId: string;
+    rol: string;
+    roles: any;
     contraseña: string;
-    estado:     boolean;
-    grado:      string;
-    nombre:     string;
-    rol:        string;
-    roles:any;
+    estado: boolean;
 }
 
 export class UsuarioConvert {

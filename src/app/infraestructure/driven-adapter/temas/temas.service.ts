@@ -10,13 +10,24 @@ import { query } from '@angular/animations';
   providedIn: 'root'
 })
 export class TemasService extends TemaGateway {
-  
+
   constructor(
     private firestore: AngularFirestore,
-  ) {super();}
- 
+  ) { super(); }
+
   getAllTemas(_idGrado: string, _idCurso: string): Observable<TemaModel[]> {
     const path: string = `/Grados/${_idGrado}/Cursos/${_idCurso}`;
+    return this.firestore.collection<TemaModel>('Temas', ref => ref.where('curso', '==', path)).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as TemaModel;
+        data.id = a.payload.doc.id;
+        return data;
+      }))
+    );
+  }
+
+  getAllTemasWithGrado(_idGrado: string, _idCurso: string): Observable<TemaModel[]> {
+    const path: string = `/${_idGrado}/Cursos/${_idCurso}`;
     return this.firestore.collection<TemaModel>('Temas', ref => ref.where('curso', '==', path)).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as TemaModel;

@@ -1,6 +1,50 @@
+<div size="lg" class="rtpa_general" [style]=" rpta != 1 ? 'visibility: hidden;':'visibility: visible;' ">
+    <div id="container" style="height: 250px;">
+        <div *ngIf="rpta_si_no == 1 ">
+
+            <div id="success-box">
+                <!-- <div class="dot" (click)="cerrar()">
+                    <p style="font-size: x-small; text-align: center;">x</p>
+                </div> -->
+                <div class="face">
+                    <div class="eye"></div>
+                    <div class="eye right"></div>
+                    <div class="mouth happy"></div>
+                </div>
+                <div class="shadow scale"></div>
+                <div class="message">
+                    <h1 class="alert" id="h1">¡Bien!</h1>
+                    <p>Respuesta correcta.</p>
+                </div>
+                <button class="button-box" (click)="nextfunction(stepper)">
+                    <h1 class=" green" id="h1">CERRAR</h1>
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="rpta_si_no== 0">
+            <div id="error-box">
+                <!-- <div class="dot" (click)="cerrar()">
+                    <p style="font-size: x-small; text-align: center;">x</p>
+                </div> -->
+                <div class="face2">
+                    <div class="eye"></div>
+                    <div class="eye right"></div>
+                    <div class="mouth sad"></div>
+                </div>
+                <div class="shadow move"></div>
+                <div class="message">
+                    <h1 class="alert" id="h1">¡MAL!</h1>
+                    <p>Respuesta incorrecta.</div>
+                <button class="button-box" (click)="nextfunction(stepper)"><h1  id="h1" class="red">CERRAR</h1></button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="container">
-    <mat-horizontal-stepper [labelPosition]="'bottom'" style="background-color: white; ">
-        <mat-step *ngFor="let i of preguntas; let indexOfelement=index;">
+    <mat-horizontal-stepper [labelPosition]="'end'" style="background-color: white; " #stepper>
+        <mat-step *ngFor="let i of preguntas; let indexOfelement=index;" [editable]="false">
             <ng-template matStepLabel>
                 <p style="color: black;">Pregunta {{indexOfelement + 1}}</p>
             </ng-template>
@@ -12,18 +56,29 @@
                             <p class="card-text">{{i.descripcion}}</p>
                         </div>
                         <div class="card-body" style="text-align-last: center;">
-                            <div class="container" *ngFor="let elem of i.elementos">
+                            <div class="container" *ngFor="let elem of i.elementos; let indexOfElm=index;">
                                 <div class="card-body" *ngIf="elem.tipoElemento == 'texto'">
                                     <h5 class="card-title">{{elem.valor}}</h5>
                                 </div>
-                                <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 150px;">
+                                <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 350px;">
+                                <div class="card-body" *ngIf="elem.tipoElemento == 'textoEntrada'">
+                                    <div class="container" *ngFor="let val of elem.valor; let indexOfVal=index;" style="font: -webkit-control;">
+
+                                        <div class="float-start" *ngIf="val.tipo == 'texto'" style="float: inline-start;">
+                                            <p style="font-size:50px ">{{val.valor}}</p>
+                                        </div>
+                                        <div class="float-start" *ngIf="val.tipo == 'input'" style="width: 60px;">
+                                            <input type="input" (input)="onSelect( $event, val)" class="form-control" style="height:50px; font-size:45px ">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="container" id="alternativas" style="width: 100%; ">
+                    <div *ngIf="i.tipoPregunta == 'alternativa'" class="container" id="alternativas" style="width: 100%; ">
                         <div class="row" style="justify-content: center;">
-                            <div class="col-1 card p-0 m-1" id="alter_X" *ngFor="let alte of i.alternativas" active>
-                                <div class="container" (click)="onSelect(alte.id, alte.correcta)">
+                            <div class="col-1 card p-0 m-1 {{'rpta' + alte.posicion}}" (click)="onSelectOption($event, alte)" id="alter_X" *ngFor="let alte of i.alternativas">
+                                <div class="container">
                                     <div class="text-center">
                                         <h3 class="card-title">{{alte.valor}}</h3>
                                     </div>
@@ -33,11 +88,13 @@
                     </div>
                 </div>
                 <div class="container" style="writing-mode: tb-rl;">
-                    <button matStepperNext id="next">Next</button>
+                    <button (click)="comprobar(indexOfelement)" id="next" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: hidden;': 'visibility: visible;'">Next</button>
+                    <button (click)="comprobar(indexOfelement)" id="finish" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button>
+                    <!-- <button matStepperNext id="finish" [disabled]="stepper.selectedIndex === stepper._steps.length-1" [style]="stepper.selectedIndex === stepper._steps.length-1 ? 'visibility: visible;': 'visibility: hidden;'">FINISH</button> -->
+                    <!-- <button (click)="nextfunction(stepper)">sed</button> -->
                 </div>
             </div>
         </mat-step>
-
-
     </mat-horizontal-stepper>
+
 </div>

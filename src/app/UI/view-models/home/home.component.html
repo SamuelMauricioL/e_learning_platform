@@ -1,23 +1,25 @@
-<link rel="stylesheet" type="text/css" id="applicationStylesheet" href="./home.component.scss" />
 
-<div class="container" *ngIf="user$ | async as user; else login" style="width: 70%; float: right;">
 
-    <div class="container" style="padding-top: 20px; margin-bottom: 100px; width: 60%; ">
+<div  *ngIf="user$ | async as user; else login" >
 
-        <div class="card-header" style="margin-top:20px;">
-            <img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" class="rounded-circle" alt="Profile picture" style="width: 80px; margin-top: 20px;">
-            <h4 class="card-title m-2">{{nombre}}</h4>
+    <div class="row">
+        <div class="col-sm">
+            <app-grados></app-grados>
         </div>
-        <div class="card-body" style="padding: 10px;">
-
-            <h4 class="card-title">{{codigo}}</h4>
-            <p class="card-text"> {{email}} </p>
+        <div class="col-sm">
+            <app-listado-estudiantes></app-listado-estudiantes>
+            <hr>
+            <app-reporte-tiempo></app-reporte-tiempo>
+            <div class="row">
+                <div class="col-sm">
+                    <app-reporte-pastel></app-reporte-pastel>
+                </div>
+                <div class="col-sm ">
+                    <app-reporte-intentos></app-reporte-intentos>
+                </div>
+            </div>
+            
         </div>
-        <div class="card-footer text-right">
-            <button class="btn btn-light-green accent-3" data-toggle="modal" data-target="#profileModal">Ver
-                Perfil</button>
-        </div>
-
     </div>
 </div>
 
@@ -32,12 +34,12 @@
         <div class="row" style="margin-top: 10px;">
             <div class="col-6">
                 <div class="container" style="direction: rtl;" routerLink="/login/Alumno">
-                    <img data-type="Rectangle" style="margin-right: 40px; margin-top: 50px;" data-name="img_alumnos " src="./../../../../assets/alumnos.png " srcset="./../../../../assets/alumnos.png 1x ">
+                    <img data-type="Rectangle" style="margin-right: 40px; margin-top: 50px;cursor: pointer;" data-name="img_alumnos " src="./../../../../assets/alumnos.png " srcset="./../../../../assets/alumnos.png 1x ">
                 </div>
             </div>
             <div class="col-6 ">
                 <div class="container" routerLink="/login/Profesor">
-                    <img data-type="Rectangle" style="margin-left: 40px; margin-top: 50px;" data-name="img_alumnos " src="./../../../../assets/docentes.png " srcset="./../../../../assets/docentes.png 1x ">
+                    <img data-type="Rectangle" style="margin-left: 40px; margin-top: 50px; cursor: pointer;" data-name="img_alumnos " src="./../../../../assets/docentes.png " srcset="./../../../../assets/docentes.png 1x ">
                 </div>
             </div>
         </div>

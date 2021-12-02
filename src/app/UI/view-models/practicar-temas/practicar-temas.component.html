@@ -1,48 +1,45 @@
-<div class="container">
+<app-charge-coehete [style]="visibilidad == 0 ? 'visibility: hidden': 'visibility: visible'"></app-charge-coehete>
+<div class="general_practicar_temas">
 
-    <div class="header">
-        <h1>Nombre del Curso</h1>
+    <div class="container">
+        <div class="header">
+            <div class="container" style="background-color: rgba(0, 0, 0, 0.576); padding: 10px; margin: 5px; ">
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card border-warning mb-3">                    
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del tema</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE 15/20</h6>                                                
+                <div class="row">
+                    <div class="col-9 ">
+                        <h1 style="color: white; font-weight: bolder;">{{nameCurso}}</h1>
                     </div>
-                    <div class="card-footer bg-transparent ">
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Aprender</a>
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Reforzar</a>
+                    <div class="col-3" style="text-align: end;">
+                        <button class="btn btn-danger" (click)="salir()">Regresar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row bodySub">
+                <div class="col-md-4" *ngFor="let itema of collectionSub">
+                    <div class="card border-warning mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h5 class="card-title" style="text-align: start;">{{itema.tema}}</h5>
+                                </div>
+                                <div class="col-4" style="direction: rtl;">
+                                    <div id="circulo_green" *ngIf="itema.estado == true"> <i [class]="uso == 'robot' ? 'fa fa-robot': 'fas fa-user-astronaut' "></i></div>
+                                    <div id="circulo_red" *ngIf="itema.estado == false"></div>
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE {{itema.promedio}}/20</h6>
+                        </div>
+                        <div class="card-footer bg-transparent ">
+                            <button (click)="practicar('aprender', itema.id, itema.tema)" class="aprender"><i class="fa fa-edit"></i>Aprender</button>
+                            <button (click)="practicar('reforzar', itema.id, itema.tema)" class="reforzar"><i class="fa fa-edit"></i>Reforzar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card border-warning mb-3">                    
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del tema</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE 15/20</h6>                                                
-                    </div>
-                    <div class="card-footer bg-transparent ">
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Aprender</a>
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Reforzar</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-warning mb-3">                    
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del tema</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">ULTIMO PUNTAJE 15/20</h6>                                                
-                    </div>
-                    <div class="card-footer bg-transparent ">
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Aprender</a>
-                        <a href="#" class="card-link"><i class="fa fa-edit"></i> Reforzar</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <!-- <p>{{type_user}}. Aquí tienes una lista de las competencias de matemáticas para los estudiantes en 5.To grado. Estas competencias están clasificadas en categorías</p> -->
-    </div>    
+    </div>
 </div>
-<br>
+
+<!-- <app-charge-coehete></app-charge-coehete> -->

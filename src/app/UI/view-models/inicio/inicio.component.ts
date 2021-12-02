@@ -22,7 +22,6 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAllCursos().subscribe(resp => {
       this.collection = resp;
-      console.log(this.collection)
     },
       error => {
         console.error(error);

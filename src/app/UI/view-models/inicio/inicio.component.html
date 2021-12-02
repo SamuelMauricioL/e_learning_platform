@@ -1,23 +1,22 @@
-<div style="height: 110%;background-image: url(../../../../assets/home-alumno.png); background-repeat: repeat; background-size: 100% 100%; background-position-x: -15vw; background-position-y: 0vw;">
+<div class="general_inicio">
     <div class="row">
-
-        <div class="col-12 ml-4 mt-4 mb-2" style="background-color: white; margin-left: 5.5vw; width: 70%; height: 10vw;">
+        <div class="col-12 ml-4 mt-4 mb-2" style="background-color: white; margin-left: 5.5vw; width: 90%; height: 10vw;">
             <div class="row">
-                <div class="col-2" style="height: 10vw; width: 15%; background-image: url(../../../../assets/fondo-foto.png);  background-size: 60% 100%; background-repeat: no-repeat;">
+                <div class="col-2" style="width: 20%; height: 10vw; background-image: url(../../../../assets/fondo-foto.png);  background-size: 60% 100%; background-repeat: no-repeat;">
                     <div style="margin: 10px 5px 10px 35px; width: 7.5vw; height:7.5vw; border-radius: 100%; background-image: url(../../../../favicon.ico); background-size: 100% 100%">
                     </div>
                 </div>
-                <div class="col-4" style="width: 28%; background-color: white; height: 10vw;">
+                <div class="col-4" style="width: 45%; background-color: white; height: 10vw;">
                     <span style="font-weight: bold; color: lightseagreen;"> MI PROGRESO</span>
                     <table>
                         <thead>
                             <th></th>
-                            <th>ESTA SESION</th>
+                            <th style="width:120px;">ESTA SESION</th>
                             <th>TOTAL</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <th>
+                                <th style="width:200px;">
                                     Tiempo
                                 </th>
                                 <th>
@@ -67,7 +66,7 @@
                         <span> NIVELES</span>
                     </div>
                 </div>
-                <div class="col-1" style="height: 10vw; width: 15%; color: orange; font-weight: bold; width: 7%; transform: rotate(270deg);"> VER MAS </div>
+                <div class="col-1" style="height: 10vw; width: 5%; color: orange; font-weight: bold; width: 7%; transform: rotate(270deg);"> VER MAS </div>
             </div>
         </div>
     </div>
@@ -81,7 +80,7 @@
                                 <img src="https://assets.codepen.io/2301174/icon-karma.svg" alt="">
                                 <h4> Grado {{item.grado}}</h4>
                                 <h2>Nivel {{item.nivel}}</h2>
-                                <p>Incluye: Contar hacia delante y hacia atrás: hasta 100|Trucos de suma: sumas hasta 10|Hallar un número usando sumas: sumas hasta 10|Completar la suma: sumas hasta 10</p>
+                                <p>{{item.descripcion}}</p>
                                 <p class="card__apply" (click)="navigateCursos(item.id)"><a>Ver las Preguntas<i
                                                 class="fa fa-edit"></i></a></p>
                             </div>

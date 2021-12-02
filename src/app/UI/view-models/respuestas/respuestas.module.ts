@@ -7,12 +7,14 @@ import { CountdownModule } from 'ngx-countdown';
 import { StepsPreguntasComponent } from './steps-preguntas/steps-preguntas.component';
 
 import { MatStepperModule } from '@angular/material/stepper';
+import { RptaComponent } from './rpta/rpta.component';
 
 
 @NgModule({
   declarations: [
     RespuestasComponent,
-    StepsPreguntasComponent
+    StepsPreguntasComponent,
+    RptaComponent
   ],
   imports: [
     CommonModule,

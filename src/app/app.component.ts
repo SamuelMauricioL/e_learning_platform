@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   }
   changeProfile() {
     this.isStudent = !this.isStudent;
-    console.log(this.isStudent);
   }
 
   //  constructor (private _albumApiService : AlbumApiServiceWithoutDelay){}

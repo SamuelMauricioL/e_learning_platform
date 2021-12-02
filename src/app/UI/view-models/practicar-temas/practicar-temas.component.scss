@@ -1,0 +1,75 @@
+.general_practicar_temas {
+    // margin-top: -23%;
+    // overflow-y: scroll;
+    padding-top: 5%;
+    width: 100%;
+    height: 100vh;
+    background-image: url('https://img.freepik.com/vrije-vector/vector-illustratie-van-de-ruimte-achtergrond_29937-2633.jpg?size=626&ext=jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bodySub {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.bodySub::-webkit-scrollbar {
+    width: 9px;
+}
+
+.bodySub::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: orange !important;
+    border: solid 0px;
+}
+
+.bodySub::-webkit-scrollbar-track {
+    background-color: transparent !important;
+    border-radius: 10px;
+}
+
+.aprender {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid green;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.reforzar {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid brown;
+    color: brown;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+}
+
+// circulo
+#circulo_green {
+    height: 35px;
+    width: 35px;
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    background: green;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+
+#circulo_red {
+    height: 35px;
+    width: 35px;
+    font-size: 22px;
+    color: white;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}

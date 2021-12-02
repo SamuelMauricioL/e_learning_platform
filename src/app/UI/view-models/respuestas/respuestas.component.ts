@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
-import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
-import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
-import Stepper from 'bs-stepper';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+// import { PreguntaModel } from 'src/app/domain/models/Pregunta/pregunta-model';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.service';
+import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 
 
 @Component({
@@ -17,76 +16,95 @@ import { AuthService } from '../../../infraestructure/driven-adapter/auth/auth.s
 export class RespuestasComponent implements OnInit {
 
   public user$: Observable<any> = this.auth.afAuth.idToken;
-  idPregunta: string = this.route.snapshot.params.idPregunta;
-  idtema: string = this.route.snapshot.params.idtema;
-  ruta: string = this.route.snapshot.params.ruta;
-
-  private stepper!: Stepper;
-
-
-  isLinear = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
     private auth: AuthService,
-  ) { this.managerForm = new FormGroup({}); }
+  ) { this.managerForm = new FormGroup({}); this.getIntento() }
+
+  idUsuario: any;
+
+  ruta: string = this.route.snapshot.params.ruta;
+  idtema: string = this.route.snapshot.params.idtema;
+  tema: string = this.route.snapshot.params.tema;
+  idSubTema: string = this.route.snapshot.params.idSubTema;
+  nameCurso: string = this.route.snapshot.params.NameCurso;
+  act: string = this.route.snapshot.params.act;
+  idCurso: string = this.route.snapshot.params.idCurso;
+  idIntento: string = this.route.snapshot.params.intento;
 
   managerForm: FormGroup;
+  notafinal: number = 0;
 
-  // collection_de_preguntas = [] as PreguntaModel[];
-  collection_de_preguntas_completo = Array();
-  collection_de_respuestas = Array();
-  collection_de_respuestas_leng = 0;
-  rpta = 0;
-  crct = 0;
-  eval = 0;
+  collection_de_preguntas_completo: any = [];
+
+  rpta_correcta = 0;
+  rpta_incorrecta = 0;
 
   sec = 0;
   min = 0;
   hrs = 0;
   tiempo_transcurrido = '';
-  
-
-  notas = Array();
-
-  ngOnInit(): void {
-        
-    this.service_preguntas.getAll(this.idPregunta).subscribe(pregunta => {
-      for (let i = 0; i < pregunta.length; i++) {
-        this.service_preguntas.getAllAlternative(pregunta[i].id).subscribe((alternativa: any) => {
-
-          this.service_preguntas.getAllElementos(pregunta[i].id).subscribe((elemento: any) => {
-
-            this.collection_de_preguntas_completo.push({
-              id: pregunta[i].id,
-              idSubTema: pregunta[i].idSubTema,
-              indice: pregunta[i].indice,
-              pregunta: pregunta[i].pregunta,
-              descripcion: pregunta[i].descripcion,
-              estado: pregunta[i].estado,
-              elementos: elemento,
-              alternativas: alternativa,
-            });
-          });
-        });
-      }
-      
-      this.timer();
-      
-    },
-      error => {
-        console.error(error);
-      });
-  }
 
   timePassed: any;
   timeLeft: number = 0;
 
   interval: any;
+  alerts: number = 0;
 
-  
+  rpta_modal: number = 0;
+  rpta_si_no: number = 0;
+
+  intento_resp: any = [];
+
+  visibility_modal_final: number = 0;
+  visibility_modal_btn_final: number = 0;
+
+  ngOnInit(): void { }
+
+  getIntento() {
+    if (this.act != undefined) {
+      this.service_respuestas.getIntento(this.idIntento).subscribe(response => {
+
+        this.intento_resp = response;
+        let col_resp = response.subtemas.sort((n1: any, n2: any) => n1.indice - n2.indice);
+        this.collection_de_preguntas_completo = []
+        for (let i = 0; i < col_resp.length; i++) {
+          for (let ipre = 0; ipre < col_resp[i].preguntas.length; ipre++) {
+            this.collection_de_preguntas_completo.push(col_resp[i].preguntas[ipre])
+          }
+        }
+        this.timer();
+      },
+        (error => { console.error(error); })
+      );
+
+    } else {
+      this.service_preguntas.getAll(this.idSubTema).subscribe(pregunta => {
+        this.collection_de_preguntas_completo = []
+        for (let i = 0; i < pregunta.length; i++) {
+          this.collection_de_preguntas_completo.push({
+            id: pregunta[i].id,
+            idSubTema: pregunta[i].idSubTema,
+            indice: pregunta[i].indice,
+            pregunta: pregunta[i].pregunta,
+            descripcion: pregunta[i].descripcion,
+            estado: pregunta[i].estado,
+            tipoPregunta: pregunta[i].tipoPregunta,
+            elementos: pregunta[i].elementos,
+            alternativas: pregunta[i].alternativas,
+
+          });
+        }
+        this.timer();
+      },
+        (error => { console.error(error); })
+      );
+    }
+  }
 
   pauseTimer() {
     clearInterval(this.interval);
@@ -100,74 +118,66 @@ export class RespuestasComponent implements OnInit {
     return H + ":" + M + ":" + S;
   }
 
-  evaluar() {
-    if (this.rpta == this.crct) {
-      this.notas.push(20);
-      this.eval = 1;
-      console.log("Correcto");
-
-    } else if (this.rpta != this.crct) {
-      this.notas.push(0);
-      this.eval = 2;
-      console.log("inCorrecto");
-    }
-  }
-
-  tick(){
+  tick() {
     this.sec++;
     if (this.sec >= 60) {
-        this.sec = 0;
-        this.min++;
-        if (this.min >= 60) {
-            this.min = 0;
-            this.hrs++;
-        }
+      this.sec = 0;
+      this.min++;
+      if (this.min >= 60) {
+        this.min = 0;
+        this.hrs++;
+      }
     }
   }
+
   add() {
     this.tick();
-    this.tiempo_transcurrido = (this.hrs > 9 ? this.hrs : "0" + this.hrs) 
-        	 + ":" + (this.min > 9 ? this.min : "0" + this.min)
-       		 + ":" + (this.sec > 9 ? this.sec : "0" + this.sec);        
+    this.tiempo_transcurrido = (this.hrs > 9 ? this.hrs : "0" + this.hrs)
+      + ":" + (this.min > 9 ? this.min : "0" + this.min)
+      + ":" + (this.sec > 9 ? this.sec : "0" + this.sec);
     this.timer();
   }
-  timer() {    
-    setTimeout(()=>{ this.add(); },1000);
 
-  }
-  finalizar() {
-
+  timer() {
+    this.interval = setTimeout(() => { this.add(); }, 1000);
   }
 
-  guardar(): void {
-    let total = this.notas.reduce((a, b) => a + b, 0);
-    let sumatotal = total / this.notas.length;
+  evaluar(resp: any) {
+    if (resp == true) {
+      this.rpta_correcta++;
+    } else if (resp == false) {
+      this.rpta_incorrecta++;
+    }
+  }
 
-    this.managerForm = new FormGroup({
-      id: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
-      identificador: new FormControl('FEZHR6U3jWrlqUrH33mF', Validators.required),
-      idAlumno: new FormControl('prueba', Validators.required),
-      idTema: new FormControl(this.idtema, Validators.required),
-      promedio: new FormControl(sumatotal, Validators.required),
-      ruta: new FormControl(this.ruta, Validators.required),
-      tiempo: new FormControl('00:00:40', Validators.required),
-      estado: new FormControl(true, Validators.required),
-    });
+  finish(intento: any): void {
+    this.pauseTimer();
+    this.visibility_modal_final = 1;
 
-    const { id, ...obj } = this.managerForm.value;
-    this.service_respuestas.create(obj).then((_response) => {
-      this.managerForm.reset();
+    let promedio_total = ((20 * this.rpta_correcta) / this.collection_de_preguntas_completo.length)
+    this.notafinal = Number(promedio_total.toFixed(0))
+
+    this.intento_resp.correctas = this.rpta_correcta;
+    this.intento_resp.estado = "true";
+    this.intento_resp.incorrectas = this.rpta_incorrecta;
+    this.intento_resp.tiempoTranscurrido = this.tiempo_transcurrido;
+    this.intento_resp.termino = String(new Date);
+    this.intento_resp.promedio = promedio_total.toFixed(0)
+
+    this.service_respuestas.updateIntento(this.idIntento, this.intento_resp).then((_resp) => {
+      this.visibility_modal_btn_final = 1;
     }).catch((error) => {
       console.error(error);
     });
   }
 
-  next() {
-    this.stepper.next();
+  retroceder() {
+
+    if (this.act != undefined) {
+      this.router.navigate(['/practicar-temas/' + this.nameCurso + '/' + this.idCurso]);
+    } else {
+      this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
+    }
   }
 
-  onSubmit() {
-    // do something here
-    return false;
-  }
 }

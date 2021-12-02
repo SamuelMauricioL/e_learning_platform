@@ -32,7 +32,6 @@ export class UserService extends UsuarioGateway {
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UsuarioModel;
         data.id = a.payload.doc.id;
-        // console.log("pruebadata",data);
         return data;
       }))
     );

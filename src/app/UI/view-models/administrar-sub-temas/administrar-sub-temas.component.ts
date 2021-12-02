@@ -41,11 +41,14 @@ export class AdministrarSubTemasComponent implements OnInit {
     this.service.getAll(this.idTema).subscribe(resp => {
       this.collection = resp;
       this.list_len = resp.length;
-      console.log(this.collection)
     },
       error => {
         console.error(error);
       });
+      localStorage.setItem("administrar-sub-temas",JSON.stringify({
+        idTema:this.idTema,
+        tema:this.name_tema
+      }))
   }
 
   navigate(id_subtema: string, name_subtema: string, type_user: string) {

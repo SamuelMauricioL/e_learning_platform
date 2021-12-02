@@ -1,73 +1,478 @@
-<div class="col-9">
-
-    <div class="header">
-        <h1>{{name_subtema}}</h1>
-        <div class="row">
-            <div class="col-sm-10">
-                <p></p>
-            </div>
-
+<div class="container">
+  <h1 class="text-center">{{subtemaNombre}}</h1>
+  <div class="row">
+    <div class="col-sm">
+      <div class="bg-info text-white shadow rounded text-center" style="height: 50px">
+        Agregue, edite o elimine preguntas de subtema : {{subtemaNombre}}
+      </div>
+    </div>
+    <div class="col-sm">
+      <button type="button " (click)="openModal('#modalAgregar')" class="btn btn-primary">
+        Agregar
+      </button>
+    </div>
+  </div>
+  <hr />
+  <div class="row p-2 w-100">
+    <div class="bloque mt-2" *ngFor="let pregunta of preguntas; let pos = index " >
+      <div class="titulo shadow rounded border-start border-4 border-warning " (click)="openClosePregunta($event)">
+        <!-- <h4 style="width: 80%;">{{ pos + 1 }}. {{ pregunta.pregunta}}</h4>  -->
+        <p class="float-start ms-3" style="cursor:pointer;">{{ pos + 1 }}. {{ pregunta.pregunta}}</p>
+        <div class="d-flex float-end">
+          <div *ngIf="pregunta.tipoPregunta=='alternativa'">
+            <app-editar [idPregunta]="pregunta.id" [elementos]="pregunta.elementos "
+            [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
+             [AlternativaBoton]="pregunta.alternativas"></app-editar>
+          </div>
+          <div *ngIf="pregunta.tipoPregunta=='pregunta'">
+            <app-editar [idPregunta]="pregunta.id" [elementos]="pregunta.elementos" 
+            [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
+            [AlternativaBoton]="[{poscion:1,tipoElemento:'textoEntrada',valor:pregunta.alternativas}]"></app-editar>
+          </div>
+          
+          <div class="ms-2 pluss-elemento" (click)="deletePregunta(pregunta.id)">
+            <i class="fa fa-trash text-danger fa-2x" aria-hidden="true"></i>
+          </div>
         </div>
+      </div>
+
+      <div class="contenido border border-top-0 p-2">
+        <div class="mt-3">
+          <app-elementos [idPregunta]="pregunta.id" [elementos]="pregunta.elementos"></app-elementos>
+        </div>
+        <hr />
+        <div class="p-1">
+          
+          <!-- Alternativas -->
+          <div class="row">
+            <div class="col-md">
+              <div class="float-start"><b>Alternativas</b></div>
+            </div>
+            <div class="col-md">
+              <div class="float-end"><b>Tipo Alternativas:</b> {{pregunta.tipoPregunta}}</div>
+            </div>
+          </div>
+          <app-alternativas  [idPregunta]="pregunta.id" [tipoPregunta]="pregunta.tipoPregunta" [alternativas]="pregunta.alternativas"></app-alternativas>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-2">
-        <button style="background-color: hsl(180, 62%, 55%) !important" type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
+    
+  </div>
+</div>
+<!-- modal agregar -->
+<div class="modal-agregar" id="modalAgregar">
+  <div class="contenedor">
+    <div class="cabeza d-flex justify-content-between">
+      <h5>Agregar Pregunta</h5>
+      <div class="cerrar" (click)="closeModal('#modalAgregar')">X</div>
     </div>
-    <div class="row1-container" *ngFor="let item of collection">
-        <div class="box cyan">
-            <img src="https://assets.codepen.io/2301174/icon-supervisor.svg" alt="">
-            <p>Pregunta: {{item.pregunta}}</p>
-            <p>Descripcion: {{item.descripcion}}</p>
-            <p>Alternativas: {{item.alternativas}}</p>
-            <p>Respuesta: {{item.respuesta}}</p>
+    <br />
+    <div class="cuerpo p-2">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingAreaIni_add"
+              style="height: 100px"></textarea>
+            <label for="floatingAreaIni_add">Descripción</label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <label for="">Tipo Pregunta</label>
+          <select class="form-select" aria-label="Default select example" (change)="changeSelectAlternativas($event)">
+            <option value="1">Alternativa</option>
+            <option value="2">pregunta</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <!-- elementos -->
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <i class="fa fa-picture-o" aria-hidden="true"></i>
+                  Imagen
+                </div>
+                <div class="border rounded pluss-elemento" (click)="eventAddImagen()" id="plus-imagen">
+                  <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <div>
+                <i class="fa fa-font" aria-hidden="true"></i>
+                Texto
+              </div>
+              <div class="border rounded pluss-elemento" (click)="eventAddTexto()" id="plus-texto">
+                <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <div>
+                <i class="fa fa-i-cursor" aria-hidden="true"></i>
+                Texto Entrada
+              </div>
+              <div class="border rounded pluss-elemento" (click)="eventAddTextEntrada()" id="plus-texto-entrada">
+                <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <div>
+                <i class="fa fa-minus-square-o" aria-hidden="true"></i>
+                División
+              </div>
+              <div class="border rounded pluss-elemento" (click)="eventAddDivision()" id="plus-division">
+                <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-9">
+          <!-- Cargado de elementos -->
+          <!-- add Texto -->
+          <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoElemento">
+            <h5>Agregar Texto</h5>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                style="height: 100px" #textArea></textarea>
+              <label for="floatingTextarea2">Descripción</label>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-primary btn-sm" (click)="ocultarConfig()">
+                Cancelar
+              </button>
+              <button class="btn btn-success btn-sm" (click)="addTextoElemento(textArea)">
+                Guardar
+              </button>
+            </div>
+          </div>
+          <!-- add Imagen -->
+          <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addImagenElemento">
+            <h5>Agregar Imagen</h5>
             <div class="row">
-                <div class="col-sm-2">
-                    <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fa fa-edit"></i></a></p>
+              <div class="col-sm">
+                <p>Cargar Imagen:</p>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked
+                    (click)="ChangeCargaImagen(1)" />
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    Dispositivo
+                  </label>
                 </div>
-                <!-- <div class="col-sm-3">
-                <p class="card__apply" routerLink="/administrar-preguntas/{{item.id}}/{{item.subtema}}"><a>Ver los subtemas<i class="fas fa-arrow-right"></i></a></p>
-            </div> -->
-                <div class="col-sm-6">
-                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    (click)="ChangeCargaImagen(2)" />
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    Url
+                  </label>
                 </div>
+                <div *ngIf="checkImg1">
+                  <div class="mb-3">
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" id="imgCargaPc"
+                      (change)="showImgPc($event)" />
+                  </div>
+                </div>
+                <div *ngIf="checkImg2" class="d-flex justify-content-between mb-2">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Link</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm" #inputLink />
+                  </div>
+                  <button class="btn btn-primary btn-sm" (click)="showImgLink(inputLink)">
+                    Ver
+                  </button>
+                </div>
+                <div class="text-center" *ngIf="SpinnerStatus">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p>Guardando...</p>
+                </div>
+              </div>
+              <div class="col-sm" id="vistPreviaImg"></div>
             </div>
+
+            <hr />
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-primary btn-sm" (click)="ocultarConfig()">
+                Cancelar
+              </button>
+              <button class="btn btn-success btn-sm" (click)="addImagenElemento()">
+                Guardar
+              </button>
+            </div>
+          </div>
+          <!-- add-texto-entrada -->
+          <div class="add-position-elemento w-50 p-2 rounded shadow ocultar" id="addTextoEntradaElemento">
+            <h5>Agregar Texto Entrada</h5>
+            <button type="button" class="btn btn-primary m-2" (click)="addTextoEntrada()">
+              Texto <i class="fa fa-plus-square" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-info m-2" (click)="addinputEntrada()">
+              Entrada <i class="fa fa-plus-square" aria-hidden="true"></i>
+            </button>
+            <div class="">
+              <div *ngFor="
+                  let textoEntrada of textoEntradaElementos;
+                  let indice = index
+                " class="ms-1 float-start">
+                <div class="input-group mb-3 tamano-input" *ngIf="textoEntrada.tipo == 'texto'">
+                  <input type="text" class="form-control" aria-describedby="button-addon2"
+                    (keyup)="getTexto($event, indice)" />
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                    (click)="deleteTextoEntrada(indice)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="input-entrada-conf float-start border text-center" *ngIf="textoEntrada.tipo == 'input'">
+                  <div class="borrar-input-icono" (click)="deleteInputEntrada(indice)">
+                    <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br />
+            <div class="w-100 d-flex justify-content-between">
+              <button class="btn btn-primary btn-sm" (click)="ocultarConfig()">
+                Cancelar
+              </button>
+              <button class="btn btn-success btn-sm" (click)="addTextoEntradaElemento()">
+                Guardar
+              </button>
+            </div>
+          </div>
+          <!-- Carga Real  -->
+          <div [sortablejs]="Elementos" [sortablejsOptions]="draggableOptions" [sortablejsOptions]="eventOptions"
+            style="overflow-y: auto; height: 300px;">
+            <div class="shadow p-2 d-flex justify-content-start elemento"
+              *ngFor="let elemento of Elementos; let pos = index">
+              <div class="selector-elemento">
+                <i class="fa fa-bars mx-auto" aria-hidden="true"></i>
+              </div>
+              <div class="pluss-elemento" (click)="deleteElemento(pos)">
+                <i class="fa fa-trash mx-auto" aria-hidden="true"></i>
+              </div>
+              <div class="ms-2 d-flex justify-content-start" *ngIf="elemento.tipoElemento == 'texto'">
+                <div class="pluss-elemento" (click)="switchModalAgregarEditar('#modalAgregarEditar',1,pos)">
+                  <i class="fa fa-pencil mx-auto" aria-hidden="true"></i>
+                </div>
+                <p>{{ elemento.valor }}</p>
+              </div>
+              <div class="ms-1 " *ngIf="elemento.tipoElemento == 'imagen'">
+
+                <img [src]="elemento.valor" alt="" height="100px" />
+
+              </div>
+              <div class="ms-2 w-100 d-flex justify-content-start" *ngIf="elemento.tipoElemento == 'divider'">
+
+                <div class="divider-elemento border border-1 border-dark"></div>
+              </div>
+              <div class="ms-2 w-100 d-flex justify-content-start" *ngIf="elemento.tipoElemento == 'textoEntrada'">
+                <div class="pluss-elemento" (click)="switchModalAgregarEditar('#modalAgregarEditar',2,pos)">
+                  <i class="fa fa-pencil mx-auto" aria-hidden="true"></i>
+                </div>
+                <div *ngFor="let valorEntrada of elemento.valor" class="float-start">
+                  <p *ngIf="valorEntrada.tipo == 'texto'">
+                    {{ valorEntrada.valor }}
+                  </p>
+                  <div class="
+                      muestra-entrada
+                      d-flex
+                      justify-content-start
+                      ms-1
+                      me-1
+                    " *ngIf="valorEntrada.tipo == 'input'">
+                    <div class="
+                        identificador-entrada
+                        border
+                        bg-primary
+                        text-light text-center
+                      ">
+                      {{ valorEntrada.valor }}
+                    </div>
+                    <div class="espacio-entrada border"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+    <hr />
+    <div class="base mx-3">
+      <!-- Alternativas -->
+      <h4>Alternativas</h4>
+      <div class="" *ngIf="tipoAlternativa">
+        <div class="d-flex justify-content-start">
+          <div class="input-group w-50">
+            <span class="input-group-text" id="basic-addon1">Valor:</span>
+            <input type="text" class="form-control" id="opcionInput" aria-describedby="basic-addon1"
+              #inputAlternativaBoton />
+          </div>
+          <button class="btn btn-primary mx-2" (click)="addAlternativaBoton(inputAlternativaBoton)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div style="overflow-y: auto; height: 150px;" [sortablejs]="AlternativaBoton"
+          [sortablejsOptions]="draggableOptions" [sortablejsOptions]="eventOptionsOpciones">
+          <div class="shadow-sm w-50 m-2 p-1 d-flex justify-content-between "
+            *ngFor="let opcion of AlternativaBoton;let indice = index">
+            <div class="selector-elemento">
+              <i class="fa fa-bars mx-auto fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="my-1" *ngIf="!opcion.switchEditar">
+              {{ opcion.valor }}
+            </div>
+            <div *ngIf="opcion.switchEditar">
+              <input type="text" class="form-control inputEditarOpcionAlternativa" value="{{opcion.valor}}">
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <div *ngIf="!opcion.switchEditar" (click)="switchEditar(indice)">
+                <i class="fa fa-pencil fa-2x selector-elemento" style="cursor: pointer;" aria-hidden="true"></i>
+              </div>
+              <div *ngIf="opcion.switchEditar" (click)="updateValorOpcion(indice,$event)">
+                <i class="fa fa-check fa-2x selector-elemento" style="cursor: pointer;" aria-hidden="true"></i>
+              </div>
+              <div (click)="deleteAlternativaBoton(indice)">
+                <i class="fa fa-trash fa-2x selector-elemento" style="cursor: pointer;" aria-hidden="true"></i>
+              </div>
+              <div *ngIf="opcion.correcta=='no'" (click)="switchCorrecta(indice,'si')">
+                <i class="fa fa-times fa-2x selector-elemento" style="color: red;cursor: pointer;"
+                  aria-hidden="true"></i>
+              </div>
+              <div *ngIf="opcion.correcta=='si'" (click)="switchCorrecta(indice,'no')">
+                <i class="fa fa-check fa-2x selector-elemento" style="color: rgb(0, 177, 0);cursor: pointer;"
+                  aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="tipoEntrada">
+        <button class="btn btn-primary" (click)="generarAlternativas()">Generar alternativas</button>
+        <div style="overflow-y: auto; height: 150px;">
+          <div class="shadow-sm m-3 border-start border-5 rounded border-warning"
+            *ngFor="let grupoEntrada of AlternativasEntrada; let pos = index">
+            <div *ngFor="let entrada of grupoEntrada.valor;let pos2 = index ">
+              <div class="row shadow-sm w-50 m-2 p-1 d-flex justify-content-between " *ngIf="entrada.tipo=='input'">
+                <div class="col-sm-1">
+                  <div class="numeracion-pregunta border rounded text-center my-1">
+                    {{entrada.valor}}
+                  </div>
+                </div>
+                <div class="col-sm-11">
+                  <div class="d-flex justify-content-between" *ngIf="!entrada.siwtchEntrada">
+                    <div class="my-1">
+                      {{entrada.entrada}}
+                    </div>
+                    <div>
+                      <div (click)="intoEditar(pos,pos2)">
+                        <i class="fa fa-pencil fa-2x selector-elemento" style="cursor: pointer;" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between" *ngIf="entrada.siwtchEntrada">
+                    <input type="text" class="form-control" value="{{entrada.entrada}}">
+                    <div>
+                      <div (click)="editarEntrada(pos,pos2,$event)">
+                        <i class="fa fa-check fa-2x selector-elemento" style="color: rgb(0, 177, 0);cursor: pointer;"
+                          aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-sm m-1 d-flex justify-content-between">
+        <button class="btn btn-light m-2" (click)="closeModal('#modalAgregar')">Cancelar</button>
+        <button class="btn btn-success m-2" (click)="addElemento()">Agregar</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Crear Pregunta</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
+<!-- modal agregar - editar -->
+<div class="modal-agregar" id="modalAgregarEditar">
+  <div class="contenedor">
+    <div class="cabeza d-flex justify-content-between">
+      <h5>Editar</h5>
+      <div class="cerrar" (click)="closeModal('#modalAgregarEditar')">X</div>
+    </div>
+    <div  class="row">
+      <div  *ngIf="switchAgregarEditar==1">
+        <!-- Texto -->
+        <div class="  p-2" id="addTextoElemento">
+          <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaEditar"
+              style="height: 100px" #textAreaEditar></textarea>
+            <label for="floatingTextareaEditar">Descripción</label>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-primary btn-sm" (click)="closeModal('#modalAgregarEditar')">
+              Cancelar
+            </button>
+            <button class="btn btn-success btn-sm" (click)="addTextoElementoEditar(textAreaEditar)">
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="" *ngIf="switchAgregarEditar==2">
+        <h5>Agregar Texto Entrada</h5>
+        <button type="button" class="btn btn-primary m-2" (click)="addTextoEntradaEditar()">
+          Texto <i class="fa fa-plus-square" aria-hidden="true"></i>
         </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <form [formGroup]="managerForm">
-                    <div class="form-group">
-                        <label>Pregunta</label>
-                        <input type="text" formControlName="pregunta" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <input type="text" formControlName="descripcion" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Alternativas</label>
-                        <input type="text" formControlName="alternativas" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Respuesta</label>
-                        <input type="text" formControlName="respuesta" class="form-control">
-                    </div>
-                </form>
+        <button type="button" class="btn btn-info m-2" (click)="addinputEntradaEditar()">
+          Entrada <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </button>
+        <div class="">
+          <div *ngFor="
+                  let textoEntrada of textoEntradaEditar;
+                  let indice = index
+                " class="ms-1 float-start">
+            <div class="input-group mb-3 tamano-input" *ngIf="textoEntrada.tipo == 'texto'">
+              <input type="text" class="form-control" aria-describedby="button-addon2"
+                (input)="getTextoEditar($event, indice)" value="{{textoEntrada.valor}}"/>
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+                (click)="deleteTextoEntradaEditar(indice)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
             </div>
-        </form>
+            <div class="input-entrada-conf float-start border text-center" *ngIf="textoEntrada.tipo == 'input'">
+              <div class="borrar-input-icono" (click)="deleteInputEntradaEditar(indice)">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 d-flex justify-content-between">
+          <button class="btn btn-primary btn-sm" (click)="closeModal('#modalAgregarEditar')">
+            Cancelar
+          </button>
+          <button class="btn btn-success btn-sm" (click)="addTextoEntradaElementoEditar()">
+            Guardar
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="guardar()" *ngIf="!actualizar">Guardar</button>
-        <button type="button" class="btn btn-outline-dark" (click)="actualiza()" *ngIf="actualizar">Actualizar</button>
-    </div>
-</ng-template>
+    <br>
+    
+  </div>
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PreguntasGateway } from '../models/Pregunta/pregunta-gateway';
-import { PreguntaModel } from '../models/Pregunta/pregunta-model';
+import { AlternativaPreguntaModel, ElementosPreguntaModel, PreguntaModel } from '../models/Pregunta/pregunta-model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,12 @@ import { PreguntaModel } from '../models/Pregunta/pregunta-model';
 export class GetPreguntasUseCases {
   constructor( private _gateway: PreguntasGateway) {}
 
-  getAll(_idTema: string): Observable<Array<PreguntaModel>> {
-    return this._gateway.getAllPreguntas(_idTema);
+  getAll(_idSubTema: string): Observable<Array<PreguntaModel>> {
+    return this._gateway.getAllPreguntas(_idSubTema);
+  }
+
+  getAllByTema(_idTema: string): Observable<Array<PreguntaModel>> {
+    return this._gateway.getAllPreguntasByTema(_idTema);
   }
 
   getAllAlternative(_idPregunta: string):any {
@@ -22,8 +26,8 @@ export class GetPreguntasUseCases {
     return this._gateway.getAllPreguntasElementos(_idPregunta);
   }
   
-  create(model: PreguntaModel): Promise<any> {
-    return this._gateway.createPregunta(model);
+  create(model: PreguntaModel,modelAlt:Array<AlternativaPreguntaModel>,modelEle:Array<ElementosPreguntaModel>): Promise<any> {
+    return this._gateway.createPregunta(model,modelAlt,modelEle);
   }
 
   update(id:string, model :PreguntaModel): Promise<any> {
@@ -32,6 +36,15 @@ export class GetPreguntasUseCases {
 
   delete(_id:string): Promise<any> {
     return this._gateway.deletePregunta(_id);
+  }
+  getElementos(_id:string): Observable<any[]>{
+    return this._gateway.getElementos(_id);
+  }
+  getAlternativas(_id:string): Observable<any[]>{
+    return this._gateway.getAlternativas(_id);
+  }
+  getPregunta(_id: string): Observable<any> {
+    return this._gateway.getPregunta(_id);
   }
 
 }
