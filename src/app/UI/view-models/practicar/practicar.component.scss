@@ -147,6 +147,18 @@ a::after {
     transition: all 0.5s;
 }
 
+.aprender {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid green;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    // margin-right: 10px;
+    width: 40%;
+}
+
 a:hover::after {
     width: 100%;
 }

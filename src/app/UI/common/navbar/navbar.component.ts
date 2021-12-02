@@ -42,11 +42,7 @@ export class NavbarComponent {
         if (result != null) {
           let usuario: any = result[0];
           this.isRol = usuario.rol;
-          if(String(usuario.rol) == "Administrador" || String(usuario.rol) == "Docente"){
-            this.isStudent = false;
-            this.isAdmin = true;
-          }
-
+          
           localStorage.setItem('user', JSON.stringify({ "rol": usuario.rol, "id": usuario.id }));
           this.seriveRol.getOneRol(usuario.rol).subscribe((result) => {
             if (result != null) {

@@ -63,22 +63,8 @@ export class RespuestasService extends RespuestaGateway {
     const path_idUsuario = "Usuarios/" + _idUsuario;
     const path_idTema = "Temas/" + _idTema;
 
-    // const query2 = this.firestore.collection('Intentos').ref
-    // .where("idUsuario", "==", path_idUsuario)
-    // .where("idTema", "==", path_idTema)
-    //   .orderBy("fechaId", "desc")
-    //   .limit(1)
-    //   .get()
-
-    // query2.then(cal => {
-    //   cal.forEach((doc) => {
-    //     nt = doc.data();
-    //   })
-    // })
-
-
     return this.firestore.collection<any>('Intentos', ref => ref.
       where("idUsuario", "==", path_idUsuario).
-      where("idTema", "==", path_idTema) .orderBy("fechaId", "desc").limit(1)).valueChanges();
+      where("idTema", "==", path_idTema).where("estado", "==","true").orderBy("fechaId", "desc").limit(1)).valueChanges();
   }
 }
