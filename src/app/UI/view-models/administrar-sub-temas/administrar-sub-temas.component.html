@@ -7,7 +7,8 @@
                 <p></p>
             </div>
             <div class="col-sm-2">
-                <button *ngIf="type_user!='Estudiante'" style="background-color: hsl(180, 62%, 55%) !important" type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
+                <button *ngIf="type_user!='Estudiante'" style="background-color: hsl(180, 62%, 55%) !important"
+                    type="button" class="btn btn-success" (click)="openSave(content)">Agregar</button>
             </div>
         </div>
     </div>
@@ -18,14 +19,16 @@
             <h2>{{item.subtema}}</h2>
             <div class="row">
                 <div *ngIf="type_user!='Estudiante'" class="col-sm-2">
-                    <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fa fa-edit"></i></a></p>
+                    <p class="card__apply" (click)="openEditar(content, item)"><a>Editar<i class="fa fa-edit"></i></a>
+                    </p>
                 </div>
                 <div class="col-sm-3">
-                    <p class="card__apply" (click)="navigate(item.id, item.subtema, type_user)"><a>Ver las preguntas<i class="fa fa-eye"></i></a></p>
+                    <p class="card__apply" (click)="navigate(item.id, item.subtema, type_user)"><a>Ver las preguntas<i
+                                class="fa fa-eye"></i></a></p>
                 </div>
-                <!-- <div class="col-sm-6">
-                <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
-            </div> -->
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +38,7 @@
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -46,6 +49,33 @@
                     <div class="form-group">
                         <label>SubTema</label>
                         <input type="text" formControlName="subtema" class="form-control">
+                    </div>
+                    <div class="form-group ">
+                        <label for="">Posicion Ruta</label>
+                        <div class="w-100 d-flex d-flex justify-content-between">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
+                                    id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Inicial
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
+                                    id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    random
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
+                                    id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    final
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
                 </form>
             </div>

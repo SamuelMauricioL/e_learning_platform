@@ -11,5 +11,5 @@ export abstract class RespuestaGateway {
     abstract getIntento(_idmodel : any) : Observable<any>;
     abstract updateIntento(_idmodel : any, _model: any) : Promise<any>;
     abstract getLastDocumentIntento(_idUsuario : any, _idTema: any) : Observable<any>;
-
+    abstract getIntentosByUser(_idUsuario:any):Observable<any>;
 }

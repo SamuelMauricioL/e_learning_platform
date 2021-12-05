@@ -156,3 +156,10 @@ a:hover::after {
     align-self: center;
     cursor: pointer;
 }
+.alerta-general{
+    position: -webkit-sticky;
+    position: sticky;
+    width: 80%;
+    left: auto;
+    z-index: 100;
+}

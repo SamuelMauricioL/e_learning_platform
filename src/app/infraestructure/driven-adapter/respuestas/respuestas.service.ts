@@ -10,7 +10,7 @@ import { IntentoModel, RespuestaModel } from 'src/app/domain/models/Respuesta/re
   providedIn: 'root'
 })
 export class RespuestasService extends RespuestaGateway {
-
+  
   constructor(
     private firestore: AngularFirestore,
   ) { super(); }
@@ -81,4 +81,12 @@ export class RespuestasService extends RespuestaGateway {
       where("idUsuario", "==", path_idUsuario).
       where("idTema", "==", path_idTema) .orderBy("fechaId", "desc").limit(1)).valueChanges();
   }
+  getIntentosByUser(_idUsuario: any): Observable<any> {
+    const path_idUsuario = "Usuarios/" + _idUsuario;
+    return this.firestore.collection<any>('Intentos', ref => ref.
+      where("idUsuario", "==", path_idUsuario).
+      where("estado", "==", "true").
+      orderBy("fechaId", "asc")).valueChanges();
+  }
+
 }

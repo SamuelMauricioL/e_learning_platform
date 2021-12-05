@@ -24,6 +24,10 @@ export class AdministrarSubTemasComponent implements OnInit {
       indice: new FormControl('', Validators.required),
       subtema: new FormControl('', Validators.required),
       estado: new FormControl('', Validators.required),
+      descripcion: new FormControl('', Validators.required),
+      dificultad: new FormControl('', Validators.required),
+      time: new FormControl('', Validators.required),
+      posicionRuta: new FormControl('', Validators.required),
     })
   }
 

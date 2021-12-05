@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TemaModel, TemaConvert } from 'src/app/domain/models/Tema/tema-model';
+import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
 
 @Component({
@@ -17,6 +18,7 @@ export class AdministrarTemasComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
     private route: ActivatedRoute,
+    private serviceSub: GetSubTemasUseCases,
   ) { 
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
@@ -55,8 +57,26 @@ export class AdministrarTemasComponent implements OnInit {
     }    
   }
 
-  eliminar(item: any): void {
-    this.service.deleteTema(item.id);
+  eliminar(item: any,e:any): void {
+    // encontrar subtemas 
+    let padre = e.target.parentNode
+    let spinner = padre.querySelector(".spinner-tema")
+    let message = padre.querySelector(".message")
+    spinner.classList.remove("d-none")
+    this.serviceSub.getAll(item.id).subscribe((val:any)=>{
+      spinner.classList.add("d-none")
+      console.log(val)
+      if(val.length > 0){
+        message.classList.remove("d-none");
+        setTimeout(() => {
+          message.classList.add("d-none");
+        }, 1500);
+      }else{
+        this.service.deleteTema(item.id);
+      }
+
+    })
+    
   }
 
   guardarTema(): void {
@@ -90,6 +110,7 @@ export class AdministrarTemasComponent implements OnInit {
 
   openEditar(content: any, item: TemaModel) {
     this.actualizar = true;
+
     this.managerForm.setValue(TemaConvert.fromObjectToJson(item));
     this.openModal(content);
   }
