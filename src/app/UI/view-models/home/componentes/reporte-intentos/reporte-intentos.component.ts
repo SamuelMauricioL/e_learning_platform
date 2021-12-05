@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-reporte-intentos',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reporte-intentos.component.scss']
 })
 export class ReporteIntentosComponent implements OnInit {
+  @Input() listaIntentos:any;
+  constructor(
+    
+  ) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit(): void {    
   }
+
+  
 
 }

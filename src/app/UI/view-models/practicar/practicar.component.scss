@@ -147,6 +147,40 @@ a::after {
     transition: all 0.5s;
 }
 
+.aprender {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid green;
+    color: green;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    // margin-right: 10px;
+    width: 80%;
+}
+
+.aprender:hover {
+    background-color: green;
+    color: white;
+}
+
+.aprender-robot {
+    background-color: transparent;
+    border: thick;
+    border: 1px solid goldenrod;
+    color: goldenrod;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    // margin-right: 10px;
+    width: 80%;
+}
+
+.aprender-robot:hover {
+    background-color: goldenrod;
+    color: white;
+}
+
 a:hover::after {
     width: 100%;
 }

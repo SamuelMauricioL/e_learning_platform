@@ -28,6 +28,7 @@ export class PracticarTemasComponent implements OnInit {
 
   nameCurso: string = this.route.snapshot.params.NameCurso;
   idCurso: string = this.route.snapshot.params.idCurso;
+  uso: string = this.route.snapshot.params.uso;
   collectionSub = new Array();
   collectionDataInsert = new Array();
   idUsuario : string;
@@ -46,7 +47,9 @@ export class PracticarTemasComponent implements OnInit {
       for(let i = 0; i < tema.length; i++){
         tema[i].promedio = 0;
         this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res:any)=>{
-          tema[i].promedio = _res[0].promedio;
+          if(_res.length > 0){
+            tema[i].promedio = _res[0].promedio;
+          }
 
           if(i== tema.length - 1){
             this.collectionDataInsert = tema;
@@ -70,6 +73,7 @@ export class PracticarTemasComponent implements OnInit {
       fechaId: String(new Date().getTime()),
       intencion: act,
       tipoIntento: "recoleccion", // recoleccion - consumo
+      estado: "false", // true - false
     }
 
     this.serviceSub.getAll(idtema).subscribe(subtema => {
@@ -100,5 +104,10 @@ export class PracticarTemasComponent implements OnInit {
     }).catch((error) => {
       console.error(error);
     });
+  }
+
+  salir(){
+    this.router.navigate(['/practicar']);
+
   }
 }

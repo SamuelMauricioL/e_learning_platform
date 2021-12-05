@@ -23,15 +23,14 @@ export class PracticarComponent implements OnInit {
 
     this.service.getAllCursosEstudent(jsdatos).subscribe(resp => {
       this.collection = resp;
-      console.log(resp);
     },
       error => {
         console.error(error);
       });
   }
 
-  vertemas(idCurso: any, nameCurso: any){
-    this.router.navigate(['practicar-temas', nameCurso, idCurso]);
+  vertemas(idCurso: any, nameCurso: any, why:any){
+    this.router.navigate(['practicar-temas',why, nameCurso, idCurso]);
 
   }
 

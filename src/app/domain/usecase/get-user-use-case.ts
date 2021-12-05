@@ -36,5 +36,7 @@ export class GetUserUseCases {
   getGeneralUser():Promise<any>{
     return this._userGateway.getGeneralUser();
   }
-
+  getUsersGrado(_idGrado:string):Observable<Array<any>>{
+    return this._userGateway.getUsersGrado(_idGrado)
+  }
 }

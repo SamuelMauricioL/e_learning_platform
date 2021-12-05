@@ -3,10 +3,14 @@
         <div *ngFor="let item of collection">
             <div class="row1-container">
                 <div class="box red" style="background-color: white;">
-                    <img src="{{item.imageURL}}" alt="{{item.curso}}" style="width: 10%;">
-                    <h2>{{item.curso}}</h2>
-                    <!-- <p class="card__apply" (click)="navigate(idGrado, item.id, item.curso, type_user)"><a>Ver los Temas<i class="fa fa-edit"></i></a></p> -->
-                    <p class="card__apply" (click)="vertemas(item.id, item.curso)"><a>Ver los Temas<i class="fa fa-edit"></i></a></p>
+                    <div class="container">
+                        <img src="{{item.imageURL}}" alt="{{item.curso}}" style="width: 10%;">
+                        <h2>{{item.curso}}</h2>
+                    </div>
+                    <div class="container " style="display: inline-grid; grid-auto-flow: column;">
+                        <button (click)="vertemas(item.id, item.curso, 'solo')" class="aprender"><i class="fas fa-user-astronaut"></i> Practicar Solo</button>
+                        <button (click)="vertemas(item.id, item.curso, 'robot')" class="aprender-robot"><i class="fa fa-robot"></i> Usar Algoritmo</button>
+                    </div>
                 </div>
             </div>
         </div>

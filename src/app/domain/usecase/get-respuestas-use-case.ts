@@ -43,7 +43,9 @@ export class GetRespuestasUseCases {
   getLastDocumentIntento(_idUsuario: any, _idTema: any): Observable<any>{
     return this._gateway.getLastDocumentIntento(_idUsuario, _idTema);
   }
+
   getIntentosByUser(idUser:string):Observable<any>{
     return this._gateway.getIntentosByUser(idUser);
   }
+
 }

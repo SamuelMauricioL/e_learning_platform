@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Chart, registerables,} from 'chart.js';
-import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
+// import { GetRespuestasUseCases } from 'src/app/domain/usecase/get-respuestas-use-case';
 import { months } from './Utils';
 Chart.register(...registerables);
 
@@ -11,36 +11,23 @@ Chart.register(...registerables);
   templateUrl: './reporte-tiempo.component.html',
   styleUrls: ['./reporte-tiempo.component.scss']
 })
-export class ReporteTiempoComponent implements OnInit {
-  @Input() 
+export class ReporteTiempoComponent implements OnInit {  
+  @Input() datosGrafico:any;
   idEstudiante : string ="";
 
   Intentos : any=[];
-
-  datosGrafico:any = {
-    labels: [],
-    datasets: [
-      {
-      label: 'Intentos',
-      data: [],
-      fill: true,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
-      }
-  ]
-  };
   myChart:any =null;
   constructor(
-    private serviceResp : GetRespuestasUseCases,
+    // private serviceResp : GetRespuestasUseCases,
   ) { }
 
-  ngOnInit(): void {
-    this.cargaGrafico();
-    this.getDatos();
+  ngOnInit(){    
+    // this.cargaGrafico();
+    // this.getDatos();
   }
-  
-  
-  cargaGrafico() {
+
+    
+  cargaGrafico() {        
     if(this.myChart!=null){
       this.myChart.destroy();
     }
@@ -54,25 +41,30 @@ export class ReporteTiempoComponent implements OnInit {
     
   }
 
-  getDatos(){
-    let estudiante:string = "TbnUR5AMXMS0W2r8rzXp";
-    let tema:string = "JlNb9RUUpusyP15R226D";
+
+  // getDatos(){
+  //   let estudiante:string = "TbnUR5AMXMS0W2r8rzXp";
+  //   let tema:string = "JlNb9RUUpusyP15R226D";
     
-    this.serviceResp.getIntentosByUser(estudiante).subscribe((val:any)=>{
-      console.log(val);
-      this.datosGrafico.labels=['1','2','3','4','5','6','7'];
-      this.datosGrafico.datasets[0].data=[65, 59, 80, 81, 56, 55, 40];
-      this.cargaGrafico();
-      // this.myChart.reset();
-      // console.log(this.myChart.data);
+  //   this.serviceResp.getIntentosByUser(estudiante).subscribe((val:any)=>{
+  //     let fecha = new Date(parseInt(val[0].fechaId))
+  //     console.log(fecha);
+  //     this.datosGrafico.labels=['1','2','3','4','5','6','7'];
+  //     this.datosGrafico.datasets[0].data=[65, 59, 80, 81, 56, 55, 40];
+  //     this.cargaGrafico();
+  //     // this.myChart.reset();
+  //     // console.log(this.myChart.data);
       
       
-    })
-  }
+  //   })
+  // }
 
   reordenarIntentos(intentos:any){
 
+
   }
+
+  
   
   
 }

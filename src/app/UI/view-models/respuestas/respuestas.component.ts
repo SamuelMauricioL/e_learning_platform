@@ -158,6 +158,7 @@ export class RespuestasComponent implements OnInit {
     this.notafinal = Number(promedio_total.toFixed(0))
 
     this.intento_resp.correctas = this.rpta_correcta;
+    this.intento_resp.estado = "true";
     this.intento_resp.incorrectas = this.rpta_incorrecta;
     this.intento_resp.tiempoTranscurrido = this.tiempo_transcurrido;
     this.intento_resp.termino = String(new Date);

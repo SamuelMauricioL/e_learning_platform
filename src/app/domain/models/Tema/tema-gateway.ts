@@ -7,4 +7,5 @@ export abstract class TemaGateway {
     abstract createTema(_model :TemaModel) : Promise<any>;
     abstract updateTema(_id:string, _model :TemaModel) : Promise<any>;
     abstract deleteTema(_id:string) : Promise<any>;
+    abstract getTema(_id:string) : Observable<any>;
 }
