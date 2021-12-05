@@ -74,12 +74,6 @@ export class RespuestasService extends RespuestaGateway {
       where("estado", "==", "true").
       orderBy("fechaId", "asc")).valueChanges();
   }
-  getIntentosByUser(_idUsuario: any): Observable<any> {
-    const path_idUsuario = "Usuarios/" + _idUsuario;
-    return this.firestore.collection<any>('Intentos', ref => ref.
-      where("idUsuario", "==", path_idUsuario).
-      where("estado", "==", "true").
-      orderBy("fechaId", "asc")).valueChanges();
-  }
+  
 
 }
