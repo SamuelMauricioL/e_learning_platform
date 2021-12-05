@@ -46,5 +46,8 @@ export class TemasService extends TemaGateway {
   deleteTema(_id: string): Promise<any> {
     return this.firestore.collection('Temas').doc(_id).delete();
   }
+  getTema(_id: string): Observable<any> {
+    return this.firestore.collection<any>("Temas").doc(_id).valueChanges();
+  }
 
 }

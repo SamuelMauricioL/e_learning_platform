@@ -1,25 +1,29 @@
 
 
 <div  *ngIf="user$ | async as user; else login" >
-
+    
     <div class="row">
-        <div class="col-sm">
-            <app-grados></app-grados>
+        <div class="col-md-3">
+            <app-grados [grado]="grado" *ngFor="let grado of grados" (click)="seleccionarGrado(grado.id)"></app-grados>
         </div>
-        <div class="col-sm">
-            <app-listado-estudiantes></app-listado-estudiantes>
+        <div class="col-md-9">
+            <app-listado-estudiantes *ngIf="validarRol()" [estudiantes]="estudiantes" (codigoEstudiante)="cargaInformacion($event)"></app-listado-estudiantes>
             <hr>
-            <app-reporte-tiempo></app-reporte-tiempo>
-            <div class="row">
-                <div class="col-sm">
-                    <app-reporte-pastel></app-reporte-pastel>
-                </div>
-                <div class="col-sm ">
-                    <app-reporte-intentos></app-reporte-intentos>
-                </div>
-            </div>
-            
-        </div>
+            <ng-container  *ngIf="validarUsuarioSeleccionado(); else elseTemplate">
+                <app-reporte-tiempo #reporteTiempo [datosGrafico]="datosGrafico"></app-reporte-tiempo>
+                <div class="row">
+                    <div class="col-md-4">
+                        <app-reporte-pastel [datosGrafico]="datosGraficoPie"></app-reporte-pastel>
+                    </div>
+                    <div class="col-md-8 ">
+                        <app-reporte-intentos [listaIntentos]="listaIntentos"></app-reporte-intentos>
+                    </div>
+                </div>   
+            </ng-container>
+            <ng-template  #elseTemplate>
+                <h4>Seleccionar un estudiante para obtener información  </h4>
+            </ng-template>       
+        </div>   
     </div>
 </div>
 

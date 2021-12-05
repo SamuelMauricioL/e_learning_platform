@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-grados',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./grados.component.scss']
 })
 export class GradosComponent implements OnInit {
-
+  @Input() grado:any;
   constructor() { 
     this.infoGrado = JSON.parse(String(localStorage.getItem('userRoles'))).grado, 
     this.infoPerson = JSON.parse(String(localStorage.getItem('userRoles'))).nombre,
@@ -21,6 +21,10 @@ export class GradosComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  selecionarGrado(grado:string){
+    console.log(grado);    
   }
 
 }

@@ -29,5 +29,8 @@ export class GetTemasUseCases {
   deleteTema(_id:string): Promise<any> {
     return this._gateway.deleteTema(_id);
   }
+  getTema(_id:string): Observable<any> {
+    return this._gateway.getTema(_id);
+  }
 
 }
