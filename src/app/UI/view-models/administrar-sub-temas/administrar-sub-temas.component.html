@@ -26,8 +26,22 @@
                     <p class="card__apply" (click)="navigate(item.id, item.subtema, type_user)"><a>Ver las preguntas<i
                                 class="fa fa-eye"></i></a></p>
                 </div>
-                <div class="col-sm-6">
-                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                <div class="col-sm-7 d-flex">
+                    <button type="button" class="btn btn-danger btn-sm m-3" (click)="eliminar(item,$event)">Eliminar</button>
+                    <div class=" spinner-tema float-start m-3 d-none" >
+                        <div class="spinner-border text-danger " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-warning rounded  p-1 m-3 message d-none" role="alert">
+                        Existen preguntas
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <b>Posición Ruta:</b> {{ item.posicionRuta }}
                 </div>
             </div>
         </div>
@@ -54,22 +68,22 @@
                         <label for="">Posicion Ruta</label>
                         <div class="w-100 d-flex d-flex justify-content-between">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
+                                <input class="form-check-input" type="radio" formControlName="posicionRuta" (click)="changePosicion($event)" value="inicial"
                                     id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Inicial
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
+                                <input class="form-check-input" type="radio" formControlName="posicionRuta" (click)="changePosicion($event)" value="aleatorio"
                                     id="flexRadioDefault2" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
-                                    random
+                                    aleatorio
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="posicionRuta" formControlName="posicionRuta"
-                                    id="flexRadioDefault2" checked>
+                                <input class="form-check-input" type="radio" formControlName="posicionRuta" (click)="changePosicion($event)" value="final"
+                                    id="flexRadioDefault2" >
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     final
                                 </label>

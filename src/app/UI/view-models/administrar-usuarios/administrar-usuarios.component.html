@@ -1,9 +1,12 @@
 <div class="content" style="padding: 5%;">
     <!-- Card -->
-    <button type="button" class="btn btn-success" (click)="openSave(content)" style="background-color: transparent; border: 0px solid transparent;"><i class="fa fa-user-plus" style="color: green;"></i></button>
+    <button type="button" class="btn btn-success" (click)="openSave(content)"
+        style="background-color: transparent; border: 0px solid transparent;"><i class="fa fa-user-plus"
+            style="color: green;"></i></button>
     <article class="card card-cascade narrower">
         <!-- Card heading -->
-        <section class="view gradient-card-header purple-gradient narrower py-3 mb-4 d-flex justify-content-center align-items-center">
+        <section
+            class="view gradient-card-header purple-gradient narrower py-3 mb-4 d-flex justify-content-center align-items-center">
             <span class="white-text mx-3">Lista de Estudiantes</span>
         </section>
 
@@ -29,8 +32,12 @@
                             <td>{{item.grado}}</td>
                             <td>{{item.rol}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" (click)="openEditar(content, item)" style="margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"><i class="fa fa-edit" style="color: blue;"></i></button>
-                                <button type="button" class="btn btn-danger" (click)="eliminar(item)" style="background-color: transparent; border: 0px solid transparent;"><i class="fa fa-trash" style="color: red;"></i></button>
+                                <button type="button" class="btn btn-primary" (click)="openEditar(content, item)"
+                                    style="margin-right: 1vw; background-color: transparent; border: 0px solid transparent;"><i
+                                        class="fa fa-edit" style="color: blue;"></i></button>
+                                <button type="button" class="btn btn-danger" (click)="eliminar(item)"
+                                    style="background-color: transparent; border: 0px solid transparent;"><i
+                                        class="fa fa-trash" style="color: red;"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -42,7 +49,8 @@
             <!-- Grade page links -->
             <nav class="my-4">
                 <ul class="pagination pagination-circle pg-red mb-0">
-                    <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center"></pagination-controls>
+                    <pagination-controls (pageChange)="pageChanged($event)" style="text-align: center">
+                    </pagination-controls>
                 </ul>
             </nav>
         </section>
@@ -50,7 +58,7 @@
     <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Estudiante create/update</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <button type="button" class="close btn " aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -72,23 +80,36 @@
                         </div>
                         <div class="form-group" *ngIf="!actualizar">
                             <label>Contraseña</label>
-                            <input type="text" formControlName="contraseña" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Grado</label>
-                            <input type="text" formControlName="grado" class="form-control">
+                            <input type="password" formControlName="contraseña" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Rol</label>
-                            <input type="text" formControlName="rol" class="form-control">
+                            <select class="form-select" formControlName="rol" aria-label="Default select example" 
+                            (change)="changeEstadoProfesorEstudiante($event)"
+                            >
+                                <option value="Estudiante" >Estudiante</option>
+                                <option value="Docente">Docente</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
                         </div>
+                        <div class="form-group" *ngIf="profesorOestudiante">
+                            <label>Grado</label>
+                            <select class="form-select gradoSeleccionado" (input)="changeSelectGrado($event)"  aria-label="Default select example">
+                                <option value="{{ grado.id}}" *ngFor="let grado of grados">
+                                    {{grado.grado}} {{grado.nivel}}
+                                </option>
+                            </select>
+                        </div>
+
                     </form>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="guardarEstudiante()" *ngIf="!actualizar">Guardar</button>
-            <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()" *ngIf="actualizar">Actualizar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="guardarEstudiante()"
+                *ngIf="!actualizar">Guardar</button>
+            <button type="button" class="btn btn-outline-dark" (click)="actualizarEstudiante()"
+                *ngIf="actualizar">Actualizar</button>
         </div>
     </ng-template>
 

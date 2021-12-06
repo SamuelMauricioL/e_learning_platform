@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioModel, UsuarioConvert } from 'src/app/domain/models/Usuario/usuario-model';
+import { GetGradosUseCases } from 'src/app/domain/usecase/get-grados-use-case';
 import { GetUserUseCases } from 'src/app/domain/usecase/get-user-use-case';
 
 @Component({
@@ -19,9 +20,14 @@ export class AdministrarUsuariosComponent implements OnInit {
   collection = { count: 15, data: [] as UsuarioModel[] }
   actualizar: boolean;
 
+  profesorOestudiante : boolean = true;
+
+  grados:any=[];
+  gradoSeleccionado:any ;
   constructor(
     private modalService: NgbModal,
     private userService: GetUserUseCases,
+    private serviceGra : GetGradosUseCases,
   ) {
     this.actualizar = false;
     this.managerUsersForm = new FormGroup({
@@ -33,7 +39,12 @@ export class AdministrarUsuariosComponent implements OnInit {
       email: new FormControl('', Validators.required),
       contraseña: new FormControl('', Validators.required),
       estado: new FormControl(true, Validators.required),
+
     })
+    this.managerUsersForm.patchValue({rol:"Estudiante"})
+    this.managerUsersForm.controls.rol.setValue("Estudiante");
+    this.managerUsersForm.controls['rol'].setValue("estudiante");
+    this.getGrados();
   }
 
   ngOnInit(): void {
@@ -53,6 +64,44 @@ export class AdministrarUsuariosComponent implements OnInit {
 
   }
 
+  changeEstadoProfesorEstudiante(e:any){
+    console.log(e.target.value)
+    this.changeSelectByTipeUser(e.target.value);
+  }
+  changeSelectByTipeUser(user:string){
+    if(user=="Estudiante" || user=="Docente"){
+      this.profesorOestudiante= true;
+    }else{
+      this.profesorOestudiante=false;
+    }
+  }
+  changeSelectGrado(e:any){
+    console.log(e.target.value)
+    this.cambiarGradoSeleccionado(e.target.value)
+  }
+  getGrados(){
+    this.serviceGra.getAllCursos().subscribe((val)=>{
+      console.log(val);
+      this.grados = val;
+      this.cambiarGradoSeleccionado(val[0].id);
+      
+      
+    })
+  }
+  cambiarGradoSeleccionado(gradoId:any){
+    console.log(gradoId);
+    this.serviceGra.getGradoById(gradoId).subscribe((val:any)=>{
+      console.log(val);
+      this.gradoSeleccionado = [
+        {
+          grado:val.grado,
+          id:gradoId,
+          nivel:val.nivel
+        }
+      ]
+      console.log(this.gradoSeleccionado)
+    })
+  }
   pageChanged(event: any) {
     this.config.currentPage = event
   }
@@ -64,6 +113,9 @@ export class AdministrarUsuariosComponent implements OnInit {
   guardarEstudiante(): void {
     const {id, ...obj} = this.managerUsersForm.value;
     obj.estado = true;
+    if(this.profesorOestudiante){
+      obj.grados = this.gradoSeleccionado;
+    }
     this.userService.createUser(obj).then((_response) => {
       this.managerUsersForm.reset();
       this.modalService.dismissAll();
@@ -74,6 +126,9 @@ export class AdministrarUsuariosComponent implements OnInit {
 
   actualizarEstudiante() {
     const {id, ...obj} = this.managerUsersForm.value;
+    if(this.profesorOestudiante){
+      obj.grados = this.gradoSeleccionado;
+    }
     this.userService.updateUser(id, obj).then((_response) => {
       this.managerUsersForm.reset();
       this.modalService.dismissAll();
@@ -83,15 +138,25 @@ export class AdministrarUsuariosComponent implements OnInit {
   }
 
   openEditar(content: any, item: UsuarioModel) {
+    
+    console.log(item);
+    if(item.rol=="Administrador"){
+      this.cambiarGradoSeleccionado(this.grados[0].id);
+    }else{
+      // this.cambiarGradoSeleccionado(this.grados[0].id);  //aqui está faltando
+    }
     this.actualizar = true;
     this.managerUsersForm.setValue(UsuarioConvert.fromObjectToJson(item));
     this.openModal(content);
+    this.changeSelectByTipeUser(item.rol)
   }
 
   openSave(content: any) {
+    
     this.actualizar = false;
     this.managerUsersForm.reset();
     this.openModal(content);
+    this.cambiarGradoSeleccionado(this.grados[0].id);
   }
 
   openModal(content: any) {

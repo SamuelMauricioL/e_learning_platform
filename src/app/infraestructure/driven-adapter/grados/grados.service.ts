@@ -41,7 +41,7 @@ export class GradosService extends GradoGateway {
     //       return data;
     //   }))
     // );
-    return this.firestore.collection('Grados', ref => ref.where('gradoRef', '==', path)) as any;
+    return this.firestore.collection('Grados').doc(id).valueChanges() as any;
     
 
     // return this.firestore.collection<GradoModel>(path).snapshotChanges() as any;

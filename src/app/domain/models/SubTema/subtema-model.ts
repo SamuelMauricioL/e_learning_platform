@@ -7,6 +7,7 @@ export interface SubTemaModel {
     time:string;
     dificultad: string;
     estado: boolean;
+    posicionRuta:string
 }
 
 export class SubTemaConvert {

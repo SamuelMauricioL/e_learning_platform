@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SubTemaConvert, SubTemaModel } from 'src/app/domain/models/SubTema/subtema-model';
+import { GetPreguntasUseCases } from 'src/app/domain/usecase/get-preguntas-use-case';
 import { GetSubTemasUseCases } from 'src/app/domain/usecase/get-subtemas-use-case';
 
 @Component({
@@ -17,6 +18,7 @@ export class AdministrarSubTemasComponent implements OnInit {
     private modalService: NgbModal,
     public router: Router,
     private route: ActivatedRoute,
+    private servicePre: GetPreguntasUseCases,
   ) { 
     this.managerForm = new FormGroup({
       id: new FormControl('', Validators.required),
@@ -39,10 +41,11 @@ export class AdministrarSubTemasComponent implements OnInit {
   actualizar: boolean = false;
   managerForm: FormGroup;
   list_len = 0;
-
+  posicionSeleccionada = "aleatorio";
   ngOnInit(): void {
     // LISA DE SUBTEMAS
     this.service.getAll(this.idTema).subscribe(resp => {
+      console.log(resp)
       this.collection = resp;
       this.list_len = resp.length;
     },
@@ -63,8 +66,25 @@ export class AdministrarSubTemasComponent implements OnInit {
     }
   }
 
-  eliminar(item: any): void {
-    this.service.delete(item.id);
+  eliminar(item: any,e:any): void {
+    // encontrar subtemas 
+    let padre = e.target.parentNode
+    let spinner = padre.querySelector(".spinner-tema")
+    let message = padre.querySelector(".message")
+    spinner.classList.remove("d-none")
+    this.servicePre.getAll(item.id).subscribe((val:any)=>{
+      spinner.classList.add("d-none")
+      console.log(val)
+      if(val.length > 0){
+        message.classList.remove("d-none");
+        setTimeout(() => {
+          message.classList.add("d-none");
+        }, 1500);
+      }else{
+        this.service.delete(item.id);
+      }
+    })
+    // this.service.delete(item.id);
   }
 
   guardar(): void {
@@ -72,6 +92,7 @@ export class AdministrarSubTemasComponent implements OnInit {
     obj.estado = true;
     obj.indice = this.list_len + 1;
     obj.idTema = `/Temas/${this.idTema}`;
+    obj.posicionRuta = this.posicionSeleccionada;
     this.service.create(obj).then((_response) => {
       this.managerForm.reset();
       this.modalService.dismissAll();
@@ -122,4 +143,7 @@ export class AdministrarSubTemasComponent implements OnInit {
     }
   }
 
+  changePosicion(e:any){
+    this.posicionSeleccionada=e.target.value
+  }
 }
