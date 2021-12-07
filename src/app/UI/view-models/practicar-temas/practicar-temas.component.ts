@@ -38,7 +38,7 @@ export class PracticarTemasComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle("E-Learning Platform | Practicar Temas");
     const datos: any = localStorage.getItem('userRoles');
-    let idGrado: any = JSON.parse(datos).gradoId;
+    let idGrado: any = JSON.parse(datos).grados[0].id;
 
     
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {

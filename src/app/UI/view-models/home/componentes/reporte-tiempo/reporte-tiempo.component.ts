@@ -34,6 +34,9 @@ export class ReporteTiempoComponent implements OnInit {
     this.myChart = new Chart("myChart",{
       type:"line",
       data:this.datosGrafico,
+      options:{
+        maintainAspectRatio: false
+      }
 
 
     })

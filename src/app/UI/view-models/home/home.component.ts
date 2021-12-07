@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1
       }
-    ]
+    ],
   };
 
   datosGraficoPie : any = {
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
   ) { 
     this.usuarioRol = JSON.parse(String(localStorage.getItem('user'))).rol    
     this.grados = JSON.parse(String(localStorage.getItem('userRoles'))).grados    
-    
+    this.seleccionarGrado(this.grados[0].id)
   }
 
   ngOnInit(): void {
@@ -94,6 +94,7 @@ export class HomeComponent implements OnInit {
   seleccionarGrado(id:string){    
     // alert("selecciona el grado "+ ruta)
     var ruta = 'Grados/'+id
+    console.log(ruta);
     this.service.getUsersGrado(ruta).subscribe(data=>{
       this.estudiantes = data      
       if (this.estudiantes.length == 1) {

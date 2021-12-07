@@ -3,8 +3,8 @@
         <label for="estudiante" class="col-sm-2 col-form-label">Estudiante: </label>        
         <div class="col-sm-10">
             <select id="estudiante" class="form-select" (change)="onChange($event)">
-                <option value='' selected>--Seleccionar--</option>
-                <option [value]="item.id" *ngFor="let item of estudiantes">{{item.nombre}}</option>                
+                <!-- <option value='' selected>--Seleccionar--</option> -->
+                <option [value]="item.id" *ngFor="let item of estudiantes" >{{item.nombre}}</option>                
             </select>
         </div>
     </div>    

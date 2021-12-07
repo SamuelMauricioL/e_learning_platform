@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioModel, UsuarioConvert } from 'src/app/domain/models/Usuario/usuario-model';
 import { GetGradosUseCases } from 'src/app/domain/usecase/get-grados-use-case';
@@ -23,11 +23,18 @@ export class AdministrarUsuariosComponent implements OnInit {
   profesorOestudiante : boolean = true;
 
   grados:any=[];
-  gradoSeleccionado:any ;
+  gradoSeleccionado:any =[
+    {
+      id:null
+    }
+  ]
+
+ 
   constructor(
     private modalService: NgbModal,
     private userService: GetUserUseCases,
     private serviceGra : GetGradosUseCases,
+    private formBuilder: FormBuilder
   ) {
     this.actualizar = false;
     this.managerUsersForm = new FormGroup({
@@ -35,15 +42,13 @@ export class AdministrarUsuariosComponent implements OnInit {
       nombre: new FormControl('', Validators.required),
       codigo: new FormControl('', Validators.required),
       grado: new FormControl('', Validators.required),
-      rol: new FormControl('', Validators.required),
+      rol: new FormControl('Estudiante', Validators.required),
       email: new FormControl('', Validators.required),
       contraseña: new FormControl('', Validators.required),
       estado: new FormControl(true, Validators.required),
-
+      grados: new FormControl("", Validators.required),
+      nivel:new FormControl("", Validators.required),
     })
-    this.managerUsersForm.patchValue({rol:"Estudiante"})
-    this.managerUsersForm.controls.rol.setValue("Estudiante");
-    this.managerUsersForm.controls['rol'].setValue("estudiante");
     this.getGrados();
   }
 
@@ -88,18 +93,23 @@ export class AdministrarUsuariosComponent implements OnInit {
       
     })
   }
-  cambiarGradoSeleccionado(gradoId:any){
-    console.log(gradoId);
-    this.serviceGra.getGradoById(gradoId).subscribe((val:any)=>{
+  cambiarGradoSeleccionado(grado_Id:any){
+    console.log(grado_Id);
+    this.serviceGra.getGradoById(grado_Id).subscribe((val:any)=>{
       console.log(val);
       this.gradoSeleccionado = [
         {
           grado:val.grado,
-          id:gradoId,
+          id:grado_Id,
           nivel:val.nivel
         }
       ]
       console.log(this.gradoSeleccionado)
+      if(this.profesorOestudiante==true){
+        let etiqueta:any = document.querySelector(".gradoSeleccionado")
+        etiqueta.value=grado_Id;
+      }
+      
     })
   }
   pageChanged(event: any) {
@@ -115,6 +125,8 @@ export class AdministrarUsuariosComponent implements OnInit {
     obj.estado = true;
     if(this.profesorOestudiante){
       obj.grados = this.gradoSeleccionado;
+    }else{
+      obj.grados = "";
     }
     this.userService.createUser(obj).then((_response) => {
       this.managerUsersForm.reset();
@@ -140,21 +152,31 @@ export class AdministrarUsuariosComponent implements OnInit {
   openEditar(content: any, item: UsuarioModel) {
     
     console.log(item);
+    this.openModal(content);
+    this.changeSelectByTipeUser(item.rol)
     if(item.rol=="Administrador"){
+      
       this.cambiarGradoSeleccionado(this.grados[0].id);
     }else{
+      if(item.hasOwnProperty('grados') ){
+        console.log(item.grados[0].id);
+        let id = item.grados[0].id
+        this.cambiarGradoSeleccionado(id)
+      }
       // this.cambiarGradoSeleccionado(this.grados[0].id);  //aqui está faltando
     }
     this.actualizar = true;
     this.managerUsersForm.setValue(UsuarioConvert.fromObjectToJson(item));
-    this.openModal(content);
-    this.changeSelectByTipeUser(item.rol)
+    
+    
   }
 
   openSave(content: any) {
     
     this.actualizar = false;
     this.managerUsersForm.reset();
+    this.managerUsersForm.get("rol")?.setValue("Estudiante")
+    this.managerUsersForm.get("nivel")?.setValue("muy bajo")
     this.openModal(content);
     this.cambiarGradoSeleccionado(this.grados[0].id);
   }
@@ -177,4 +199,6 @@ export class AdministrarUsuariosComponent implements OnInit {
     }
   }
 
+
+  //=====================================A
 }
