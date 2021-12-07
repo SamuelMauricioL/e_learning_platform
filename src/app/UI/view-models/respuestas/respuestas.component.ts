@@ -35,7 +35,7 @@ export class RespuestasComponent implements OnInit {
   act: string = this.route.snapshot.params.act;
   idCurso: string = this.route.snapshot.params.idCurso;
   idIntento: string = this.route.snapshot.params.intento;
-
+  uso: string = this.route.snapshot.params.uso;
   managerForm: FormGroup;
   notafinal: number = 0;
 
@@ -174,7 +174,8 @@ export class RespuestasComponent implements OnInit {
   retroceder() {
 
     if (this.act != undefined) {
-      this.router.navigate(['/practicar-temas/' + this.nameCurso + '/' + this.idCurso]);
+      console.log(this.act);
+      this.router.navigate(['/practicar-temas/' + this.uso + '/'+ this.nameCurso + '/' + this.idCurso]);
     } else {
       this.router.navigate(['/responder-preguntas/' + this.idtema + '/' + this.ruta]);
     }

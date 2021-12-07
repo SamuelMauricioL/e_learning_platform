@@ -77,7 +77,7 @@ const routes: Routes = [
     loadChildren: () => import('./UI/view-models/practicar-temas/practicar-temas.module').then(m => m.PracticarTemasModule)
   },
   {
-    path: 'resolver/:act/:NameCurso/:idCurso/:intento/:tema',
+    path: 'resolver/:uso/:act/:NameCurso/:idCurso/:intento/:tema',
     // canActivate: [AuthGuard],
     loadChildren: () => import('./UI/view-models/respuestas/respuestas.module').then(m => m.RespuestasModule)
   },

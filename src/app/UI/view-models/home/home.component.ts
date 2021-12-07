@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   grados: any = []
   public estudiantes: any = []
   listaIntentos: any = []
-  usuarioRol: string = "";
+  usuarioRol: string = "Estudiante";
   usuarioSeleccionado: string = ''
 
   datosGrafico: any = {
@@ -94,17 +94,27 @@ export class HomeComponent implements OnInit {
   }
 
   cargarUsuario(email: string) {
+
     this.service.getUsersByEmail(email).subscribe((val: any) => {
+      
       this.usuarioRol = val[0].rol
       this.grados = val[0].grados
-      this.cargarInformacionGrados()
-      this.seleccionarGrado(this.grados[0].id)
+      if(val[0].rol == "Administrador"){
+        this.cargarInformacionGrados()
+      }else{
+        this.seleccionarGrado(this.grados[0].id)
+      }
+      
+      
     })
   }
   cargarInformacionGrados() {
+    
     if (this.usuarioRol == 'Administrador') {
+      
       this.serviceGrado.getAllCursos().subscribe(resp => {
         this.grados = resp;
+        this.seleccionarGrado(this.grados[0].id)
       },
         error => {
           console.error(error);
@@ -115,9 +125,12 @@ export class HomeComponent implements OnInit {
     this.service.getAllUsers().subscribe((val:any)=>{
       let estudiantes = val.filter((fil:any)=>fil.rol== "Estudiante" && fil.grados[0].id == id)
       this.estudiantes = estudiantes
+      console.log("estudiantes",this.estudiantes);
       if (this.estudiantes.length > 0) {
+        console.log("entrando a varios")
         this.listadoEstudiantes.seleccionAutomatica(this.estudiantes[0].id)
       } else {
+        console.log("entrando a nulos")
         this.usuarioSeleccionado = ''
       }
       
