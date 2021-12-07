@@ -12,6 +12,8 @@ import { GetGradosUseCases } from 'src/app/domain/usecase/get-grados-use-case';
 import { ListadoEstudiantesComponent } from './componentes/listado-estudiantes/listado-estudiantes.component';
 import { GetTemasUseCases } from 'src/app/domain/usecase/get-temas-use-case';
 
+import { first } from 'rxjs/operators';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,27 +29,27 @@ export class HomeComponent implements OnInit {
   reportePaste: ReportePastelComponent = new ReportePastelComponent;
   @ViewChild(ListadoEstudiantesComponent)
   listadoEstudiantes: ListadoEstudiantesComponent = new ListadoEstudiantesComponent;
-  
-  grados : any = [] 
-  public estudiantes : any = []
-  listaIntentos : any = []
-  usuarioRol : string
-  usuarioSeleccionado : string = ''
 
-  datosGrafico:any = {
+  grados: any = []
+  public estudiantes: any = []
+  listaIntentos: any = []
+  usuarioRol: string = "";
+  usuarioSeleccionado: string = ''
+
+  datosGrafico: any = {
     labels: [],
     datasets: [
       {
-      label: 'Intentos',
-      data: [],
-      fill: true,
-      borderColor: 'rgb(75, 192, 192)',
-      tension: 0.1
+        label: 'Intentos',
+        data: [],
+        fill: true,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
       }
     ],
   };
 
-  datosGraficoPie : any = {
+  datosGraficoPie: any = {
     labels: ['Muy bajo', 'Bajo', 'Intermedio', 'Bueno', 'Muy Bueno'],
     datasets: [{
       backgroundColor: [
@@ -63,63 +65,80 @@ export class HomeComponent implements OnInit {
   }
   public user$: Observable<any> = this.auth.afAuth.user;
 
-  rol:string="";
+  rol: string = "";
   constructor(
-    private service : GetUserUseCases,
-    private serviceResp : GetRespuestasUseCases,
-    private serviceGrado : GetGradosUseCases,
-    private serviceTema : GetTemasUseCases,
+    private service: GetUserUseCases,
+    private serviceResp: GetRespuestasUseCases,
+    private serviceGrado: GetGradosUseCases,
+    private serviceTema: GetTemasUseCases,
     private auth: AuthService,
     private route: ActivatedRoute,
-  ) { 
-    this.usuarioRol = JSON.parse(String(localStorage.getItem('user'))).rol    
-    this.grados = JSON.parse(String(localStorage.getItem('userRoles'))).grados    
-    this.seleccionarGrado(this.grados[0].id)
+  ) {
+    // this.user$.subscribe((val: any) => {
+    //   console.log(val);
+    //   this.cargarUsuario(val.email);
+    // })
+    // this.cargarInformacionGrados()
   }
 
   ngOnInit(): void {
-    this.cargarInformacionGrados() 
+
+    this.user$.subscribe((val: any) => {
+      if (val) {
+        this.cargarUsuario(val.email);
+      }
+
+    })
+    
+
   }
 
-  cargarInformacionGrados(){
+  cargarUsuario(email: string) {
+    this.service.getUsersByEmail(email).subscribe((val: any) => {
+      this.usuarioRol = val[0].rol
+      this.grados = val[0].grados
+      this.cargarInformacionGrados()
+      this.seleccionarGrado(this.grados[0].id)
+    })
+  }
+  cargarInformacionGrados() {
     if (this.usuarioRol == 'Administrador') {
       this.serviceGrado.getAllCursos().subscribe(resp => {
         this.grados = resp;
       },
-      error => {
-        console.error(error);
-      });      
+        error => {
+          console.error(error);
+        });
     }
   }
-  seleccionarGrado(id:string){    
-    // alert("selecciona el grado "+ ruta)
-    var ruta = 'Grados/'+id
-    console.log(ruta);
-    this.service.getUsersGrado(ruta).subscribe(data=>{
-      this.estudiantes = data      
-      if (this.estudiantes.length == 1) {
+  seleccionarGrado(id: string) {
+    this.service.getAllUsers().subscribe((val:any)=>{
+      let estudiantes = val.filter((fil:any)=>fil.rol== "Estudiante" && fil.grados[0].id == id)
+      this.estudiantes = estudiantes
+      if (this.estudiantes.length > 0) {
         this.listadoEstudiantes.seleccionAutomatica(this.estudiantes[0].id)
-      }else{
+      } else {
         this.usuarioSeleccionado = ''
       }
-    })    
+      
+    })
   }
-  cargaInformacion(e:any){    
-    this.serviceResp.getIntentosByUser(e).subscribe((val:any)=>{      
-      this.listaIntentos = val      
-      this.listaIntentos.forEach((item : any) => {
+  cargaInformacion(e: any) {
+    this.serviceResp.getIntentosByUser(e).subscribe((val: any) => {
+      this.listaIntentos = val
+      this.listaIntentos.forEach((item: any) => {
         const idTemaArray = item.idTema.split("/");
-        this.serviceTema.getTema(idTemaArray[1]).subscribe((val:any)=>{          
+        this.serviceTema.getTema(idTemaArray[1]).subscribe((val: any) => {
           item.tema = val.tema
-        })        
+        })
       });
       const datePipe = new DatePipe("en-US");
       // obtiene array de las fechas unicas
-      const unique = [...new Set(val.map((item: { fecha: any; }) => datePipe.transform(item.fecha,'dd/MM/yyyy')))]; 
+      const unique = [...new Set(val.map((item: { fecha: any; }) => datePipe.transform(item.fecha, 'dd/MM/yyyy')))];
       // 
       // cuenta los itentos segun la fecha y se agrega en un array
-      var intentosArray : any = []
-      var rangosArray : any = []
+      var intentosArray: any = []
+      var rangosArray: any = []
       var intentos = 0
       var rango1 = 0
       var rango2 = 0
@@ -127,63 +146,63 @@ export class HomeComponent implements OnInit {
       var rango4 = 0
       var rango5 = 0
 
-      val.forEach((item_sub :any) => {        
+      val.forEach((item_sub: any) => {
         switch (parseInt(item_sub.promedio)) {
           case 0:
           case 5:
-            rango1 ++
+            rango1++
             break;
           case 6:
           case 10:
-            rango2 ++
-            break; 
+            rango2++
+            break;
           case 11:
           case 15:
-            rango3 ++
-            break; 
-          case 16:            
+            rango3++
+            break;
+          case 16:
           case 19:
-            rango4 ++
-            break; 
+            rango4++
+            break;
           case 20:
-            rango5 ++
-            break;  
-        }          
-      });      
-      rangosArray.push(rango1,rango2,rango3,rango4,rango5)
-      
+            rango5++
+            break;
+        }
+      });
+      rangosArray.push(rango1, rango2, rango3, rango4, rango5)
 
-      unique.forEach(item => {        
-        val.forEach((item_sub :any) => {
-          var fecha : any = datePipe.transform(item_sub.fecha,'dd/MM/yyyy')
+
+      unique.forEach(item => {
+        val.forEach((item_sub: any) => {
+          var fecha: any = datePipe.transform(item_sub.fecha, 'dd/MM/yyyy')
           if (item == fecha) {
-            intentos ++
-          }               
+            intentos++
+          }
         });
-        intentosArray.push(intentos)        
+        intentosArray.push(intentos)
       });
       // 
 
       // carga los datos de la linea de tiempo
-      this.datosGrafico.labels=unique;
-      this.datosGrafico.datasets[0].data=intentosArray;
+      this.datosGrafico.labels = unique;
+      this.datosGrafico.datasets[0].data = intentosArray;
       this.reporteTiempo.cargaGrafico()
       //       
-      
+
       // craga los datos del pie
-      this.datosGraficoPie.datasets[0].data = rangosArray      
+      this.datosGraficoPie.datasets[0].data = rangosArray
       this.reportePaste.pieChartBrowser()
       // 
-      
+
     })
-   
-    this.usuarioSeleccionado = e       
-    
+
+    this.usuarioSeleccionado = e
+
   }
-  validarRol(){
+  validarRol() {
     return this.usuarioRol != 'Estudiante' ? true : false;
   }
-  validarUsuarioSeleccionado(){
+  validarUsuarioSeleccionado() {
     return this.usuarioSeleccionado != '' ? true : false;
   }
 

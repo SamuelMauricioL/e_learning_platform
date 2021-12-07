@@ -59,7 +59,8 @@ export class UserService extends UsuarioGateway {
     );
   }
   getUsersGrado(_idGrado:string):Observable<Array<any>>{
-    return this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('rol','==','Estudiante').where('gradoId','==',_idGrado)).snapshotChanges().pipe(
+    return this.firestore.collection<UsuarioModel>('Usuarios',ref=> ref.where('rol','==','Estudiante')
+        .where('grados','array-contains','{grado:"5",nivel:"primaria",id:"VJ3p01YbfxUCqxTWJmkU"}')).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as UsuarioModel;
         data.id = a.payload.doc.id;
