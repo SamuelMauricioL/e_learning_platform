@@ -1,15 +1,13 @@
+<div *ngIf="user$ | async as user; else login">
 
-
-<div  *ngIf="user$ | async as user; else login" >
-    
     <div class="row">
-        <div class="col-md-3 overflow-auto"  style="height: 600px;">
+        <div class="col-md-3 overflow-auto" style="height: 600px;">
             <app-grados [grado]="grado" *ngFor="let grado of grados" (click)="seleccionarGrado(grado.id)"></app-grados>
         </div>
         <div class="col-md-9 p-5">
-            <app-listado-estudiantes  [estudiantes]="estudiantes" (codigoEstudiante)="cargaInformacion($event)"></app-listado-estudiantes>
+            <app-listado-estudiantes [estudiantes]="estudiantes" (codigoEstudiante)="cargaInformacion($event)"></app-listado-estudiantes>
             <hr>
-            <ng-container  *ngIf="validarUsuarioSeleccionado(); else elseTemplate">
+            <ng-container *ngIf="validarUsuarioSeleccionado(); else elseTemplate">
                 <app-reporte-tiempo #reporteTiempo [datosGrafico]="datosGrafico"></app-reporte-tiempo>
                 <div class="row">
                     <div class="col-md-4">
@@ -18,12 +16,12 @@
                     <div class="col-md-8 ">
                         <app-reporte-intentos [listaIntentos]="listaIntentos"></app-reporte-intentos>
                     </div>
-                </div>   
+                </div>
             </ng-container>
-            <ng-template  #elseTemplate>
-                <h4>Seleccionar un estudiante para obtener información  </h4>
-            </ng-template>       
-        </div>   
+            <ng-template #elseTemplate>
+                <h4>Seleccionar un estudiante para obtener información </h4>
+            </ng-template>
+        </div>
     </div>
 </div>
 
@@ -37,12 +35,12 @@
 
         <div class="row" style="margin-top: 10px;">
             <div class="col-6">
-                <div class="container" style="direction: rtl;" routerLink="/login/Alumno">
+                <div class="container" style="direction: rtl;" routerLink="/login/Estudiante">
                     <img data-type="Rectangle" style="margin-right: 40px; margin-top: 50px;cursor: pointer;" data-name="img_alumnos " src="./../../../../assets/alumnos.png " srcset="./../../../../assets/alumnos.png 1x ">
                 </div>
             </div>
             <div class="col-6 ">
-                <div class="container" routerLink="/login/Profesor">
+                <div class="container" routerLink="/login/Docente">
                     <img data-type="Rectangle" style="margin-left: 40px; margin-top: 50px; cursor: pointer;" data-name="img_alumnos " src="./../../../../assets/docentes.png " srcset="./../../../../assets/docentes.png 1x ">
                 </div>
             </div>

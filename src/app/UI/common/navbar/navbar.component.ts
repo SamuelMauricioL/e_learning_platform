@@ -33,10 +33,6 @@ export class NavbarComponent {
     }
   }
 
-  changeProfile() {
-    this.isStudent = !this.isStudent;
-  }
-
   getRol() {
 
     this.user$.subscribe((result) => {

@@ -4,9 +4,9 @@
             <div class="container" style="width: 500px; height: 500px; margin-inline: auto; padding-top: 15px;">
                 <div class="container" id="backg" style='width: 320px; height: 480px; border-radius: 25px; margin-inline: auto;'>
                     <div class="container" style="width: 100%; text-align: center; top: -60px; position: relative; ">
-                        <img *ngIf="type_user == 'Profesor'" data-name="img_profesora" src="./../../../../assets/img_profesora.png" style=" height: 130px;">
-                        <img *ngIf="type_user == 'Profesor'" data-name="img_profesor" src="./../../../../assets/img_profesor.png" style=" height: 130px;">
-                        <img *ngIf="type_user == 'Alumno'" data-name="img_profesora" src="./../../../../assets/img_alumnos_dt.png" style=" height: 130px;">
+                        <img *ngIf="type_user == 'Docente'" data-name="img_profesora" src="./../../../../assets/img_profesora.png" style=" height: 130px;">
+                        <img *ngIf="type_user == 'Docente'" data-name="img_profesor" src="./../../../../assets/img_profesor.png" style=" height: 130px;">
+                        <img *ngIf="type_user == 'Estudiante'" data-name="img_profesora" src="./../../../../assets/img_alumnos_dt.png" style=" height: 130px;">
                     </div>
                     <div class="container" style="text-align: center; width: 100%; color: white; font-weight: bolder; font-size: 20px; top: -40px; position: relative;">
                         <span>LOGIN {{type_user}}</span>
@@ -41,7 +41,5 @@
                 </div>
             </div>
         </div>
-
-        
     </div>
 </div>
