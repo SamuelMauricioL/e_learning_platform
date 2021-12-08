@@ -22,8 +22,8 @@ export class PracticarTemasComponent implements OnInit {
     private service_preguntas: GetPreguntasUseCases,
     private service_respuestas: GetRespuestasUseCases,
 
-  ) { 
-    this.idUsuario =  JSON.parse(String(localStorage.getItem('user'))).id ;
+  ) {
+    this.idUsuario = JSON.parse(String(localStorage.getItem('user'))).id;
   }
 
   nameCurso: string = this.route.snapshot.params.NameCurso;
@@ -31,7 +31,7 @@ export class PracticarTemasComponent implements OnInit {
   uso: string = this.route.snapshot.params.uso;
   collectionSub = new Array();
   collectionDataInsert = new Array();
-  idUsuario : string;
+  idUsuario: string;
 
   visibilidad: number = 0;
 
@@ -39,19 +39,22 @@ export class PracticarTemasComponent implements OnInit {
     this.titleService.setTitle("E-Learning Platform | Practicar Temas");
     const datos: any = localStorage.getItem('userRoles');
     let idGrado: any = JSON.parse(datos).gradoId;
+    var arr1 = ["a", "b", "c", "d", "e"];
 
-    
+    this.randoFunction(arr1);
+
+
     this.service.getAllTemasGrado(idGrado, this.idCurso).subscribe(tema => {
       this.collectionSub = tema
       console.log(tema)
-      for(let i = 0; i < tema.length; i++){
+      for (let i = 0; i < tema.length; i++) {
         tema[i].promedio = 0;
-        this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res:any)=>{
-          if(_res.length > 0){
+        this.service_respuestas.getLastDocumentIntento(this.idUsuario, tema[i].id).subscribe((_res: any) => {
+          if (_res.length > 0) {
             tema[i].promedio = _res[0].promedio;
           }
 
-          if(i== tema.length - 1){
+          if (i == tema.length - 1) {
             this.collectionDataInsert = tema;
           }
 
@@ -67,7 +70,7 @@ export class PracticarTemasComponent implements OnInit {
     this.visibilidad = 1;
 
     let dataInsert: any = {
-      idUsuario : 'Usuarios/'+this.idUsuario,
+      idUsuario: 'Usuarios/' + this.idUsuario,
       idTema: 'Temas/' + idtema,
       fecha: String(new Date()),
       fechaId: String(new Date().getTime()),
@@ -96,18 +99,23 @@ export class PracticarTemasComponent implements OnInit {
 
     // this.crearIntento(dataInsert)
   }
-  
-  crearIntento(dataInsert: any, act:any, idtema: any, subtem: any) {
+
+  crearIntento(dataInsert: any, act: any, idtema: any, subtem: any) {
     this.service_respuestas.createIntento(dataInsert).then((_response) => {
-      /// resolver/:act/:NameCurso/:idCurso/:intento/:tema
-      this.router.navigate(['/resolver/' + act+ '/'+ this.nameCurso + '/'+this.idCurso + '/'+ _response + '/' + subtem]);
+      this.router.navigate(['/resolver/'  + act + '/' + this.uso + '/' + this.nameCurso + '/' + this.idCurso + '/' + _response + '/' + subtem]);
     }).catch((error) => {
       console.error(error);
     });
   }
 
-  salir(){
+  salir() {
     this.router.navigate(['/practicar']);
+
+  }
+
+  randoFunction(arrayRandom: any) {
+    arrayRandom.sort(function () { return Math.random() - 0.5 });
+    console.log(arrayRandom)
 
   }
 }
