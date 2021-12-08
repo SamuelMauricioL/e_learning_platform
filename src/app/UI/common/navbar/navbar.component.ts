@@ -24,6 +24,8 @@ export class NavbarComponent {
   public menus: any[] = [];
   async onLogout() {
     try {
+      localStorage.removeItem('userRoles');
+      localStorage.removeItem('user');
       await this.auth.logout();
       this.router.navigate(['/home']);
     } catch (error) {

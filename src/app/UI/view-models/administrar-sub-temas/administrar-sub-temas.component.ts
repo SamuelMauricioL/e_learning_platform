@@ -90,7 +90,7 @@ export class AdministrarSubTemasComponent implements OnInit {
   guardar(): void {
     const {id, ...obj} = this.managerForm.value;
     obj.estado = true;
-    obj.indice = this.list_len + 1;
+    obj.indice = this.list_len ;
     obj.idTema = `/Temas/${this.idTema}`;
     obj.posicionRuta = this.posicionSeleccionada;
     this.service.create(obj).then((_response) => {

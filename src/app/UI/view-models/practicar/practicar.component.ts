@@ -19,7 +19,7 @@ export class PracticarComponent implements OnInit {
 
   ngOnInit(): void {
     const datos:any  = localStorage.getItem('userRoles');
-    let jsdatos:any = JSON.parse(datos).gradoId;
+    let jsdatos:any = JSON.parse(datos).grados[0].id;
 
     this.service.getAllCursosEstudent(jsdatos).subscribe(resp => {
       this.collection = resp;

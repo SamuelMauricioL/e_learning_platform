@@ -3,11 +3,11 @@
 <div  *ngIf="user$ | async as user; else login" >
     
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 overflow-auto"  style="height: 600px;">
             <app-grados [grado]="grado" *ngFor="let grado of grados" (click)="seleccionarGrado(grado.id)"></app-grados>
         </div>
-        <div class="col-md-9">
-            <app-listado-estudiantes *ngIf="validarRol()" [estudiantes]="estudiantes" (codigoEstudiante)="cargaInformacion($event)"></app-listado-estudiantes>
+        <div class="col-md-9 p-5">
+            <app-listado-estudiantes  [estudiantes]="estudiantes" (codigoEstudiante)="cargaInformacion($event)"></app-listado-estudiantes>
             <hr>
             <ng-container  *ngIf="validarUsuarioSeleccionado(); else elseTemplate">
                 <app-reporte-tiempo #reporteTiempo [datosGrafico]="datosGrafico"></app-reporte-tiempo>

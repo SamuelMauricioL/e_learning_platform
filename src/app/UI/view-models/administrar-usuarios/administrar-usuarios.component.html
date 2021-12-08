@@ -83,10 +83,22 @@
                             <input type="password" formControlName="contraseña" class="form-control">
                         </div>
                         <div class="form-group">
+                            <label>Nivel si es estudiate</label>
+                            <select class="form-select" formControlName="nivel" aria-label="Default select example" 
+                            (change)="changeEstadoProfesorEstudiante($event)"
+                            > 
+                                <option value="muy bajo" >muy bajo</option>
+                                <option value="bajo">bajo</option>
+                                <option value="medio">medio</option>
+                                <option value="bueno">bueno</option>
+                                <option value="muy bueno">muy bueno</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Rol</label>
                             <select class="form-select" formControlName="rol" aria-label="Default select example" 
                             (change)="changeEstadoProfesorEstudiante($event)"
-                            >
+                            > 
                                 <option value="Estudiante" >Estudiante</option>
                                 <option value="Docente">Docente</option>
                                 <option value="Administrador">Administrador</option>
@@ -94,12 +106,14 @@
                         </div>
                         <div class="form-group" *ngIf="profesorOestudiante">
                             <label>Grado</label>
-                            <select class="form-select gradoSeleccionado" (input)="changeSelectGrado($event)"  aria-label="Default select example">
-                                <option value="{{ grado.id}}" *ngFor="let grado of grados">
+                            <select class="form-select gradoSeleccionado" (input)="changeSelectGrado($event)"
+                               value="{{gradoSeleccionado[0].id}}"aria-label="Default select example">
+                                <option value="{{ grado.id}}" *ngFor="let grado of grados" >
                                     {{grado.grado}} {{grado.nivel}}
                                 </option>
                             </select>
                         </div>
+                        
 
                     </form>
                 </div>

@@ -25,7 +25,7 @@ export class CursoService extends CursoGateway {
   }
 
   getAllCursosEstudent(_idGrado: string): Observable<CursoModel[]> {
-    const path: string = `${_idGrado}/Cursos`;
+    const path: string = `Grados/${_idGrado}/Cursos`;
     return this.firestore.collection(path).snapshotChanges().pipe(
       map(actions => actions.map(a => {
           const data = a.payload.doc.data() as CursoModel;

@@ -24,7 +24,10 @@ export class ReportePastelComponent implements AfterViewInit {
   pieChartBrowser(){
     this.pieChart = new Chart(this.pieCanvas.nativeElement, {
       type: 'pie',
-      data: this.datosGrafico,      
+      data: this.datosGrafico,    
+      options:{
+        maintainAspectRatio:false
+      } 
     });
   }
 
