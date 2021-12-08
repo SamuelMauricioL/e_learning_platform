@@ -32,8 +32,12 @@ export class StepsPreguntasComponent implements OnInit {
 
     let vla = this.preguntas[index]
     if (vla.tipoPregunta == "llenar") {
+      console.log("vla",vla)
       let ab: any = [];
-      vla.elementos.forEach((element_a: any) => {
+      let vlaTextoEntrada = vla.elementos.filter((cal:any)=> cal.tipoElemento == 'textoEntrada');
+      console.log(vlaTextoEntrada);
+      vlaTextoEntrada.forEach((element_a: any) => {
+        
         let s = element_a.valor.filter((val: any) => val.tipo == 'input')
         ab = ab.concat(s)
       });

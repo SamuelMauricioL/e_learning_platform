@@ -53,6 +53,7 @@ export class AuthService{
   async login(email: string, password: string) {
     try {
        let varUser = await this.afAuth.signInWithEmailAndPassword(email, password);
+       console.log("usuario logueado",varUser);
        return varUser;
     } catch (error) {
       return null;

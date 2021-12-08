@@ -70,7 +70,16 @@ export class RespuestasComponent implements OnInit {
       this.service_respuestas.getIntento(this.idIntento).subscribe(response => {
 
         this.intento_resp = response;
-        let col_resp = response.subtemas.sort((n1: any, n2: any) => n1.indice - n2.indice);
+        let ruta = response.ruta;
+        let col_resp :any= []
+        ruta.forEach((i:any) => {
+          response.subtemas.forEach((element:any) => {
+                if(element.indice == i){
+                  
+                  col_resp.push(element)
+                }
+            });
+        });
         this.collection_de_preguntas_completo = []
         for (let i = 0; i < col_resp.length; i++) {
           for (let ipre = 0; ipre < col_resp[i].preguntas.length; ipre++) {
