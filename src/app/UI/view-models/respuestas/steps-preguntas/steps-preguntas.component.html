@@ -46,7 +46,7 @@
     <mat-horizontal-stepper [labelPosition]="'end'" style="background-color: white; " #stepper>
         <mat-step *ngFor="let i of preguntas; let indexOfelement=index;" [editable]="false">
             <ng-template matStepLabel>
-                <p style="color: black;">Pregunta {{indexOfelement + 1}}</p>
+                <!-- <p style="color: black;">{{indexOfelement + 1}}</p> -->
             </ng-template>
             <div class="container">
                 <div class="container" style="margin: 5px;">
@@ -58,26 +58,27 @@
                         <div class="card-body" style="text-align-last: center;">
                             <div class="container" *ngFor="let elem of i.elementos; let indexOfElm=index;">
                                 <div class="card-body" *ngIf="elem.tipoElemento == 'texto'">
-                                    <h5 class="card-title">{{elem.valor}}</h5>
+                                    <h5 class="card-title" style="font-size: 30px;">{{elem.valor}}</h5>
                                 </div>
                                 <img *ngIf="elem.tipoElemento == 'imagen'" src="{{elem.valor}}" class="card-img-top" alt="Image" style="width: 350px;">
                                 <div class="card-body" *ngIf="elem.tipoElemento == 'textoEntrada'">
                                     <div class="container" *ngFor="let val of elem.valor; let indexOfVal=index;" style="font: -webkit-control;">
 
                                         <div class="float-start" *ngIf="val.tipo == 'texto'" style="float: inline-start;">
-                                            <p style="font-size:50px ">{{val.valor}}</p>
+                                            <p style="font-size:30px ">{{val.valor}}</p>
                                         </div>
                                         <div class="float-start" *ngIf="val.tipo == 'input'" style="width: 60px;">
-                                            <input type="input" (input)="onSelect( $event, val)" class="form-control" style="height:50px; font-size:45px ">
+                                            <input type="input" (input)="onSelect( $event, val)" class="form-control" style="height:50px; font-size:30px ">
                                         </div>
                                     </div>
+                                    <br>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="i.tipoPregunta == 'alternativa'" class="container" id="alternativas" style="width: 100%; ">
+                    <div *ngIf="i.tipoPregunta == 'alternativa'" class="container" id="alternativas">
                         <div class="row" style="justify-content: center;">
-                            <div class="col-1 card p-0 m-1 {{'rpta' + alte.posicion}}" (click)="onSelectOption($event, alte)" id="alter_X" *ngFor="let alte of i.alternativas">
+                            <div class="col card p-0 m-1 {{'order' + alte.posicion}}" (click)="onSelectOption($event, alte)" id="alter_X" *ngFor="let alte of i.alternativas">
                                 <div class="container">
                                     <div class="text-center">
                                         <h3 class="card-title">{{alte.valor}}</h3>
