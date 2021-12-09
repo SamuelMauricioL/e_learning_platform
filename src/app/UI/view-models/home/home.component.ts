@@ -124,7 +124,14 @@ export class HomeComponent implements OnInit {
   }
   seleccionarGrado(id: string) {
     this.service.getAllUsers().subscribe((val:any)=>{
+      console.log("getAllUsers",val);
       let estudiantes = val.filter((fil:any)=>fil.rol== "Estudiante" && fil.grados[0].id == id)
+      if(this.usuarioRol=="Estudiante"){
+        const datos: any = localStorage.getItem('user');
+        let jsdatos: any = JSON.parse(datos);
+        estudiantes = val.filter((fil:any)=>fil.rol== "Estudiante" && fil.grados[0].id == id && fil.id == jsdatos.id)
+      }
+      
       this.estudiantes = estudiantes
       console.log("estudiantes",this.estudiantes);
       if (this.estudiantes.length > 0) {
