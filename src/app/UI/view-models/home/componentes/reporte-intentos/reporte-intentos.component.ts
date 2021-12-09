@@ -11,7 +11,7 @@ export class ReporteIntentosComponent implements OnInit {
     
   ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {  
   }
 
   

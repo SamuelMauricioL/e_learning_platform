@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
   grados: any = []
   public estudiantes: any = []
   listaIntentos: any = []
+  listaIntentosTabla:any = []
   usuarioRol: string = "Estudiante";
   usuarioSeleccionado: string = ''
 
@@ -139,12 +140,21 @@ export class HomeComponent implements OnInit {
   cargaInformacion(e: any) {
     this.serviceResp.getIntentosByUser(e).subscribe((val: any) => {
       this.listaIntentos = val;
-      this.listaIntentos.forEach((item: any) => {
+      this.listaIntentos.forEach((item: any, id:number) => {
         const idTemaArray = item.idTema.split("/");
         this.serviceTema.getTema(idTemaArray[0]).subscribe((val: any) => {
           item.tema = val.tema
+          if(id == (this.listaIntentos.length -1) ){
+            console.log("posicion",id + " "+ (this.listaIntentos.length - 1) )
+            let arrayVacio:any = [];
+            this.listaIntentos.forEach((element:any) => {
+              arrayVacio.push(Object.assign({},element));
+            });
+            this.listaIntentosTabla = arrayVacio.reverse();
+          }
         })
       });
+      
       const datePipe = new DatePipe("en-US");
       // obtiene array de las fechas unicas
       const unique = [...new Set(val.map((item: { fecha: any; }) => datePipe.transform(item.fecha, 'dd/MM/yyyy')))];

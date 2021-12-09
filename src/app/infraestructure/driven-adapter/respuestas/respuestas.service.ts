@@ -37,7 +37,8 @@ export class RespuestasService extends RespuestaGateway {
 
 
 
-  async createIntento(_model: IntentoModel): Promise<any> {
+  async createIntento(_model: any): Promise<any> {
+    console.log("modelo servicio",_model);
     const id = this.firestore.createId();
     await this.firestore.collection('Intentos').doc(id).set(_model);
     return String(id);

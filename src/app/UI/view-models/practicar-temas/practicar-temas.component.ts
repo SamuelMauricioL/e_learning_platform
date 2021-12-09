@@ -86,6 +86,7 @@ export class PracticarTemasComponent implements OnInit {
       dataInsert.ruta = []
       // armado de ruta default 
       if (this.uso == "solo") {
+        dataInsert.tipoIntento = "recoleccion";
         console.log("entró a solo")
         dataInsert.ruta = this.ordenAleatorioSubtemas(subtema);
         for (let i = 0; i < subtema.length; i++) {
@@ -100,10 +101,16 @@ export class PracticarTemasComponent implements OnInit {
             });
         }
       } else {
+        dataInsert.tipoIntento = "entrenamiento";
         if (subtema.length > 0) {
           
           this.getDatosApi(idtema,act).subscribe((val: any) => {
-            dataInsert.ruta = this.ordenAleatorioSubtemas(val.reforzar_efficient_route);
+            if(act=="aprender"){
+              dataInsert.ruta = val.aprender_efficient_route;
+            }else{
+              dataInsert.ruta = val.reforzar_efficient_route;
+            }
+            
             // empieza a obtener las preguntas 
             for (let i = 0; i < subtema.length; i++) {
               this.service_preguntas.getAll(subtema[i].id).subscribe(pregunta => {
@@ -147,7 +154,9 @@ export class PracticarTemasComponent implements OnInit {
   }
 
   crearIntento(dataInsert: any, act: any, idtema: any, subtem: any) {
+    console.log("data traida",dataInsert)
     this.service_respuestas.createIntento(dataInsert).then((_response) => {
+      console.log("respuesta creacion",_response);
       /// resolver/:act/:NameCurso/:idCurso/:intento/:tema
       this.router.navigate(['/resolver/' + this.uso + '/' + act + '/' + this.nameCurso + '/' + this.idCurso + '/' + _response + '/' + subtem]);
     }).catch((error) => {
