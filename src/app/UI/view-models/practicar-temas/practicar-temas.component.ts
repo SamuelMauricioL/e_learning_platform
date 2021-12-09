@@ -105,11 +105,17 @@ export class PracticarTemasComponent implements OnInit {
         if (subtema.length > 0) {
           
           this.getDatosApi(idtema,act).subscribe((val: any) => {
-            if(act=="aprender"){
-              dataInsert.ruta = val.aprender_efficient_route;
+            console.log("rutavalor",val);
+            if(val.hasOwnProperty("response")){
+              dataInsert.ruta = this.ordenAleatorioSubtemas(subtema);
             }else{
-              dataInsert.ruta = val.reforzar_efficient_route;
+              if(act=="aprender"){
+                dataInsert.ruta = val.aprender_efficient_route;
+              }else{
+                dataInsert.ruta = val.reforzar_efficient_route;
+              }
             }
+            
             
             // empieza a obtener las preguntas 
             for (let i = 0; i < subtema.length; i++) {
