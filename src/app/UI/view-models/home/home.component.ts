@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
   }
   cargaInformacion(e: any) {
     this.serviceResp.getIntentosByUser(e).subscribe((val: any) => {
-      this.listaIntentos = val.reverse();
+      this.listaIntentos = val;
       this.listaIntentos.forEach((item: any) => {
         const idTemaArray = item.idTema.split("/");
         this.serviceTema.getTema(idTemaArray[0]).subscribe((val: any) => {
@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
       const datePipe = new DatePipe("en-US");
       // obtiene array de las fechas unicas
       const unique = [...new Set(val.map((item: { fecha: any; }) => datePipe.transform(item.fecha, 'dd/MM/yyyy')))];
-      // 
+      // console.log("unique",unique);
       // cuenta los itentos segun la fecha y se agrega en un array
       var intentosArray: any = []
       var rangosArray: any = []
@@ -186,6 +186,7 @@ export class HomeComponent implements OnInit {
 
 
       unique.forEach(item => {
+        intentos = 0;
         val.forEach((item_sub: any) => {
           var fecha: any = datePipe.transform(item_sub.fecha, 'dd/MM/yyyy')
           if (item == fecha) {
