@@ -24,7 +24,7 @@
             [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
              [AlternativaBoton]="pregunta.alternativas"></app-editar>
           </div>
-          <div *ngIf="pregunta.tipoPregunta=='pregunta'">
+          <div *ngIf="pregunta.tipoPregunta=='llenar'">
             <app-editar [idPregunta]="pregunta.id" [elementos]="pregunta.elementos" 
             [tipoPregunta]="pregunta.tipoPregunta" [pregunta]="pregunta"
             [AlternativaBoton]="[{poscion:1,tipoElemento:'textoEntrada',valor:pregunta.alternativas}]"></app-editar>

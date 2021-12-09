@@ -66,7 +66,7 @@ export class EditarComponent implements OnInit {
     });
     this.getPregunta();
     //cambio de select
-    if(this.tipoPregunta=="pregunta"){
+    if(this.tipoPregunta=="llenar"){
       this.cambiarSelect("2");
       this.generarAlternativas();
     }
@@ -600,7 +600,7 @@ export class EditarComponent implements OnInit {
       newPregunta.tipoPregunta = "alternativa";
       newPregunta.alternativas=this.AlternativaBoton as Array<AlternativaPreguntaModel>;
     }else{
-      newPregunta.tipoPregunta = "pregunta";
+      newPregunta.tipoPregunta = "llenar";
       let newAlternativasEntrada:any = [];
       this.AlternativasEntrada.forEach((element:any) => {
         newAlternativasEntrada = newAlternativasEntrada.concat(element.valor)
