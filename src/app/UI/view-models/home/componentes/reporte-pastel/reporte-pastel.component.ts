@@ -13,7 +13,7 @@ export class ReportePastelComponent implements AfterViewInit {
   @ViewChild('pieCanvas')
   private pieCanvas!: ElementRef;
 
-  pieChart: any;
+  pieChart: any = null;
 
   constructor() { }
 
@@ -22,6 +22,9 @@ export class ReportePastelComponent implements AfterViewInit {
   }
 
   pieChartBrowser(){
+    if(this.pieChart!=null){
+      this.pieChart.destroy();
+    }
     this.pieChart = new Chart(this.pieCanvas.nativeElement, {
       type: 'pie',
       data: this.datosGrafico,    
@@ -29,6 +32,9 @@ export class ReportePastelComponent implements AfterViewInit {
         maintainAspectRatio:false
       } 
     });
+
+    this.pieChart.update('active');
   }
+  
 
 }

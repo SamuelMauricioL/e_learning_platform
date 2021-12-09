@@ -138,8 +138,11 @@ export class HomeComponent implements OnInit {
     })
   }
   cargaInformacion(e: any) {
+    this.listaIntentos = []
+    this.listaIntentosTabla = []
     this.serviceResp.getIntentosByUser(e).subscribe((val: any) => {
       this.listaIntentos = val;
+      
       this.listaIntentos.forEach((item: any, id:number) => {
         const idTemaArray = item.idTema.split("/");
         this.serviceTema.getTema(idTemaArray[0]).subscribe((val: any) => {
@@ -168,22 +171,35 @@ export class HomeComponent implements OnInit {
       var rango3 = 0
       var rango4 = 0
       var rango5 = 0
-
+      console.log("valor pies",val)
+      
       val.forEach((item_sub: any) => {
         switch (parseInt(item_sub.promedio)) {
           case 0:
+          case 1:
+          case 2:
+          case 3:
+          case 4:
           case 5:
             rango1++
             break;
           case 6:
+          case 7:
+          case 8:
+          case 9:
           case 10:
             rango2++
             break;
           case 11:
+          case 12:
+          case 13:
+          case 14:
           case 15:
             rango3++
             break;
           case 16:
+          case 17:
+          case 18:
           case 19:
             rango4++
             break;
@@ -193,7 +209,7 @@ export class HomeComponent implements OnInit {
         }
       });
       rangosArray.push(rango1, rango2, rango3, rango4, rango5)
-
+      console.log("rangos",rangosArray);
 
       unique.forEach(item => {
         intentos = 0;
