@@ -9,7 +9,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./reporte-pastel.component.scss']
 })
 export class ReportePastelComponent implements AfterViewInit {
-  @Input() datosGrafico:any;
+  @Input() datosGrafico:any = [];
   @ViewChild('pieCanvas')
   private pieCanvas!: ElementRef;
 

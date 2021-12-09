@@ -161,7 +161,7 @@ export class PracticarTemasComponent implements OnInit {
   }
 
   getDatosApi(idtema:string,intencion:string): Observable<any> {
-    let config = "http://34.231.76.207:5000/ruta-optima";
+    let config = "http://34.231.76.207:8080/ruta-optima";
     const ret = this.http.post<any>(config, { tema_id: idtema, intencion: intencion });
     return ret;
   }
