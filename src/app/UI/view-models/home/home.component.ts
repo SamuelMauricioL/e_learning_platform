@@ -138,10 +138,10 @@ export class HomeComponent implements OnInit {
   }
   cargaInformacion(e: any) {
     this.serviceResp.getIntentosByUser(e).subscribe((val: any) => {
-      this.listaIntentos = val
+      this.listaIntentos = val.reverse();
       this.listaIntentos.forEach((item: any) => {
         const idTemaArray = item.idTema.split("/");
-        this.serviceTema.getTema(idTemaArray[1]).subscribe((val: any) => {
+        this.serviceTema.getTema(idTemaArray[0]).subscribe((val: any) => {
           item.tema = val.tema
         })
       });
